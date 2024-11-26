@@ -377,7 +377,7 @@ To start the deployment process , please follow the below steps:
 5. create media, static and templates folders - [x]
 
 ## Test Initial Setup
-1. test render using sample html, css
+1. test render using sample html, css - [x]
 
 ### Setup Allauth
 
