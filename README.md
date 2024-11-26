@@ -338,43 +338,46 @@ To start the deployment process , please follow the below steps:
 
 ### Setup Database
 
-1. install psycopg2 - []
-2. install dj_database_url - []
-3. freeze requirements.txt - []
-4. import dj_database_url in settings.py - []
-5. setup database in settings.py - []
-6. setup database url in env.py - []
-7. migrate database - []
-8. create superuser - []
+1. install psycopg2 - [x]
+2. install dj_database_url - [x]
+3. freeze requirements.txt - [x]
+4. import dj_database_url in settings.py - [x]
+5. setup database in settings.py - [x]
+6. setup database url in env.py - [x]
+7. migrate database - [x]
+8. create superuser - [x]
 
 ## Setup Postgres Database
 
 ### Terminal
-1. create DB via CI Database Maker - []
-2. install DB packages - []
-3. freeze requirements - []
+1. create DB via CI Database Maker - [x]
+2. install DB packages - [x]
+3. freeze requirements - [x]
 
 ### update env.py
-1. add import os to env.py - []
-2. set environment variables - []
+1. add import os to env.py - [x]
+2. set environment variables - [x]
 
 ### update Heroku with pgsql
-1 add secret key - []
-2 add pg DATABASE_URL config var in Heroku - []
+1 add secret key - [x]
+2 add pg DATABASE_URL config var in Heroku - [x]
 
 ### update settings.py
-1. import dj_database_url and path to env.py
-2. remove sqlite3 settings
-3. add Heroku url reference
+1. import dj_database_url and path to env.py - [x]
+2. remove sqlite3 settings - [x]
+3. add Heroku url reference - [x]
 
 
+## Setup Cloudinary
 
-### Setup Cloudinary
+1. install cloudinary - [x]
+2. setup cloudinary in settings.py - [x]
+3. setup cloudinary in env.py - [x]
+4. setup cloudinary in heroku config vars - [x]
+5. create media, static and templates folders - [x]
 
-1. install cloudinary - [ ]
-2. setup cloudinary in settings.py - [ ]
-3. setup cloudinary in env.py - [ ]
-4. setup cloudinary in heroku config vars - [ ]
+## Test Initial Setup
+1. test render using sample html, css
 
 ### Setup Allauth
 
