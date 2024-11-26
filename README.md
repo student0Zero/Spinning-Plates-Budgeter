@@ -302,48 +302,51 @@ To start the deployment process , please follow the below steps:
 ### Setup Environment
 
 1. install Django - [x]
-2. create Django project as main (test django by runserver) - [x]
-3. create Django app as main (test django by runserver) - [x]
-4. create requirements.txt - [ ]
-
-### Setup Environment Variables
-
-1. update settings.py to use environment variables - [x]
-   1.1 import os into settings.py file - [x]
-   1.2 create env.py file in root directory - [x]
-   1.3 hid SECRET_KEY in env.py - [x]
-   1.4 setup up debug mode in environment variables - [x]
-   1.5 setup up allowed hosts in environment variables - [x]
-
-### Setup Database
-
-1. install psycopg2 - [x]
-2. install dj_database_url - [x]
-3. freeze requirements.txt - [x]
-4. import dj_database_url in settings.py - [x]
-5. setup database in settings.py - [x]
-6. setup database url in env.py - [x]
-7. migrate database - [x]
-8. create superuser - [x]
+2. create Django project (test django by runserver) - [x]
+3. create Django app as home (test django by runserver) - [x]
+4. create requirements.txt - [x]
+5. create Procfile - [x]
+6. install whitenoise - [x]
+7. install gunicorn - [x]
+7.1 setup gunicorn in Procfile - [x]
+8. freeze requirements - [x]
 
 ### Setup Heroku
 
 #### From Heroku Dashboard
 
-1. create heroku app - [ ]
+1. create heroku app - [x]
 2. disable collectstatic - [x]
-3. Integrate with GitHub - [ ]
+3. Integrate with GitHub - [x]
+4. add Heroku host to allowed hosts in settings.py - [x]
+
+### Setup Environment Variables
+
+1. update settings.py to use environment variables
+   1.1 import os into settings.py file - [x]
+   1.2 create env.py file in root directory - [x]
+   1.3 hide SECRET_KEY in env.py - [x]
+   1.4 setup up debug mode in environment variables - [x]
+
+
+### Setup Database
+
+1. install psycopg2 - []
+2. install dj_database_url - []
+3. freeze requirements.txt - []
+4. import dj_database_url in settings.py - []
+5. setup database in settings.py - []
+6. setup database url in env.py - []
+7. migrate database - []
+8. create superuser - []
+
+
 
 #### From Terminal
 
-4. install gunicorn - [x]
-   4.1 setup gunicorn in Procfile
-5. setup heroku in settings.py - [ ]
+
 6. setup heroku in env.py - [ ]
-7. setup heroku in gitignore - [ ]
-8. freeze requirements.txt - [x]
-9. create Procfile - [x]
-10. add Heroku host to allowed hosts in settings.py - [x]
+
 
 ### Setup Cloudinary
 
