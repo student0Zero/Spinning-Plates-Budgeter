@@ -318,7 +318,11 @@ To start the deployment process , please follow the below steps:
 1. create heroku app - [x]
 2. disable collectstatic - [x]
 3. Integrate with GitHub - [x]
-4. add Heroku host to allowed hosts in settings.py - [x]
+
+#### From gitpod
+1. add Heroku url host to allowed hosts in settings.py - [x]
+2. update csrf origins for Heroku
+3. git push changes
 
 ### Setup Environment Variables
 
@@ -327,7 +331,10 @@ To start the deployment process , please follow the below steps:
    1.2 create env.py file in root directory - [x]
    1.3 hide SECRET_KEY in env.py - [x]
    1.4 setup up debug mode in environment variables - [x]
+   1.5 create import if statement for env in settings - [x]
 
+#### Deploy
+1. from Heroku deploy branch - [x]
 
 ### Setup Database
 
@@ -340,12 +347,26 @@ To start the deployment process , please follow the below steps:
 7. migrate database - []
 8. create superuser - []
 
+## Setup Postgres Database
 
+### Terminal
+1. create DB via CI Database Maker - []
+2. install DB packages - []
+3. freeze requirements - []
 
-#### From Terminal
+### update env.py
+1. add import os to env.py - []
+2. set environment variables - []
 
+### update Heroku with pgsql
+1 add secret key - []
+2 add pg DATABASE_URL config var in Heroku - []
 
-6. setup heroku in env.py - [ ]
+### update settings.py
+1. import dj_database_url and path to env.py
+2. remove sqlite3 settings
+3. add Heroku url reference
+
 
 
 ### Setup Cloudinary
