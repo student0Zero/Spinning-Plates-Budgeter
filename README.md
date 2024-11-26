@@ -377,7 +377,21 @@ To start the deployment process , please follow the below steps:
 5. create media, static and templates folders - [x]
 
 ## Test Initial Setup
-1. test render using sample html, css - [x]
+1. create templates folder - [x]
+2. create base.html - [x]
+3. create templates/includes folder - [x]
+4. create navbar.html in includes folder - [x]
+5. create footer.html in includes folder - [x]
+6. create static folder - [x]
+7. create static/css folder - [x]
+8. create static/images folder - [x]
+9. create base.css in css folder - [x]
+10. create home/templates/home folder - [x]
+11. create home urls.py - [x]
+12. link home views, urls - [x]
+13.  
+
+test render using sample html, css - [x]
 
 ### Setup Allauth
 
