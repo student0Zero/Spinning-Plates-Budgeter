@@ -25,7 +25,9 @@ SECRET_KEY = 'django-insecure-_b&3r#u80_br)%^((ol^q@1p3#ifbicydk%ju4#_-qhxr)=&y7
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["8000-student0zer-spinningpla-u4i923ivuql.ws.codeinstitute-ide.net"]
+ALLOWED_HOSTS = ["8000-student0zer-spinningpla-u4i923ivuql.ws.codeinstitute-ide.net",
+"spinning-plates-budgeter-015aa561b471.herokuapp.com"
+]
 
 CSRF_TRUSTED_ORIGINS = [
     "https://*.codeinstitute-ide.net/",
@@ -41,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'home',
 ]
 
 MIDDLEWARE = [
