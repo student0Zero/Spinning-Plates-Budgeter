@@ -64,6 +64,10 @@ INSTALLED_APPS = [
     # Cloudinary
     'cloudinary_storage',
     'cloudinary',
+
+    # Crispy Forms
+    'crispy_forms',
+    'crispy_bootstrap5',
 ]
 
 SITE_ID = 1
@@ -82,6 +86,10 @@ MIDDLEWARE = [
     'allauth.account.middleware.AccountMiddleware',
 ]
 
+# Crispy Forms Settings
+CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap5'
+CRISPY_TEMPLATE_PACK = 'bootstrap5'
+
 ROOT_URLCONF = 'SpinningPlatesBudgeter.urls'
 
 TEMPLATES = [
@@ -95,6 +103,12 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+            ],
+
+            # for styling Alluth pages
+            'builtins': [
+                'crispy_forms.templatetags.crispy_forms_tags',
+                'crispy_forms.templatetags.crispy_forms_field',
             ],
         },
     },
@@ -135,6 +149,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Account Settings
 ACCOUNT_EMAIL_VERIFICATION = 'none'
 
 # Internationalization

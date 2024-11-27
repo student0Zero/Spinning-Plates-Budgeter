@@ -2,10 +2,10 @@
 
 {% load i18n %}
 
-{% block head_title %}{% trans "Sign Out" %}{% endblock %}
+{% block title %}{% trans "Sign Out" %}{% endblock %}
 
 {% block content %}
-<div class="container">
+<!-- <div class="container">
     <div class="row">
         <div class="col-md-8 mt-3 offset-md-2">
             <h3>{% trans "Sign Out" %}</h3>
@@ -21,9 +21,41 @@
                 {% if redirect_field_value %}
                 <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
                 {% endif %}
-                <button class="btn btn-signup right" type="submit">{% trans 'Sign Out' %}</button>
+                <button class="btn btn-primary w-25 mb-3" type="submit">{% trans 'Sign Out' %}</button>
+            </form>
+        </div>
+    </div>
+</div> -->
+
+
+
+
+
+<div class="row d-flex justify-content-center py-5">
+    <div class="card col-md-6 text-bg-light mb-3" style="max-width: 40rem;">
+        <div class="card-header">
+            <h2>{% trans "Sign Out" %}</h2>
+
+            <p>{% trans 'Are you sure you want to sign out?' %}</p>
+        </div>
+        <div class="card-body">
+            <form method="post" action="{% url 'account_logout' %}">
+                {% csrf_token %}
+                {% if redirect_field_value %}
+                <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                {% endif %}
+
+                <div class="d-flex justify-content-evenly">
+                    <div class="d-inline">
+                        <button class="btn btn-success mb-3" type="submit">{% trans 'Sign Out' %}</button>
+                    </div>
+                    <div class="d-inline">
+                        <button class="btn btn-danger mb-3" type="submit">{% trans 'Cancel' %}</button>
+                    </div>
+                </div>
             </form>
         </div>
     </div>
 </div>
+
 {% endblock %}

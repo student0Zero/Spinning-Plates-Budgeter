@@ -1,13 +1,12 @@
 {% extends "base.html" %}
 
 {% load i18n %}
-{% load account socialaccount %}
 
-{% block head_title %}{% trans "Sign In" %}{% endblock %}
+{% block title %}{% trans "Sign In" %}{% endblock %}
 
 {% block content %}
 
-<div class="container">
+<!-- <div class="container">
     <div class="row">
         <div class="col-md-8 mt-3 offset-md-2">
             <h3>{% trans "Sign In" %}</h3>
@@ -19,15 +18,44 @@
     </div>
     <div class="row">
         <div class="col-md-8 mt-3 offset-md-2">
-            <form class="login" method="POST" action="{% url 'account_login' %}">
+            <form class="form p-3" method="POST" action="{% url 'account_login' %}">
                 {% csrf_token %}
-                {{ form.as_p }}
+                {{ form|crispy }}
                 {% if redirect_field_value %}
                 <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
                 {% endif %}
-                <button class="btn btn-signup right" type="submit">{% trans "Sign In" %}</button>
+                <button class="btn btn-primary w-25 mb-3" type="submit">{% trans "Sign In" %}</button>
+                <a class="button secondaryAction d-block" href="{% url 'account_reset_password' %}">{% trans "Need To Reset Your Password?" %}</a>
             </form>
         </div>
     </div>
+</div> -->
+<div class="row d-flex justify-content-center py-5">
+    <div class="card col-md-6 text-bg-light mb-3" style="max-width: 40rem;">
+        <div class="card-header">
+            <h2>{% trans "Sign In" %}</h2>
+        </div>
+        <div class="card-body">
+        <h5 class="card-title">Welcome back to the Spinning Plates.</h5>
+        <p class="card-text">{% blocktrans %}To work on your budget, please log in. If
+            you have not created an account yet, then <a class="link text-decoration-underline" href="{{ signup_url }}">sign up</a>
+            first.{% endblocktrans %}</p>
+
+        <form class="form p-3" method="POST" action="{% url 'account_login' %}">
+            {% csrf_token %}
+            {{ form|crispy }}
+            {% if redirect_field_value %}
+            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+            {% endif %}
+            <div class="d-inline">
+                <button class="btn btn-success w-25 mb-3" type="submit">{% trans "Sign In" %}</button>
+            </div>
+            <hr>
+            <a class="button secondaryAction d-block" href="{% url 'account_reset_password' %}">{% trans "Need To Reset Your Password?" %}</a>
+        </form>
+        </div>
+    </div>
 </div>
+
 {% endblock %}
+
