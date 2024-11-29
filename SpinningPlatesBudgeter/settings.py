@@ -58,8 +58,6 @@ INSTALLED_APPS = [
 
     # Apps
     'home',
-
-    # Crispy Forms
     
     # Cloudinary
     'cloudinary_storage',
@@ -95,7 +93,12 @@ ROOT_URLCONF = 'SpinningPlatesBudgeter.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [TEMPLATES_DIR],
+        # directing django to template folders of each apps template folders
+        'DIRS': [
+            os.path.join(BASE_DIR, 'templates'),
+            os.path.join(BASE_DIR, 'templates', 'allauth'),
+            # TEMPLATES_DIR
+            ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -105,7 +108,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
             ],
 
-            # for styling Alluth pages
+            # for styling Alluth pages using crispy
             'builtins': [
                 'crispy_forms.templatetags.crispy_forms_tags',
                 'crispy_forms.templatetags.crispy_forms_field',
@@ -149,24 +152,27 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-# Account Settings
+# Account Auth Settings
+LOGIN_URL = '/accounts/login'
+LOGIN_REDIRECT_URL = '/'
+ACCOUNT_USERNAME_REQUIRED = True
+ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
 ACCOUNT_EMAIL_VERIFICATION = 'none'
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
 USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
+# Paths to static files
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')

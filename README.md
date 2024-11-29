@@ -571,3 +571,10 @@ GRAPH_MODELS = {
    **Terminal Command:** py manage.py graph_models -a > erd.dot && py manage.py graph_models --pydot -a -g -o erd.png
 
 7. freeze requirements.txt - [x]
+
+
+## Contributions
+### Dashboard HTML 
+- is a bootstrap template example 
+- "author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors"
+- "generator" content="Hugo 0.122.0"

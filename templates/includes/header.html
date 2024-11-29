@@ -1,5 +1,6 @@
 <header>
-  {% with request.resolver_match.url_name as url_name %}
+  <!-- resolver for identifying active page for active highlighting on page -->
+  <!-- {% with request.resolver_match.url_name as url_name %} -->
     <!-- NAVBAR START -->
     <nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary">
         <div class="container-fluid">
@@ -28,11 +29,13 @@
                   <li><hr class="dropdown-divider"></li>
                   <li class="nav-link disabled">Sign In / Register</li>
 
+                  <!-- logout shown if user logged in -->
                   {% if user.is_authenticated %}
                     <li class="nav-item">
                         <a class="nav-link {% if request.path == logout_url %}active{% endif %}" aria-current="page" 
                         href="{% url 'account_logout' %}">Logout</a>
                     </li>
+                    <!-- else shown if user is not logged in -->
                     {% else %}
                     <li class="nav-item">
                         <a class="nav-link {% if request.path == signup_url %}active{% endif %}" aria-current="page"
@@ -52,6 +55,7 @@
             </form>
           </div>
           
+          <!-- Login name shown if logged in -->
           <div class="flex-shrink-0">
             {% if user.is_authenticated %}
             <p class="text-end m-3">You are logged in as {{ user }}</p>
