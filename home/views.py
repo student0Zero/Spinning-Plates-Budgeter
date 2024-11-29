@@ -1,6 +1,7 @@
 # using django generic class based viewa
 from django.views.generic import TemplateView
 from django.shortcuts import render, redirect, get_object_or_404
+from django.db.models import Sum
 from .models import Expense
 from .forms import ExpenseForm
 
@@ -10,10 +11,26 @@ class Index(TemplateView):
 
 
 def view_expenses(request):
+    # Get all expenses for the logged-in user
     expenses = Expense.objects.filter(user=request.user)
+    
+    # Aggregate the sum of amounts spent in each category
+    category_totals = (
+        expenses
+        .values('category__expense_type')  # Group by category name
+        .annotate(total_spent=Sum('amount'))  # Calculate total amount per category
+        .order_by('category__expense_type')  # Optional: Order categories alphabetically
+    )
+    
+    # Prepare data for Chart.js
+    labels = [item['category__expense_type'] for item in category_totals]
+    data = [float(item['total_spent']) for item in category_totals]  # Convert Decimal to float
+
 
     context = {
-        "expenses": expenses,
+        "expenses": expenses,  # Still passing expenses if needed elsewhere
+        "labels": labels,  # Labels for Chart.js
+        "data": data,  # Data for Chart.js
     }
 
     return render(request, 'home/view_expenses.html', context)

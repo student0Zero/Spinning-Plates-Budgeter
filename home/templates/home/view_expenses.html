@@ -5,19 +5,21 @@
 <h1>Your Expenses</h1>
 <p>Add a new expense: <a href="{% url 'create_expense' %}">Create Expense</a></p>
 
+<div class="row">
 {% for expense in expenses %}
-
-<div class="card" style="width: 18rem;">
-    <div class="card-body">
-        <h5 class="card-title">{{ expense.category }} - £{{ expense.amount }}</h5>
-        <h6 class="card-subtitle mb-2 text-muted">{{ expense.date }}</h6>
-        <p class="card-text">{{ expense.description}} </p>
-        <a href="{% url 'edit_expense' expense.id %}" class="card-link">Edit Expense</a>
-        <a href="{% url 'delete_expense' expense.id %}" class="card-link">Delete Expense</a>
+    <div class="col-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">{{ expense.category }} - £{{ expense.amount }}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">{{ expense.date }}</h6>
+                <p class="card-text">{{ expense.description}} </p>
+                <a href="{% url 'edit_expense' expense.id %}" class="card-link">Edit Expense</a>
+                <a href="{% url 'delete_expense' expense.id %}" class="card-link">Delete Expense</a>
+            </div>
+        </div>
     </div>
-</div>
-
 {% endfor %}
+</div>
 
 <h1>Expenses Breakdown</h1>
 <div>
@@ -30,25 +32,28 @@
 
 <script>
     const ctx = document.getElementById('myChart');
-  
+
+    const labels = {{ labels | safe }}; // this needs to be one line only
+    const data = {{ data | safe }}; // this needs to be one line only or it won't work
+
     new Chart(ctx, {
-      type: 'bar',
-      data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-        datasets: [{
-          label: '# of Votes',
-          data: [12, 19, 3, 5, 2, 3],
-          borderWidth: 1
-        }]
-      },
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true
-          }
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Total Spent',
+                data: data,
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
         }
-      }
     });
-  </script>
+</script>
 
 {% endblock %}
