@@ -1,7 +1,7 @@
 ---
 name: 'Development of User Stories'
 about: Development of Site User Stories
-title: USER STORY: # <Template>
+title: USER STORY: #
 labels: User Story
 assignees: ''
 
