@@ -5,10 +5,15 @@ from django.db.models import Sum
 from .models import Expense
 from .forms import ExpenseForm
 
+# commented out to change approach with login page as default if not auth, otherwise view_expenses.html if user auth
+# class Index(TemplateView):
+#     template_name = 'home/index.html'
 
-class Index(TemplateView):
-    template_name = 'home/index.html'
-
+def home(request):
+    if request.user.is_authenticated:
+        return redirect('view_expenses')
+    else:
+        return redirect('account_login')
 
 def view_expenses(request):
     # Get all expenses for the logged-in user
