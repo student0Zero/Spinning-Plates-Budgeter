@@ -4,7 +4,7 @@ from .models import Income, IncomeCategory
 @admin.register(Income)
 class IncomeAdmin(admin.ModelAdmin):
     list_display = ('date', 'in_amount', 'description', 'category', 'user')
-    search_fields = ('description', 'category_income_type', 'user_username')
+    search_fields = ('description', 'category__income_type', 'user__username')
     list_filter = ('date', 'category', 'user')
 
 @admin.register(IncomeCategory)

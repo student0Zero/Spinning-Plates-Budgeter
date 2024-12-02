@@ -1,9 +1,27 @@
 {% extends 'base.html' %}
 
-{% block content %}
 
+
+{% block content %}
+<div class="row-mt-6">
+    <div class="col-md-4">
+        <h3>Record an Income</h3>
+
+        <form method="POST">
+            {% csrf_token %}
+            {% form | crispy %}
+            <input type="submit" class="btn btn-success mt-2" value="Record and Income">
+            <button type="button" class="btn btn-secondary mt-2" onclick="cabcekFormSubmission()">Canel</button>
+        </form>
+    </div>
+</div>
 {% endblock %}
 
 {% block additional_js %}
-
+<script>
+    // This function will redirect the user to the view_expenses page if they click the cancel button
+    function cancelFormSubmission() {
+        window.location.href = "{% url 'view_expenses' %}";
+    }
+</script>
 {% endbloack %}
