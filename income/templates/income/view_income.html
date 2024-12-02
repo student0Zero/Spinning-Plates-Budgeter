@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
 <div class="container-fluid">
     <div class="row">
         <!-- Fixed left-side container -->
@@ -61,19 +60,12 @@
         </div>
     </div>
 </div>
-
 {% endblock %}
 
-
-<!-- JS SCRIPTS FOR DATATABLES.JS AND CHARTS.JS -->
 {% block additional_js %}
-<!-- CHART.JS AND DATATABLE.JS SCRIPTS -->
-
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-<!-- CHART.JS CONFIGURATION -->
 <script>
     $(document).ready(function () {
         $('#incomeTable').DataTable();
@@ -91,47 +83,13 @@
 
     // Sample data for the chart
     const incomeData = {
-        labels: [{
-                %
-                for income in incomes %
-            }
-            '{{ income.date }}', {
-                %
-                endfor %
-            }
-        ],
-        datasets: [{
-            label: 'Income',
-            data: [{
-                %
-                for income in incomes %
-            } {
-                {
-                    income.in_amount
-                }
-            }, {
-                %
-                endfor %
-            }],
-            backgroundColor: [{
-                    %
-                    for income in incomes %
-                }
-                getRandomColor(), {
-                    %
-                    endfor %
-                }
-            ],
-            borderColor: [{
-                    %
-                    for income in incomes %
-                }
-                getRandomColor(), {
-                    %
-                    endfor %
-                }
-            ],
-            borderWidth: 1
+        labels: [{% for income in incomes %}'{{ income.date }}', {% endfor %}],
+    datasets: [{
+        label: 'Income',
+        data: [{% for income in incomes %}{{ income.in_amount }}, {% endfor %}],
+        backgroundColor: [{% for income in incomes %}getRandomColor(), {% endfor %}],
+    borderColor: [{% for income in incomes %}getRandomColor(), {% endfor %}],
+    borderWidth: 1
         }]
     };
 
@@ -154,5 +112,4 @@
         config
     );
 </script>
-
 {% endblock %}
