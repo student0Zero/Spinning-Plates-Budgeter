@@ -9,7 +9,7 @@
 
         <form method="POST">
             {% csrf_token %}
-            {% form | crispy %}
+            {{ form | crispy }}
             <input type="submit" class="btn btn-success mt-2" value="Record and Income">
             <button type="button" class="btn btn-secondary mt-2" onclick="cabcekFormSubmission()">Canel</button>
         </form>
