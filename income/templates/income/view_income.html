@@ -2,8 +2,145 @@
 
 {% block content %}
 
+<div class="container-fluid">
+    <div class="row">
+        <!-- FIXED LEFT-SIDE CONTAINER FOR HOME AND CREATE LINKS -->
+        <!-- MOVE TO STATIC CSS!! -->
+        <div class="bg-light position-fixed"
+            style="width: 200px; height: 300px; top: 50%; transform: translateY(-50%); left: 0; z-index: 1000;">
+            <div class="d-flex flex-column align-items-center p-3">
+                <a href="{% url 'create_income' %}" class="btn btn-primary mb-3 w-100">Create New Income</a>
+                <a href="{% url 'home' %}" class="btn btn-secondary w-100">Return to Home</a>
+            </div>
+        </div>
+
+        <!-- MAINT CONTENT AREA FOR INCOME VIEW -->
+        <div class="col-md-10 offset-md-2 mt-5" style="margin-left: 200px">
+            <h2>Incomve Overview</h2>
+
+            <!-- INCOME SUMMARY CHART -->
+            <div class="row mt-5">
+                <div class="col-md-12">
+                    <h3>Income Details</h3>
+                    <table id="incomeTable" class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Amount</th>
+                                <th>Description</th>
+                                <th>Category</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for income in incomes %}
+                            <tr>
+                                <td>{{ income.date }}</td>
+                                <td>{{ income.in_amount }}</td>
+                                <td>{{ income.description }}</td>
+                                <td>{{ income.category.income_type }}</td>
+                                <td>
+                                <td>
+                                    <a href="{% url 'edit_income' income.id %}" class="btn btn-primary btn-sm">Edit</a>
+                                    <a href="{% url 'delete_income' income.id %}"
+                                        class="btn btn-danger btn-sm">Delete</a>
+                                </td>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 {% endblock %}
 
-{% block additional_js %}
 
-{% endbloack %}
+<!-- JS SCRIPTS FOR DATATABLES.JS AND CHARTS.JS -->
+{% block additional_js %}
+<!-- CHART.JS AND DATATABLE.JS SCRIPTS -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- CHART.JS CONFIGURATION -->
+<script>
+    $(document).ready(function () {
+        $('#incomeTable').DataTable();
+    });
+
+    // Generate random colors for the chart
+    function getRandomColor() {
+        const letters = '0123456789ABCDEF';
+        let color = '#';
+        for (let i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+    }
+
+    // Sample data for the chart
+    const incomeData = {
+        labels: [{
+                %
+                for income in incomes %
+            }
+            '{{ income.date }}', {
+                % endfor %
+            }
+        ],
+        datasets: [{
+            label: 'Income',
+            data: [{
+                %
+                for income in incomes %
+            } {
+                {
+                    income.in_amount
+                }
+            }, {
+                % endfor %
+            }],
+            backgroundColor: [{
+                    %
+                    for income in incomes %
+                }
+                getRandomColor(), {
+                    % endfor %
+                }
+            ],
+            borderColor: [{
+                    %
+                    for income in incomes %
+                }
+                getRandomColor(), {
+                    % endfor %
+                }
+            ],
+            borderWidth: 1
+        }]
+    };
+
+    // Config for the chart
+    const config = {
+        type: 'bar',
+        data: incomeData,
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    };
+
+    // Render the chart
+    const incomeChart = new Chart(
+        document.getElementById('incomeChart'),
+        config
+    );
+</script>
+
+{% endblock %}
