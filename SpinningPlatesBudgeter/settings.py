@@ -96,8 +96,6 @@ TEMPLATES = [
         # directing django to template folders of each apps template folders
         'DIRS': [
             os.path.join(BASE_DIR, 'templates'),
-            os.path.join(BASE_DIR, 'templates', 'allauth'),
-            # TEMPLATES_DIR
             ],
         'APP_DIRS': True,
         'OPTIONS': {
