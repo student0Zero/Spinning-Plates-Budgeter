@@ -1,19 +1,27 @@
 {% extends 'base.html' %}
 
+{% load widget_tweaks %}
+
 {% block content %}
 
-<div class="row-mt-6">
-    <div class="col-md-4">
-        <h3>Record an Income</h3>
-        <hr>
-
-        <form method="POST">
-            {% csrf_token %}
-            {{ form|crispy }}
-            <input class="btn btn-success mt-2" type="submit" value="Record an Income">
-            <button class="btn btn-secondary mt-2" type="button" onclick="cancelFormSubmission()">Cancel</button>
-        </form>
-
+<div class="container mt-5 d-flex justify-content-center">
+    <div class="card text-bg-primary mb-3 w-50 text-center">
+        <div class="card-body">
+            <h1 class="card-header mb-5">Record An Income</h1>
+            <form method="POST">
+                {% csrf_token %}
+                {% for field in form %}
+                <div class="form-group">
+                    <label for="{{ field.id_for_label }}" class="form-label custom-label">
+                        {{ field.label }}
+                    </label>
+                    {{ field|add_class:"form-control" }}
+                </div>
+                {% endfor %}
+                <input class="btn btn-success mt-2" type="submit" value="Record Income">
+                <button class="btn btn-secondary mt-2" type="button" onclick="cancelFormSubmission()">Cancel</button>
+            </form>
+        </div>
     </div>
 </div>
 
