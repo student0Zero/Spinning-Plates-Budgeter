@@ -1,98 +1,243 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="container-fluid">
 
-    <h1 class="mt-4">Income Overview</h1>
-    <hr class="mb-5">
-    <div class="row justify-content-center row-cols-1 row-cols-md-2 g-4">
-        <div class="card-group m-5">
-            <!-- Create New Expense Card -->
-            <div class="col-sm-6">
-                <div class="card border border-primary border-5 rounded-3 m-3 h-100">
-                    <div class="card-body d-flex flex-column">
-                        <h5 class="card-title">Create New Income</h5>
-                        <a href="{% url 'create_income' %}" class="btn btn-primary mt-auto">Create An Income</a>
-                    </div>
-                </div>
+{% block additional_css %}
+<!-- Include DataTables CSS and JS -->
+<!-- Include DataTables CSS and JS -->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+<script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+
+<!-- DataTable.js Export Dependencies -->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.dataTables.min.css">
+<script type="text/javascript" charset="utf8"
+    src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" charset="utf8"
+    src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.flash.min.js"></script>
+<script type="text/javascript" charset="utf8"
+    src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script type="text/javascript" charset="utf8"
+    src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script type="text/javascript" charset="utf8"
+    src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script type="text/javascript" charset="utf8"
+    src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
+<script type="text/javascript" charset="utf8"
+    src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.print.min.js"></script>
+
+
+{% endblock %}
+<style>
+    .chartBox {
+        width: 100%;
+        /* Ensure the chartBox fits within the chartCard */
+        padding: 10px;
+        border-radius: 20px;
+        border: solid 3px rgba(54, 162, 235, 1);
+        background: white;
+    }
+
+    .dataTables_wrapper .top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+
+    .dataTables_filter {
+        float: none;
+        text-align: right;
+    }
+
+    .dataTables_filter input {
+        width: 150px;
+        /* Adjust the width as needed */
+    }
+
+    /* Ensure the description column wraps text and has a max width */
+    .description-column {
+        white-space: normal;
+        word-wrap: break-word;
+        max-width: 200px;
+        /* Adjust the max-width as needed */
+    }
+
+    /* Ensure the actions column is only as wide as its content */
+    .actions-column {
+        white-space: nowrap;
+        width: 1%;
+    }
+
+    .chartCard {
+        border: 2px solid red;
+        /* Add border to chartCard for debugging */
+        overflow: hidden;
+        /* Prevent overflow */
+    }
+
+    .card {
+        border: 2px solid blue;
+        /* Add border to card for debugging */
+    }
+
+    .container {
+        border: 2px solid green;
+        /* Add border to container for debugging */
+    }
+
+    .row {
+        border: 2px solid orange;
+        /* Add border to row for debugging */
+    }
+
+    .col-sm-6 {
+        border: 2px solid purple;
+        /* Add border to columns for debugging */
+    }
+
+    @media (max-width: 576px) {
+        .chartCard {
+            padding: 10px;
+            /* Reduce padding on small screens */
+        }
+
+        .chartBox {
+            padding: 10px;
+            /* Reduce padding on small screens */
+        }
+
+        #myChart {
+            width: 100%;
+            /* Ensure the canvas fits within the chartBox */
+            height: auto;
+            /* Maintain aspect ratio */
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+        }
+
+        .table th,
+        .table td {
+            white-space: nowrap;
+        }
+
+        .table td {
+            word-wrap: break-word;
+            max-width: 100px;
+            /* Adjust the max-width as needed */
+        }
+
+        .description-column {
+            display: none;
+        }
+
+        .export-button {
+            display: none !important;
+            /* Hide export button on small screens */
+        }
+    }
+    }
+</style>
+<!-- ######################################################## -->
+
+<h1 class="mt-5">Income Overview</h1>
+<hr>
+
+<div class="card-group m-5">
+    <!-- Create New Income Card -->
+    <div class="col-sm-6">
+        <div class="card border border-primary border-5 rounded-3 mx-5 text-center">
+            <div class=" card-body">
+                <h5 class="card-title">Record New Income</h5>
+                <!-- <p class="card-text">CHANGE ME BEFORE SUBMITTING!!.</p> -->
+                <a href="{% url 'create_income' %}" class="btn btn-primary">Add Income</a>
             </div>
-            <!-- Return Home Income Card -->
-            <div class="col-sm-6">
-                <div class="card border border-primary border-5 rounded-3 m-3 h-100">
-                    <div class="card-body d-flex flex-column">
-                        <h5 class="card-title">Return to Home</h5>
-                        <a href="{% url 'home' %}" class="btn btn-primary mt-auto">Return to Home</a>
-                    </div>
-                </div>
+        </div>
+    </div>
+    <!-- Create New Income Card -->
+    <div class="col-sm-6">
+        <div class="card card border border-primary border-5 rounded-3 mx-5 text-center">
+            <div class="card-body">
+                <h5 class="card-title">Record New Income</h5>
+                <!-- <p class="card-text">CHANTE ME BEFORE SUBMITTING!!</p> -->
+                <a href="{% url 'home' %}" class="btn btn-primary">Return Home</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Canvas element for Chart.js -->
+<h2 class="">Income Breakdown</h2>
+<hr class="mb-5">
+<div class="row row-cols-1 row-cols-md-2 g-4">
+
+    <div class="card">
+        <h3>Income Charts</h3>
+        <hr>
+        <div class="chartCard mb-2">
+            <div class="chartBox">
+                <canvas id="incomeChart"></canvas>
+                <!-- Selector for chart types -->
+                <select onchange="changeChart(this)" name="" id="">
+                    <optgroup label="Select Chart Type"></optgroup>
+                    <option value="bar">Bar Chart</option>
+                    <option value="pie">Pie Chart</option>
+                    <option value="line">Line Chart</option>
+                    <option value="doughnut">Doughnut Chart</option>
+                </select>
             </div>
         </div>
     </div>
 
-    <div class="row">
-        <!-- Main content area -->
-        <!-- to ensure it takes up remaining columns of the grid. -->
-        <div class="col-12">
-            <div class="row row-cols-1 row-cols-md-2 g-4">
-                <div class="card">
-                    <h3>Income Charts</h3>
-                    <hr>
-                    <div class="chartCard mb-2">
-                        <div class="chartBox">
-                            <canvas id="incomeChart"></canvas>
-                            <!-- Selector for chart types -->
-                            <select onchange="changeChart(this)" name="" id="">
-                                <optgroup label="Select Chart Type"></optgroup>
-                                <option value="bar">Bar Chart</option>
-                                <option value="pie">Pie Chart</option>
-                                <option value="line">Line Chart</option>
-                                <option value="doughnut">Doughnut Chart</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
+    <!-- Display summary of expenses by category -->
+    <div class="card">
+        <h3>Income By Category</h3>
+        <hr>
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th>Total Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for income in incomes_by_category %}
+                    <tr>
+                        <td>{{ income.category__income_type }}</td>
+                        <td>£ {{ income.total_amount }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 
-                <!-- Display summary of income by category -->
-                <div class="card">
-                    <h3>Income By Category</h3>
-                    <hr>
-                    <div class="table-responsive">
-                        <table class="table table-striped table-bordered" style="width:100%">
-                            <thead>
-                                <tr>
-                                    <th>Category</th>
-                                    <th>Total Amount</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for income in incomes_by_category %}
-                                <tr>
-                                    <td>{{ income.category__income_type }}</td>
-                                    <td>£{{ income.total_amount }}</td>
-                                </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <!-- Income Table -->
-            <div class="row mt-5">
-                <div class="col-md-12">
-                    <h3>Income Details</h3>
-                    <table id="incomeTable" class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th class="d-none d-md-table-cell">Date</th>
-                                <th>Amount</th>
-                                <th class="d-none d-md-table-cell">Description</th>
-                                <th>Category</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for income in incomes %}
-                            <tr>
-                                <td>{{ income.date }}</td>
+<!-- Display all expenses in a table -->
+<div class="row">
+    <h3>Income Details</h3>
+    <hr>
+    <div class="col-12 p-5">
+        <div class="card">
+            <div class="card-body">
+                <table id="incomeTable" class="table table-striped table-bordered" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>Category</th>
+                            <th>Amount</th>
+                            <th class="d-none d-md-table-cell">Date</th>
+                            <th class="d-none d-md-table-cell">Description</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for income in income %}
+                        <tr>
+                            <td>{{ income.date }}</td>
                                 <td>{{ income.in_amount }}</td>
                                 <td class="d-none d-md-table-cell">{{ income.description }}</td>
                                 <td>{{ income.category.income_type }}</td>
@@ -105,27 +250,28 @@
                                             class="btn btn-danger btn-sm m-1 d-block d-md-inline-block">Delete</a>
                                     </div>
                                 </td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
 </div>
+
 {% endblock %}
 
 {% block additional_js %}
+
 <script>
     const ctx = document.getElementById('incomeChart').getContext('2d');
-
-    const labels = {{ labels| safe }}; // Ensure this is one line
+    
+    const labels = {{ labels| safe }};
     const data = {
         labels: labels,
         datasets: [{
             label: 'Total Spent',
-            data: {{ data| safe }}, // Ensure this is one line
+            data: {{ data| safe }}, 
     backgroundColor: [
         'rgba(255, 99, 132, 0.4)',
         'rgba(255, 205, 86, 0.2)',
@@ -202,6 +348,7 @@
     }
 </script>
 
+
 <!-- Initialize DataTable with export buttons and search functionality -->
 <script>
     $(document).ready(function () {
@@ -228,9 +375,8 @@
     });
 </script>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- 
 <script>
     $(document).ready(function () {
         $('#incomeTable').DataTable();
@@ -276,5 +422,6 @@
         document.getElementById('incomeChart'),
         config
     );
-</script>
+</script> -->
+
 {% endblock %}

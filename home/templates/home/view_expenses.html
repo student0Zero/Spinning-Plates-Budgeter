@@ -2,11 +2,229 @@
 
 {% block content %}
 
-<h1>Your Expenses</h1>
-<p>Add a new expense: <a href="{% url 'create_expense' %}">Create Expense</a></p>
+{% block additional_css %}
+<!-- Include DataTables CSS and JS -->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+<script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
 
-<div class="row">
-{% for expense in expenses %}
+<!-- DataTable.js Export Dependencies -->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.dataTables.min.css">
+<script type="text/javascript" charset="utf8"
+    src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" charset="utf8"
+    src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.flash.min.js"></script>
+<script type="text/javascript" charset="utf8"
+    src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script type="text/javascript" charset="utf8"
+    src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script type="text/javascript" charset="utf8"
+    src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script type="text/javascript" charset="utf8"
+    src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
+<script type="text/javascript" charset="utf8"
+    src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.print.min.js"></script>
+
+{% endblock %}
+<style>
+    .chartBox {
+        width: 100%;
+        /* Ensure the chartBox fits within the chartCard */
+        padding: 10px;
+        border-radius: 20px;
+        border: solid 3px rgba(54, 162, 235, 1);
+        background: white;
+    }
+
+    .dataTables_wrapper .top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+
+    .dataTables_filter {
+        float: none;
+        text-align: right;
+    }
+
+    .dataTables_filter input {
+        width: 150px;
+        /* Adjust the width as needed */
+    }
+
+    /* Ensure the description column wraps text and has a max width */
+    .description-column {
+        white-space: normal;
+        word-wrap: break-word;
+        max-width: 200px;
+        /* Adjust the max-width as needed */
+    }
+
+    /* Ensure the actions column is only as wide as its content */
+    .actions-column {
+        white-space: nowrap;
+        width: 1%;
+    }
+
+    .chartCard {
+        border: 2px solid red;
+        /* Add border to chartCard for debugging */
+        overflow: hidden;
+        /* Prevent overflow */
+    }
+
+    .card {
+        border: 2px solid blue;
+        /* Add border to card for debugging */
+    }
+
+    .container {
+        border: 2px solid green;
+        /* Add border to container for debugging */
+    }
+
+    .row {
+        border: 2px solid orange;
+        /* Add border to row for debugging */
+    }
+
+    .col-sm-6 {
+        border: 2px solid purple;
+        /* Add border to columns for debugging */
+    }
+
+    @media (max-width: 576px) {
+        .chartCard {
+            padding: 10px;
+            /* Reduce padding on small screens */
+        }
+
+        .chartBox {
+            padding: 10px;
+            /* Reduce padding on small screens */
+        }
+
+        #myChart {
+            width: 100%;
+            /* Ensure the canvas fits within the chartBox */
+            height: auto;
+            /* Maintain aspect ratio */
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+        }
+
+        .table th,
+        .table td {
+            white-space: nowrap;
+        }
+
+        .table td {
+            word-wrap: break-word;
+            max-width: 100px;
+            /* Adjust the max-width as needed */
+        }
+
+        .description-column {
+            display: none;
+        }
+
+        .export-button {
+            display: none !important;
+            /* Hide export button on small screens */
+        }
+    }
+    }
+</style>
+<!-- ######################################################## -->
+
+<h1 class="mt-5">Expenses Overview</h1>
+<hr>
+<!-- <p>Add a new expense: <a href="{% url 'create_expense' %}"></a></p> -->
+
+
+<div class="card-group m-5">
+    <!-- Create New Expense Card -->
+    <div class="col-sm-6">
+        <div class="card border border-primary border-5 rounded-3 mx-5">
+            <div class=" card-body">
+                <h5 class="card-title">Record New Expense</h5>
+                <p class="card-text">CHANGE ME BEFORE SUBMITTING!!.</p>
+                <a href="{% url 'create_expense' %}" class="btn btn-primary">Create Expense</a>
+            </div>
+        </div>
+    </div>
+    <!-- Create New Income Card -->
+    <div class="col-sm-6">
+        <div class="card card border border-primary border-5 rounded-3 mx-5">
+            <div class="card-body">
+                <h5 class="card-title">Record New Income</h5>
+                <p class="card-text">CHANTE ME BEFORE SUBMITTING!!</p>
+                <a href="{% url 'create_income' %}" class="btn btn-primary">Create an Income</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Canvas element for Chart.js -->
+<h1 class="">Expenses Breakdown</h1>
+<hr class="mb-5">
+<div class="row row-cols-1 row-cols-md-2 g-4">
+
+    <div class="card">
+        <div class="chartCard mb-2">
+            <div class="chartBox">
+                <canvas id="myChart"></canvas>
+                <!-- Selector for chart types -->
+                <select onchange="changeChart(this)" name="" id="">
+                    <optgroup label="Select Chart Type"></optgroup>
+                    <option value="bar">Bar Chart</option>
+                    <option value="pie">Pie Chart</option>
+                    <option value="line">Line Chart</option>
+                    <option value="doughnut">Doughnut Chart</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <!-- Display summary of expenses by category -->
+    <div class="card">
+        <h1>Expenses Summary by Category</h1>
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th>Total Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for expense in expenses_by_category %}
+                    <tr>
+                        <td>{{ expense.category__expense_type }}</td>
+                        <td>£{{ expense.total_amount }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+</div>
+
+
+
+
+
+
+
+<!-- Display all expenses -->
+<!-- <div class="row">
+    {% for expense in expenses %}
     <div class="col-4">
         <div class="card">
             <div class="card-body">
@@ -18,40 +236,167 @@
             </div>
         </div>
     </div>
-{% endfor %}
+    {% endfor %}
+</div> -->
+
+<!-- Display all expenses in a table -->
+<div class="row">
+    <div class="col-12 p-5">
+        <div class="card">
+            <div class="card-body">
+                <table id="expensesTable" class="table table-striped table-bordered" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>Category</th>
+                            <th>Amount</th>
+                            <th>Date</th>
+                            <th>Description</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for expense in expenses %}
+                        <tr>
+                            <td>{{ expense.category }}</td>
+                            <td>£{{ expense.amount }}</td>
+                            <td>{{ expense.date }}</td>
+                            <td>{{ expense.description }}</td>
+                            <td>
+                                <a href="{% url 'edit_expense' expense.id %}" class="btn btn-primary btn-sm">Edit</a>
+                                <a href="{% url 'delete_expense' expense.id %}" class="btn btn-danger btn-sm">Delete</a>
+                            </td>
+                        </tr>
+
+                        {% endfor %}
+                    </tbody>
+                    <!-- <tfoot>
+                                <tr>
+                                    <th>Category</th>
+                                    <th>Amount</th>
+                                    <th>Date</th>
+                                    <th>Description</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </tfoot> -->
+                </table>
+
+            </div>
+        </div>
+    </div>
 </div>
 
-<h1>Expenses Breakdown</h1>
-<div>
-    <canvas id="myChart"></canvas>
-</div>
 
 {% endblock %}
 
 {% block additional_js %}
-
 <script>
-    const ctx = document.getElementById('myChart');
+    const ctx = document.getElementById('myChart').getContext('2d');
 
-    const labels = {{ labels | safe }}; // this needs to be one line only
-    const data = {{ data | safe }}; // this needs to be one line only or it won't work
+    const labels = {{ labels| safe }}; // Ensure this is one line
+    const data = {
+        labels: labels,
+        datasets: [{
+            label: 'Total Spent',
+            data: {{ data| safe }}, // Ensure this is one line
+    backgroundColor: [
+        'rgba(255, 99, 132, 0.4)',
+        'rgba(255, 205, 86, 0.2)',
+        'rgba(75, 192, 192, 0.2)',
+        'rgba(54, 162, 235, 0.2)',
+        'rgba(153, 102, 255, 0.2)',
+        'rgba(201, 203, 207, 0.2)'
+    ],
+        borderColor: [
+            'rgb(255, 99, 132)',
+            'rgb(255, 159, 64)',
+            'rgb(255, 205, 86)',
+            'rgb(75, 192, 192)',
+            'rgb(54, 162, 235)',
+            'rgb(153, 102, 255)',
+            'rgb(201, 203, 207)'
+        ],
+            borderWidth: 1
+        }]
+    };
 
-    new Chart(ctx, {
+    const configBar = {
         type: 'bar',
-        data: {
-            labels: labels,
-            datasets: [{
-                label: 'Total Spent',
-                data: data,
-                borderWidth: 1
-            }]
-        },
+        data: data,
         options: {
             scales: {
                 y: {
                     beginAtZero: true
                 }
             }
+        }
+    };
+
+    const configPie = {
+        type: 'pie',
+        data: data,
+        options: {}
+    };
+
+    const configDoughnut = {
+        type: 'doughnut',
+        data: data,
+        options: {}
+    };
+
+    const configLine = {
+        type: 'line',
+        data: data,
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    };
+
+    // Render the initial chart
+    let myChart = new Chart(ctx, configBar);
+
+    // Function to change the chart type
+    function changeChart(chartType) {
+        myChart.destroy();
+
+        if (chartType.value === 'bar') {
+            myChart = new Chart(ctx, configBar);
+        } else if (chartType.value === 'pie') {
+            myChart = new Chart(ctx, configPie);
+        } else if (chartType.value === 'line') {
+            myChart = new Chart(ctx, configLine);
+        } else if (chartType.value === 'doughnut') {
+            myChart = new Chart(ctx, configDoughnut);
+        }
+    }
+</script>
+
+
+<!-- Initialize DataTable with export buttons and search functionality -->
+<script>
+    $(document).ready(function () {
+        if (!$.fn.DataTable.isDataTable('#expensesTable')) {
+            $('#expensesTable').DataTable({
+                "searching": true, // This enables the search box
+                "dom": '<"top"iBf>rt<"bottom"lp><"clear">', // Custom layout to place buttons above the table
+                "buttons": [
+                    {
+                        extend: 'collection',
+                        text: 'Export',
+                        className: 'export-button', // needed to hide the export button on small screens
+                        buttons: [
+                            'copy', 'csv', 'excel', 'pdf', 'print'
+                        ]
+                    }
+                ],
+                "columnDefs": [
+                    { "className": "description-column", "targets": 3 }, // Apply the description-column class to the 4th column
+                    { "className": "actions-column", "targets": 4 } // Apply the actions-column class to the 5th column
+                ]
+            });
         }
     });
 </script>
