@@ -23,3 +23,11 @@ html, body {
 .form-control-label {
     color: black;
 }
+
+/* CRISPY FORM HEADER TEXT COLOUR */
+  .custom-label {
+    font-size: 1.25rem; /* Increase text size */
+    margin-bottom: 0.5rem; /* Add margin */
+    color: white; /* Ensure the text color is white */
+    font-weight: bold; /* Ensure the text is bold */
+}
