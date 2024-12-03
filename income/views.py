@@ -2,12 +2,20 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Income, IncomeCategory
 from .forms import IncomeForm
 from django.contrib.auth.decorators import login_required
+from django.db.models import Sum
 
+# View income
 @login_required
 def view_income(request):
+    incomes_by_category = Income.objects.values('category__income_type').annotate(total_amount=Sum('in_amount'))
     incomes = Income.objects.filter(user=request.user)
-    return render(request, 'income/view_income.html', {'incomes': incomes})
+    context = {
+        'incomes_by_category': incomes_by_category,
+        'incomes': incomes,
+    }
+    return render(request, 'income/view_income.html', context)
 
+# Create income
 @login_required
 def create_income(request):
     if request.method == "POST":
@@ -27,6 +35,7 @@ def create_income(request):
         }
         return render(request, 'income/create_income.html', {'form': form})
 
+# Edit income
 @login_required
 def edit_income(request, id):
     income = get_object_or_404(Income, id=id)
@@ -48,8 +57,7 @@ def edit_income(request, id):
         }
         return render(request, 'income/edit_income.html', context)
 
-
-##################### delete expense
+# Delete income
 @login_required
 def delete_income(request, id):
     income = get_object_or_404(Income, id=id)
