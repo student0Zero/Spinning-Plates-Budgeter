@@ -18,6 +18,7 @@ import dj_database_url
 if os.path.exists('env.py'):
     import env
 
+
 # Email configuration for development
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
