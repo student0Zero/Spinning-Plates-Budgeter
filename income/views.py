@@ -15,28 +15,24 @@ def income(request):
 # View income
 @login_required
 def view_income(request):
-    # Get all expenses for the logged-in user
-    income = Income.objects.filter(user=request.user)
-    
-    # Aggregate the sum of amounts spent in each category
-    category_totals = (
-        income
+    # Get all income for the logged-in user
+    incomes = Income.objects.filter(user=request.user)
+
+    # Aggregate the sum of amounts earned in each category
+    income_by_category = (
+        incomes
         .values('category__income_type')  # Group by category name
-        .annotate(total_earned=Sum('in_amount'))  # Calculate total amount per category
+        .annotate(total_amount=Sum('in_amount'))  # Calculate total amount per category
         .order_by('category__income_type')  # Optional: Order categories alphabetically
     )
-    
-    # Prepare data for Chart.js
-    labels = [item['category__income_type'] for item in category_totals]
-    data = [float(item['total_earned']) for item in category_totals]  # Convert Decimal to float
 
-    # Query to get the sum of expenses for each category
-    income_by_category = Income.objects.filter(user=request.user).values('category__income_type').annotate(total_amount=Sum('in_amount')).order_by('-total_amount')
-    
+    # Prepare data for Chart.js
+    labels = [item['category__income_type'] for item in income_by_category]
+    data = [float(item['total_amount']) for item in income_by_category]  # Convert Decimal to float
 
     context = {
-        "income": income,  # Still passing income if needed elsewhere
-        'income_by_category': income_by_category,  # Pass the income by category to dataTable in view_income.html
+        "incomes": incomes,  # Pass the incomes to the template
+        'income_by_category': income_by_category,  # Pass the income by category to the template
         "labels": labels,  # Labels for Chart.js
         "data": data,  # Data for Chart.js
     }
