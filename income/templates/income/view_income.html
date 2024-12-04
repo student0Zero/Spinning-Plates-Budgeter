@@ -144,7 +144,7 @@
 
 <div class="container-fluid">
     <h1 class="mt-4">Income Overview</h1>
-    <hr class="mb-5">
+    <hr class="">
     <div class="row justify-content-center row-cols-1 row-cols-md-2 g-4">
         <div class="card-group m-5">
             <!-- Create New Income Card -->
@@ -207,7 +207,7 @@
                                 {% for income in income_by_category %}
                                 <tr>
                                     <td>{{ income.category__income_type }}</td>
-                                    <td>£{{ income.total_amount }}</td>
+                                    <td>£ {{ income.total_amount }}</td>
                                 </tr>
                                 {% endfor %}
                             </tbody>
@@ -234,7 +234,7 @@
                                 {% for income in incomes %}
                                 <tr>
                                     <td>{{ income.category }}</td>
-                                    <td>£{{ income.in_amount }}</td>
+                                    <td>£ {{ income.in_amount }}</td>
                                     <td class="d-none d-md-table-cell">{{ income.date }}</td>
                                     <td class="d-none d-md-table-cell">{{ income.description }}</td>
                                     <td class="text-end">

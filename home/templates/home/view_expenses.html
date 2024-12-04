@@ -205,7 +205,7 @@
                     {% for expense in expenses_by_category %}
                     <tr>
                         <td>{{ expense.category__expense_type }}</td>
-                        <td>£{{ expense.total_amount }}</td>
+                        <td>£ {{ expense.total_amount }}</td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -258,7 +258,7 @@
                         {% for expense in expenses %}
                         <tr>
                             <td>{{ expense.category }}</td>
-                            <td>£{{ expense.amount }}</td>
+                            <td>£ {{ expense.amount }}</td>
                             <td>{{ expense.date }}</td>
                             <td>{{ expense.description }}</td>
                             <td>
