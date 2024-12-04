@@ -4,7 +4,7 @@
   <!-- NAVBAR START -->
   <nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary">
         <div class="container-fluid">
-          <a class="navbar-brand pl-3" href="#">Spinning Plates</a>
+          <a class="navbar-brand pl-3" href="{% url 'home' %}">Spinning Plates</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -28,12 +28,15 @@
                   Profile
                 </a>
                 <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="#">Profile</a></li>
+                  <!-- Login name shown if logged in -->
+                  <li><a class="dropdown-item" href="#">{% if user.is_authenticated %} Profile for {{ user }} {% endif %}</a>
+                                        
+                  </li>
 
                   <!-- User profiles disabled. Functionality will be Future scope -->
                   <!-- <li><a class="dropdown-item" href="#">Settings</a></li> -->
                   <li><hr class="dropdown-divider"></li>
-                  <li class="nav-link disabled">Sign In / Register</li>
+                  <!-- <li class="nav-link disabled">Sign In / Register</li> -->
 
                   <!-- logout shown if user logged in -->
                   {% if user.is_authenticated %}
@@ -60,15 +63,6 @@
               <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
               <button class="btn btn-outline-success" type="submit">Search</button>
             </form> -->
-          </div>
-          
-          <!-- Login name shown if logged in -->
-          <div class="flex-shrink-0">
-            {% if user.is_authenticated %}
-            <p class="text-end m-3">You are logged in as {{ user }}</p>
-            {% else %}
-            <p class="text-end m-3">You are not logged in</p>
-            {% endif %}
           </div>
         </div>
       </nav>
