@@ -258,7 +258,7 @@
                         {% for expense in expenses %}
                         <tr>
                             <td>{{ expense.category }}</td>
-                            <td>£ {{ expense.amount }}</td>
+                            <td class="amount">£ {{ expense.amount }}</td>
                             <td>{{ expense.date }}</td>
                             <td>{{ expense.description }}</td>
                             <td>
@@ -377,26 +377,37 @@
 <!-- Initialize DataTable with export buttons and search functionality -->
 <script>
     $(document).ready(function () {
-        if (!$.fn.DataTable.isDataTable('#expensesTable')) {
-            $('#expensesTable').DataTable({
-                "searching": true, // This enables the search box
-                "dom": '<"top"iBf>rt<"bottom"lp><"clear">', // Custom layout to place buttons above the table
-                "buttons": [
-                    {
-                        extend: 'collection',
-                        text: 'Export',
-                        className: 'export-button', // needed to hide the export button on small screens
-                        buttons: [
-                            'copy', 'csv', 'excel', 'pdf', 'print'
-                        ]
-                    }
-                ],
-                "columnDefs": [
-                    { "className": "description-column", "targets": 3 }, // Apply the description-column class to the 4th column
-                    { "className": "actions-column", "targets": 4 } // Apply the actions-column class to the 5th column
-                ]
-            });
-        }
+        $('#expensesTable').DataTable({
+            "searching": true, // This enables the search box
+            "dom": '<"top"iBf>rt<"bottom"lp><"clear">', // Custom layout to place buttons above the table
+            "buttons": [
+                {
+                    extend: 'collection',
+                    text: 'Export',
+                    className: 'export-button', // needed to hide the export button on small screens
+                    buttons: [
+                        'copy', 'csv', 'excel', 'pdf', 'print'
+                    ]
+                }
+            ],
+            "columnDefs": [
+                { "className": "description-column", "targets": 3 }, // Apply the description-column class to the 3rd column
+                { "className": "actions-column", "targets": 4 } // Apply the actions-column class to the 5th column
+            ]
+        });
+
+        // Apply custom styling to the amount column
+        $('#expensesTable tbody tr').each(function () {
+            var amountCell = $(this).find('td.amount');
+            var amountText = amountCell.text().replace('£', '');
+            var amount = parseFloat(amountText);
+
+            if (amount < 0) {
+                amountCell.css('color', 'red').css('font-weight', 'bold');
+            } else if (amount > 0) {
+                amountCell.css('color', 'green').css('font-weight', 'bold');
+            }
+        });
     });
 </script>
 
