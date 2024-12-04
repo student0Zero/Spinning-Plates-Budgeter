@@ -1,18 +1,46 @@
+from django.views.generic import TemplateView
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Income, IncomeCategory
 from .forms import IncomeForm
 from django.contrib.auth.decorators import login_required
 from django.db.models import Sum
 
+@login_required
+def income(request):
+    if request.user.is_authenticated:
+        return redirect('view_expenses')
+    else:
+        return redirect('account_login')
+
 # View income
 @login_required
 def view_income(request):
-    incomes_by_category = Income.objects.values('category__income_type').annotate(total_amount=Sum('in_amount'))
-    incomes = Income.objects.filter(user=request.user)
+    # Get all expenses for the logged-in user
+    income = Income.objects.filter(user=request.user)
+    
+    # Aggregate the sum of amounts spent in each category
+    category_totals = (
+        income
+        .values('category__income_type')  # Group by category name
+        .annotate(total_earned=Sum('in_amount'))  # Calculate total amount per category
+        .order_by('category__income_type')  # Optional: Order categories alphabetically
+    )
+    
+    # Prepare data for Chart.js
+    labels = [item['category__income_type'] for item in category_totals]
+    data = [float(item['total_earned']) for item in category_totals]  # Convert Decimal to float
+
+    # Query to get the sum of expenses for each category
+    income_by_category = Income.objects.filter(user=request.user).values('category__income_type').annotate(total_amount=Sum('in_amount')).order_by('-total_amount')
+    
+
     context = {
-        'incomes_by_category': incomes_by_category,
-        'incomes': incomes,
+        "income": income,  # Still passing income if needed elsewhere
+        'income_by_category': income_by_category,  # Pass the income by category to dataTable in view_income.html
+        "labels": labels,  # Labels for Chart.js
+        "data": data,  # Data for Chart.js
     }
+
     return render(request, 'income/view_income.html', context)
 
 # Create income

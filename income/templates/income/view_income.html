@@ -192,7 +192,7 @@
         </div>
     </div>
 
-    <!-- Display summary of expenses by category -->
+    <!-- Display summary of income by category -->
     <div class="card">
         <h3>Income By Category</h3>
         <hr>
@@ -205,7 +205,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for income in incomes_by_category %}
+                    {% for income in income_by_category %}
                     <tr>
                         <td>{{ income.category__income_type }}</td>
                         <td>£ {{ income.total_amount }}</td>
@@ -217,7 +217,7 @@
     </div>
 </div>
 
-<!-- Display all expenses in a table -->
+<!-- Display all income in a table -->
 <div class="row">
     <h3>Income Details</h3>
     <hr>
@@ -235,22 +235,18 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% for income in income %}
+                        {% for income in incomes %}
                         <tr>
+                            <td>{{ income.category }}</td>
+                            <td>£{{ income.in_amount }}</td>
                             <td>{{ income.date }}</td>
-                                <td>{{ income.in_amount }}</td>
-                                <td class="d-none d-md-table-cell">{{ income.description }}</td>
-                                <td>{{ income.category.income_type }}</td>
-                                <td class="text-end">
-                                    <!-- to ensure buttons stack on smaller displays d-grid gap-2 d-md-block -->
-                                    <div class="d-grid gap-2 d-md-block">
-                                        <a href="{% url 'edit_income' income.id %}"
-                                            class="btn btn-primary btn-sm m-1 d-block d-md-inline-block">Edit</a>
-                                        <a href="{% url 'delete_income' income.id %}"
-                                            class="btn btn-danger btn-sm m-1 d-block d-md-inline-block">Delete</a>
-                                    </div>
-                                </td>
+                            <td>{{ income.description }}</td>
+                            <td>
+                                <a href="{% url 'edit_income' income.id %}" class="btn btn-primary btn-sm">Edit</a>
+                                <a href="{% url 'delete_income' income.id %}" class="btn btn-danger btn-sm">Delete</a>
+                            </td>
                         </tr>
+
                         {% endfor %}
                     </tbody>
                 </table>
