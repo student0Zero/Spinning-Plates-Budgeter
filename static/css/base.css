@@ -1,8 +1,7 @@
-
-
 /* BODY */
-html, body {
-    height: 100%;
+html,
+body {
+  height: 100%;
 }
 
 /* body {
@@ -10,25 +9,48 @@ html, body {
     background-color: brown;
 } */
 
-
 .active {
-    border-bottom: 3px solid green;
-    font-weight: 600;
+  border-bottom: 3px solid green;
+  font-weight: 600;
 }
 
+/* ### Crispy form labels */
 .form > label {
-    color: aqua;
+  color: aqua;
 }
-
 .form-control-label {
-    color: black;
+  color: black;
 }
 
 /* CRISPY FORM HEADER TEXT COLOUR */
 .custom-label {
-    font-size: 1.25rem; /* Increase text size */
-    margin-top: 0.5rem; /* Add margin */
-    color: white; /* Ensure the text color is white */
-    font-weight: bold; /* Ensure the text is bold */
-  }
+  font-size: 1.25rem; /* Increase text size */
+  margin-top: 0.5rem; /* Add margin */
+  color: white; /* Ensure the text color is white */
+  font-weight: bold; /* Ensure the text is bold */
+}
 
+/* ##### view_expenses.html DataTables stack btn */
+@media (max-width: 576px) {
+  .d-md-inline-block {
+    display: block !important;
+    width: 100%;
+  }
+  .d-md-block {
+    display: block !important;
+  }
+}
+
+/* ##### expense table button text resizing */
+@media (max-width: 576px) {
+  .custom-btn {
+    font-size: 0.5rem; /* Adjust the font size as needed */
+  }
+}
+
+/* ##### Wrap text in table cells to prevent overflow */
+.table td,
+.table th {
+  word-wrap: break-word;
+  white-space: normal;
+}

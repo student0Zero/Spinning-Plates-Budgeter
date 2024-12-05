@@ -138,14 +138,11 @@
             /* Hide export button on small screens */
         }
     }
-    }
 </style>
 <!-- ######################################################## -->
-
 <h1 class="mt-5">Expenses Overview</h1>
 <hr>
 <!-- <p>Add a new expense: <a href="{% url 'create_expense' %}"></a></p> -->
-
 
 <div class="card-group m-5">
     <!-- Create New Expense Card -->
@@ -169,7 +166,6 @@
         </div>
     </div>
 </div>
-
 
 <!-- Canvas element for Chart.js -->
 <h1 class="">Expenses Breakdown</h1>
@@ -220,12 +216,12 @@
 <div class="container mt-5">
     <h2>Expenses Overview</h2>
     <div class="table-responsive">
-        <table id="expensesTable" class="table table-striped table-hover table-bordered compact" style="width:100%">
+        <table id="expensesTable" class="table table-striped table-hover table-bordered" style="width:100%">
             <thead>
                 <tr>
                     <th>Category</th>
                     <th>Amount</th>
-                    <th>Date</th>
+                    <th class="date-column">Date</th>
                     <th>Description</th>
                     <th>Actions</th>
                 </tr>
@@ -234,15 +230,15 @@
                 {% for expense in expenses %}
                 <tr>
                     <td>{{ expense.category }}</td>
-                    <td class="amount">£ {{ expense.amount }}</td>
-                    <td>{{ expense.date }}</td>
+                    <td class="amount">£{{ expense.amount }}</td>
+                    <td class="date-column">{{ expense.date }}</td>
                     <td>{{ expense.description }}</td>
                     <td>
                         <div class="d-grid gap-2 d-md-block">
                             <a href="{% url 'edit_expense' expense.id %}"
-                                class="btn btn-primary btn-sm m-1 d-block d-md-inline-block">Edit</a>
+                                class="btn btn-primary btn-sm m-1 d-block d-md-inline-block custom-btn">Edit</a>
                             <a href="{% url 'delete_expense' expense.id %}"
-                                class="btn btn-danger btn-sm m-1 d-block d-md-inline-block">Delete</a>
+                                class="btn btn-danger btn-sm m-1 d-block d-md-inline-block custom-btn">Delete</a>
                         </div>
                     </td>
                 </tr>
@@ -340,7 +336,6 @@
     }
 </script>
 
-
 <!-- Initialize DataTable with export buttons and search functionality -->
 <script>
     $(document).ready(function () {
@@ -384,7 +379,29 @@
                 amountCell.css('color', 'green').css('font-weight', 'bold');
             }
         });
+
+        // Hide the year from the date on smaller screens
+        function formatDate(dateStr) {
+            var date = new Date(dateStr);
+            var options = { month: 'short', day: 'numeric' };
+            return date.toLocaleDateString(undefined, options);
+        }
+
+        function updateDates() {
+            $('#expensesTable tbody .date-column').each(function () {
+                var dateText = $(this).text();
+                var formattedDate = formatDate(dateText);
+                $(this).text(formattedDate);
+            });
+        }
+
+        // Run the updateDates function on page load and window resize
+        updateDates();
+        $(window).resize(function () {
+            if ($(window).width() <= 576) {
+                updateDates();
+            }
+        });
     });
 </script>
-
 {% endblock %}
