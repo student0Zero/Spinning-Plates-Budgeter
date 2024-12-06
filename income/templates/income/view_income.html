@@ -206,7 +206,7 @@
                             <tbody>
                                 {% for income in income_by_category %}
                                 <tr>
-                                    <td>{{ income.category__income_type }}</td>
+                                    <td>{{ income.category }}</td>
                                     <td>£ {{ income.total_amount }}</td>
                                 </tr>
                                 {% endfor %}

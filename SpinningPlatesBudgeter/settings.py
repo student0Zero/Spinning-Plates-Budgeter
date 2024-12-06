@@ -63,6 +63,7 @@ INSTALLED_APPS = [
     # Apps
     'home',
     'income',
+    'expenses',
     
     # Cloudinary
     'cloudinary_storage',

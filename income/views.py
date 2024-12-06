@@ -1,6 +1,6 @@
 from django.views.generic import TemplateView
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Income, IncomeCategory
+from .models import Income
 from .forms import IncomeForm
 from django.contrib.auth.decorators import login_required
 from django.db.models import Sum
@@ -8,7 +8,7 @@ from django.db.models import Sum
 @login_required
 def income(request):
     if request.user.is_authenticated:
-        return redirect('view_expenses')
+        return redirect('view_income')
     else:
         return redirect('account_login')
 
@@ -21,13 +21,13 @@ def view_income(request):
     # Aggregate the sum of amounts earned in each category
     income_by_category = (
         incomes
-        .values('category__income_type')  # Group by category name
+        .values('category')  # Group by category name (updated to use CharField)
         .annotate(total_amount=Sum('in_amount'))  # Calculate total amount per category
-        .order_by('category__income_type')  # Optional: Order categories alphabetically
+        .order_by('category')  # Optional: Order categories alphabetically
     )
 
     # Prepare data for Chart.js
-    labels = [item['category__income_type'] for item in income_by_category]
+    labels = [item['category'] for item in income_by_category]  # Updated to use CharField
     data = [float(item['total_amount']) for item in income_by_category]  # Convert Decimal to float
 
     context = {
