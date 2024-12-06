@@ -1,4 +1,4 @@
-/* BODY */
+/* ########### MAIN STYLING ########### */
 html,
 body {
   height: 100%;
@@ -9,12 +9,14 @@ body {
     background-color: brown;
 } */
 
+/* ########### DATATABLE STYLING ########### */
 .active {
   border-bottom: 3px solid green;
   font-weight: 600;
 }
 
-/* ### Crispy form labels */
+/* ########### CRISPY FORMS STYLING ########### */
+/* Crispy form labels */
 .form > label {
   color: aqua;
 }
@@ -22,7 +24,7 @@ body {
   color: black;
 }
 
-/* CRISPY FORM HEADER TEXT COLOUR */
+/* Crispy forms label text */
 .custom-label {
   font-size: 1.25rem; /* Increase text size */
   margin-top: 0.5rem; /* Add margin */
@@ -30,8 +32,9 @@ body {
   font-weight: bold; /* Ensure the text is bold */
 }
 
-/* ##### view_expenses.html DataTables stack btn */
+/* ########### MEDIA QUERIES ########### */
 @media (max-width: 576px) {
+  /* view_expenses.html DataTables stack btn */
   .d-md-inline-block {
     display: block !important;
     width: 100%;
@@ -39,18 +42,19 @@ body {
   .d-md-block {
     display: block !important;
   }
-}
 
-/* ##### expense table button text resizing */
-@media (max-width: 576px) {
+  /* expense table button text resizing */
   .custom-btn {
     font-size: 0.5rem; /* Adjust the font size as needed */
   }
-}
 
-/* ##### Wrap text in table cells to prevent overflow */
-.table td,
-.table th {
+  /* Wrap text in table cells to prevent overflow */
+  .table td,
+  .table th {
   word-wrap: break-word;
   white-space: normal;
 }
+
+
+}
+
