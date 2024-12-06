@@ -55,7 +55,7 @@ def create_expense(request):
             expense = form.save(commit = False)
             expense.user = request.user
             expense.save()
-            messages.success(request, "Expense created.")
+            #messages.success(request, "Expense created.")
             return redirect('view_expenses')
         else:
             print(form.errors)
@@ -77,7 +77,7 @@ def edit_expense(request, id):
             expense = form.save(commit = False)
             expense.user = request.user
             expense.save()
-            messages.success(request, "Expense edited.")
+            #messages.success(request, "Expense edited.")
             return redirect('view_expenses')
         else:
             print(form.errors)
@@ -97,7 +97,7 @@ def delete_expense(request, id):
     expense = get_object_or_404(Expense, id=id)
     if request.method == "POST":
         expense.delete()
-        messages.success(request, "Expense deleted successfully.")
+        #messages.success(request, "Expense deleted successfully.")
         return redirect("view_expenses")
     else:
         return render(request, 'expenses/delete_expense.html')
