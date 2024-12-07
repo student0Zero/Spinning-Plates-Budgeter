@@ -23,14 +23,76 @@
 {% endblock %}
 
 <!-- ############ [START] SUM OF INCOMES AND EXPENSE CARDS ############ -->
+<div class="container-fluid">
+    <h1 class="mt-4">Income & Expenses</h1>
+    <hr class="mb-5">
+    <div class="row justify-content-center row-cols-1 row-cols-md-2 g-4">
+        <div class="card-group m-5">
+            <!-- [START] Total Expense Card -->
+            <div class="card border border-warning border-5 rounded-3 m-3 h-100">
+                <div class="card-body d-flex flex-column text-center">
+                    <h5 class="card-title">{{ user }}'s Total Spend Todate</h5>
+                    <p class="card-text total-income-text fw-bold fs-2 pt-3">£ {{ total_expense }}</p>
+                    <a href="{% url 'view_expenses' %}" class="btn btn-primary mt-auto">Add / View Expenses</a>
+                </div>
+            </div>
+            <!-- [END] Total Expense Card -->
 
-<!-- [START] Total Expense Card -->
-<!-- [END] Total Expense Card -->
-
-<!-- [START] Total Income Card -->
-<!-- [END] Total Income Card -->
-
+            <!-- [START] Total Income Card -->
+            <div class="col-sm-6">
+                <div class="card border border-success border-5 rounded-3 m-3 h-100">
+                    <div class="card-body d-flex flex-column text-center">
+                        <h5 class="card-title">{{ user }}'s Total Incoke Todate</h5>
+                        <p class="card-text total-income-text fw-bold fs-2 pt-3">£ {{ total_income }}</p>
+                        <a href="{% url 'view_income' %}" class="btn btn-primary mt-auto">Add / View Incomes</a>
+                    </div>
+                </div>
+            </div>
+            <!-- [END] Total Expense Card -->
+        </div>
+    </div>
+</div>
 <!-- ############ [END] SUM OF INCOMES AND EXPENSE CARDS ############ -->
+
+
+<!-- ############ [START] INCOMES & EXPENSE CHARTS ############ -->
+
+
+
+
+<!-- ############ [END] INCOMES & EXPENSE CHARTS ############ -->
+
+
+
+
+
+
+    <div class="row row-cols-1 row-cols-md-2 g-2">
+        <div class="col">
+            <div class="card">
+                <h3>Expenses Chart</h3>
+                <hr>
+                <div class="chartCard">
+                    <div class="chartBox">
+                        <canvas id="expenseChart"></canvas>
+                        <!-- selector for chart types toggle -->
+                        <select onchange="changeChart(this, 'expenseChart')" name="" id="">
+                            <optgroup label="Select Chart Type"></optgroup>
+                            <option value="bar">Bar</option>
+                            <option value="pie">Pie</option>
+                            <option value="line">Line</option>
+                            <option value="doughnut">Doughnut</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- [START] Total Income Card -->
+    <!-- [END] Total Income Card -->
+
 
 <!-- ############ [START] INCOME & EXPENSE CHARTS.JS DIV ############ -->
 
@@ -49,7 +111,7 @@
 <!-- ############ [START] INCOME & EXPENSE SUMMARY TABLE ############ -->
 <!-- [START] Display summary by category card -->
 
- <!-- [START] Display summary of expense by category table -->
+<!-- [START] Display summary of expense by category table -->
 <!-- [END] Display summary of expense by category tbale -->
 
 <!-- [START] Display summary of income by category table -->
@@ -66,7 +128,7 @@
 <!-- ############ [END] CHARTS.JS CONFIGURATION SCRIPT ############ -->
 
 <!-- ############ [START] DATATABLE.JS CONFIGURATION SCRIPT ############ -->
- 
+
 <!-- ############ [END] DATATABLE.JS CONFIGURATION SCRIPT ############ -->
 
 {% endblock %}
