@@ -139,22 +139,21 @@
     </div>
 </div>
 <!-- ########## [END] INCOME DETAILS DATATABLE ########## -->
-
 {% endblock %}
 
 {% block additional_js %}
-
+<!-- ########## [START] CHART.JS CONFIGURATION SCRIPT ########## -->
 <script>
     const ctx = document.getElementById('incomeChart').getContext('2d');
 
-    const labels = {{ labels| safe }};
+    const labels = {{ labels| safe }}; // Ensure this is one line
     const data = {
         labels: labels,
         datasets: [{
-            label: 'Total Spent',
-            data: {{ data| safe }},
+            label: 'Total Earned',
+            data: {{ data| safe }}, // Ensure this is one line
     backgroundColor: [
-        'rgba(255, 99, 132, 0.4)',
+        'rgba(75, 192, 192, 0.4)',
         'rgba(255, 205, 86, 0.2)',
         'rgba(75, 192, 192, 0.2)',
         'rgba(54, 162, 235, 0.2)',
@@ -162,7 +161,7 @@
         'rgba(201, 203, 207, 0.2)'
     ],
         borderColor: [
-            'rgb(255, 99, 132)',
+            'rgb(75, 192, 192)',
             'rgb(255, 159, 64)',
             'rgb(255, 205, 86)',
             'rgb(75, 192, 192)',
@@ -211,49 +210,134 @@
     };
 
     // Render the initial chart
-    let myChart = new Chart(ctx, configPie);
+    let incomeChart = new Chart(ctx, configBar);
 
     // Function to change the chart type
     function changeChart(chartType) {
-        myChart.destroy();
+        incomeChart.destroy();
 
         if (chartType.value === 'bar') {
-            myChart = new Chart(ctx, configBar);
+            incomeChart = new Chart(ctx, configBar);
         } else if (chartType.value === 'pie') {
-            myChart = new Chart(ctx, configPie);
+            incomeChart = new Chart(ctx, configPie);
         } else if (chartType.value === 'line') {
-            myChart = new Chart(ctx, configLine);
+            incomeChart = new Chart(ctx, configLine);
         } else if (chartType.value === 'doughnut') {
-            myChart = new Chart(ctx, configDoughnut);
+            incomeChart = new Chart(ctx, configDoughnut);
         }
     }
 </script>
+<!-- ########## [END] CHART.JS CONFIGURATION SCRIPT ########## -->
 
+<!-- ########## [START] DATATTABLE.JS CONFIGURATION SCRIPT ########## -->
 
 <!-- Initialize DataTable with export buttons and search functionality -->
 <script>
     $(document).ready(function () {
-        if (!$.fn.DataTable.isDataTable('#incomeTable')) {
-            $('#incomeTable').DataTable({
-                "searching": true, // This enables the search box
-                "dom": '<"top"iBf>rt<"bottom"lp><"clear">', // Custom layout to place buttons above the table
-                "buttons": [
-                    {
-                        extend: 'collection',
-                        text: 'Export',
-                        className: 'export-button', // needed to hide the export button on small screens
-                        buttons: [
-                            'copy', 'csv', 'excel', 'pdf', 'print'
-                        ]
+        $('#incomeTable').DataTable({
+            "searching": true, // This enables the search box
+            "dom": '<"top"iBf>rt<"bottom"lp><"clear">', // Custom layout to place buttons above the table
+            "buttons": [
+                {
+                    extend: 'copyHtml5',
+                    exportOptions: {
+                        columns: ':not(:last-child)' // Exclude the last column (Actions)
                     }
-                ],
-                "columnDefs": [
-                    { "className": "description-column", "targets": 3 }, // Apply the description-column class to the 4th column
-                    { "className": "actions-column", "targets": 4 } // Apply the actions-column class to the 5th column
-                ]
+                },
+                {
+                    extend: 'excelHtml5',
+                    exportOptions: {
+                        columns: ':not(:last-child)' // Exclude the last column (Actions)
+                    }
+                },
+                {
+                    extend: 'csvHtml5',
+                    exportOptions: {
+                        columns: ':not(:last-child)' // Exclude the last column (Actions)
+                    }
+                },
+                {
+                    extend: 'pdfHtml5',
+                    exportOptions: {
+                        columns: ':not(:last-child)' // Exclude the last column (Actions)
+                    }
+                },
+                {
+                    extend: 'print',
+                    exportOptions: {
+                        columns: ':not(:last-child)' // Exclude the last column (Actions)
+                    }
+                }
+            ],
+            "columnDefs": [
+                { "className": "description-column", "targets": 3 }, // Apply the description-column class to the 3rd column
+                { "className": "actions-column", "targets": 4 } // Apply the actions-column class to the 4th column
+            ],
+            "autoWidth": true, // enable auto width adjustment
+            "columns": [
+                // set the width of each column
+                {"width": "20%"}, // category column
+                {"width": "10%"}, // amount column
+                {"width": "10%"}, // date column
+                {"width": "30%"}, // description column
+                {"width": "20%"} // Actions column
+            ]
+        });
+
+        // initialise datatable for the summary table
+        $('#summaryTable').DataTable({
+            "autoWidth": true, // enable auto width adjustment
+        });
+
+        // apply custom styling to the 'Amount' column for 'incomeTable'
+        $('#incomeTable tbody tr').each(function () {
+            var amountCell = $(this).find('td.amount');
+            var amountText = amountCell.text().replace('£', '');
+            var amount = parseFloat(amountText);
+
+            if (amount < 0) {
+                amountCell.css('color', 'red').css('font-weight', 'bold');
+            } else if (amount > 0) {
+                amountCell.css('color', 'green').css('font-weight', 'bold');
+            }
+        });
+
+        // apply custom styling to the 'Amount' column in 'summaryTable'
+        $('#summaryTable tbody tr').each(function () {
+            var amountCell = $(this).find('td.summary-amount');
+            var amountText = amountCell.text().replace('£', '');
+            var amount = parseFloat(amountText);
+
+            if (amount < 0) {
+                amountCell.css('color', 'red').css('font-weight', 'bold');
+            } else if (amount > 0) {
+                amountCell.css('color', 'green').css('font-weight', 'bold');
+            }
+        });
+
+        // hide the year from the date on smaller screens
+        function formatDate(dateStr, hideYear) {
+            var date = new Date(dateStr);
+            var options = hideYear ? { month: 'short', day: 'numeric' } : { year: 'numeric', month: 'short', day: 'numeric' };
+            return date.toLocaleDateString(undefined, options);
+        }
+                return date.toLocaleDateString(undefined, options);
+        }
+
+        function updateDates() {
+            var hideYear = $(window).width() <= 576;
+            $('#incomeTable tbody .date-column').each(function () {
+                var dateText = $(this).text();
+                var formattedDate = formatDate(dateText, hideYear);
             });
         }
+
+        // run the updateDates function on page load and window resize
+        updateDates();
+        $(window).resize(function () {
+            updateDates();
+        });
     });
 </script>
-
+<!-- ########## [END] DATATTABLE.JS CONFIGURATION SCRIPT ########## -->
 {% endblock %}
