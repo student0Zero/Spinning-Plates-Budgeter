@@ -13,7 +13,7 @@ def home_view(request):
     # prepare data for charts.js
     # update to use 'category' instead of 'category__expense_type' and 'category__income_type'
     expense_summary = expenses.values('date', 'category').annotate(total_amount = Sum('amount'))
-    income_summary = income.values('date', 'category').annotate(total_amount = Sum('in_amount'))
+    income_summary = incomes.values('date', 'category').annotate(total_amount = Sum('in_amount'))
 
     # calculate the sum of all expenses and income for the logged in user
     total_expenses = expenses.aggregate(Sum('amount'))['amount__sum'] or 0
