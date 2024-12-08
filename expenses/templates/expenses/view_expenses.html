@@ -21,6 +21,58 @@
     /* ########### [END] DEBUG STYLING ########### */
 </style>
 {% endblock %}
+<div class="grid gap-3">
+    <!-- ########## [START] SUM OF INCOME AND EXPENSES CARDS ########## -->
+    <div class="p-2 g-col-6">
+        <div class="card my-4 rounded-3 shadow-sm">
+            <div class="card-header py-3">
+                <h4 class="my-0 fw-normal">Record A New Expense</h4>
+            </div>
+            <div class="card-body">
+                <h1 class="card-title text-center mt-2 mb-4">£ {{ total_expenses }}</h1>
+                <ul class="list-unstyled mt-3 mb-4">
+                    <li class="mb-2">Your current total recorded expenses are displayed above. This is currently 
+                        <span class="text-primary text-emphasis" style="font-size: 1.5rem;">
+                            <strong> {{ expense_percentage | floatformat:2 }}% </strong>
+                        </span> of your redorded income to date.</li>
+                    <li class="mb-2">The rest of this page provides a details of your previously recorded expenses which you can edit or delete from the 'Details of Recorded Expenses' table below.</li>
+                    <li class="mb-2">Use the Expenses Chart below to see which expense category is effecting you the most.</li>
+                    <li class="mb-2">See the Expenses Table below to view your expenses by category of spend.</li>
+                    <li class="mb-2">To get a more detailed view of your recorded expenses, select the button below to add new expenses or to view/edit existing ones.</li>
+                    <li>This will take you to the Expenses Details View.</li>
+                </ul>
+                <a href="{% url 'view_expenses' %}" class="w-100 btn btn-lg btn-outline-primary">Go To Expenses View</a>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="p-2 g-col-6">
+        <div class="card mb-4 rounded-3 shadow-sm">
+            <div class="card-header py-3">
+                <h4 class="my-0 fw-normal">Expenses Charts</h4>
+            </div>
+            <div class="chartCard">
+                <div class="chartBox">
+                    <canvas id="expensesChart"></canvas>
+                    <!-- Selector for chart types -->
+                    <select onchange="changeChart(this, 'expensesChart')" name="" id="">
+                        <optgroup label="Select Chart Type"></optgroup>
+                        <option value="bar">Bar</option>
+                        <option value="pie">Pie</option>
+                        <option value="line">Line</option>
+                        <option value="doughnut">Doughnut</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
 
 <!-- ########## [START] CREATE/HOME BUTTON CARDS ########## -->
 <div class="container-fluid">
@@ -144,12 +196,12 @@
 <script>
     const ctx = document.getElementById('expenseChart').getContext('2d');
 
-    const labels = {{ labels| safe }}; // Ensure this is one line
+    const labels = {{ expense_labels| safe }}; // Ensure this is one line
     const data = {
         labels: labels,
         datasets: [{
             label: 'Total Spent',
-            data: {{ data| safe }}, // Ensure this is one line
+            data: {{ expense_data| safe }}, // Ensure this is one line
     backgroundColor: [
         'rgba(255, 99, 132, 0.4)',
         'rgba(255, 205, 86, 0.2)',
