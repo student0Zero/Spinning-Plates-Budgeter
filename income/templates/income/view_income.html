@@ -22,7 +22,7 @@
 </style>
 {% endblock %}
 
-<!-- ########## [START] INCOME CREATE/HOME BUTTON CARDS ########## -->
+<!-- ########## INCOME CREATE/HOME BUTTON CARDS ########## -->
 <div class="container-fluid">
     <h1 class="mt-4">Income Overview</h1>
     <hr class="mb-5">
@@ -37,21 +37,19 @@
                     </div>
                 </div>
             </div>
-
             <!-- Return Home Income Card -->
             <div class="col-sm-6">
                 <div class="card border border-primary border-5 rounded-3 m-3 h-100">
                     <div class="card-body d-flex flex-column text-center">
                         <h5 class="card-title">Return to Home</h5>
-                        <a href="{% url 'home' %}" class="btn btn-primary mt-auto">Return Home</a>
+                        <a href="{% url 'home' %}" class="btn btn-primary mt-auto">Return to Home</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-<!-- ########## [END] INCOME CREATE/HOME BUTTON CARDS ########## -->
 
-<!-- ########## [START] INCOME CREATE/TABLE CARDS ########## -->
+    <!-- ########## INCOME CHART.JS DIV ########## -->
     <!-- Canvas element for Chart.js -->
     <div class="row row-cols-1 row-cols-md-2 g-4">
         <div class="col">
@@ -64,8 +62,8 @@
                         <!-- Selector for chart types -->
                         <select onchange="changeChart(this)" name="" id="">
                             <optgroup label="Select Chart Type"></optgroup>
-                            <option value="pie">Pie Chart</option>
                             <option value="bar">Bar Chart</option>
+                            <option value="pie">Pie Chart</option>
                             <option value="line">Line Chart</option>
                             <option value="doughnut">Doughnut Chart</option>
                         </select>
@@ -78,8 +76,7 @@
         <!-- Display summary of income by category -->
         <div class="col">
             <div class="card">
-                <h3>Income By Category</h3>
-                <hr>
+                <h3>Income by Category</h3>
                 <div class="table-responsive">
                     <table id="summaryTable" class="table table-striped table-hover table-bordered" style="width:100%">
                         <thead>
@@ -101,12 +98,11 @@
             </div>
         </div>
     </div>
-    <!-- ########## [END] INCOME CREATE/TABLE CARDS ########## -->
 
-    <!-- ########## [START] INCOME DETAILS DATATABLE ########## -->
+    <!-- ########## INCOME DATATABLE.JS DIV ########## -->
+    <!-- Display all income in a table -->
     <div class="card my-5 p-3">
-        <h3>Details of Recorded Income</h3>
-        <hr>
+        <h2>Details of Recorded Income</h2>
         <div class="table-responsive">
             <table id="incomeTable" class="table table-striped table-hover table-bordered" style="width:100%">
                 <thead>
@@ -122,13 +118,15 @@
                     {% for income in incomes %}
                     <tr>
                         <td>{{ income.category }}</td>
-                        <td class="amount">£ {{ income.in_amount }}</td>
+                        <td class="amount">£{{ income.in_amount }}</td>
                         <td class="date-column">{{ income.date }}</td>
                         <td>{{ income.description }}</td>
                         <td>
                             <div class="d-grid gap-2 d-md-block">
-                                <a href="{% url 'edit_income' income.id %}" class="btn btn-primary btn-sm m-1 d-block d-md-inline-block custom-btn">Edit</a>
-                                <a href="{% url 'delete_income' income.id %}" class="btn btn-danger btn-sm m-1 d-block d-md-inline-block custom-btn">Delete</a>
+                                <a href="{% url 'edit_income' income.id %}"
+                                    class="btn btn-primary btn-sm m-1 d-block d-md-inline-block custom-btn">Edit</a>
+                                <a href="{% url 'delete_income' income.id %}"
+                                    class="btn btn-danger btn-sm m-1 d-block d-md-inline-block custom-btn">Delete</a>
                             </div>
                         </td>
                     </tr>
@@ -138,11 +136,11 @@
         </div>
     </div>
 </div>
-<!-- ########## [END] INCOME DETAILS DATATABLE ########## -->
 {% endblock %}
 
 {% block additional_js %}
-<!-- ########## [START] CHART.JS CONFIGURATION SCRIPT ########## -->
+
+<!-- ########## INCOME CHART.JS SCRIPT ########## -->
 <script>
     const ctx = document.getElementById('incomeChart').getContext('2d');
 
@@ -155,7 +153,6 @@
     backgroundColor: [
         'rgba(75, 192, 192, 0.4)',
         'rgba(255, 205, 86, 0.2)',
-        'rgba(75, 192, 192, 0.2)',
         'rgba(54, 162, 235, 0.2)',
         'rgba(153, 102, 255, 0.2)',
         'rgba(201, 203, 207, 0.2)'
@@ -164,19 +161,12 @@
             'rgb(75, 192, 192)',
             'rgb(255, 159, 64)',
             'rgb(255, 205, 86)',
-            'rgb(75, 192, 192)',
             'rgb(54, 162, 235)',
             'rgb(153, 102, 255)',
             'rgb(201, 203, 207)'
         ],
             borderWidth: 1
         }]
-    };
-
-    const configPie = {
-        type: 'pie',
-        data: data,
-        options: {}
     };
 
     const configBar = {
@@ -189,6 +179,12 @@
                 }
             }
         }
+    };
+
+    const configPie = {
+        type: 'pie',
+        data: data,
+        options: {}
     };
 
     const configDoughnut = {
@@ -227,9 +223,6 @@
         }
     }
 </script>
-<!-- ########## [END] CHART.JS CONFIGURATION SCRIPT ########## -->
-
-<!-- ########## [START] DATATTABLE.JS CONFIGURATION SCRIPT ########## -->
 
 <!-- Initialize DataTable with export buttons and search functionality -->
 <script>
@@ -271,25 +264,25 @@
             ],
             "columnDefs": [
                 { "className": "description-column", "targets": 3 }, // Apply the description-column class to the 3rd column
-                { "className": "actions-column", "targets": 4 } // Apply the actions-column class to the 4th column
+                { "className": "actions-column", "targets": 4 } // Apply the actions-column class to the 5th column
             ],
-            "autoWidth": true, // enable auto width adjustment
+            "autoWidth": true, // Enable auto width adjustment
             "columns": [
-                // set the width of each column
-                {"width": "20%"}, // category column
-                {"width": "10%"}, // amount column
-                {"width": "10%"}, // date column
-                {"width": "30%"}, // description column
-                {"width": "20%"} // Actions column
+                // Set the width of each column
+                { "width": "6%" }, // Category
+                { "width": "10%" }, // Amount
+                { "width": "10%" }, // Date
+                { "width": "30%" }, // Description
+                { "width": "20%" }  // Actions
             ]
         });
 
-        // initialise datatable for the summary table
+        // Initialize DataTable for the summary table
         $('#summaryTable').DataTable({
-            "autoWidth": true, // enable auto width adjustment
+            "autoWidth": true, // Enable auto width adjustment
         });
 
-        // apply custom styling to the 'Amount' column for 'incomeTable'
+        // Apply custom styling to the amount column in incomeTable
         $('#incomeTable tbody tr').each(function () {
             var amountCell = $(this).find('td.amount');
             var amountText = amountCell.text().replace('£', '');
@@ -302,7 +295,7 @@
             }
         });
 
-        // apply custom styling to the 'Amount' column in 'summaryTable'
+        // Apply custom styling to the amount column in summaryTable
         $('#summaryTable tbody tr').each(function () {
             var amountCell = $(this).find('td.summary-amount');
             var amountText = amountCell.text().replace('£', '');
@@ -315,13 +308,11 @@
             }
         });
 
-        // hide the year from the date on smaller screens
+        // Hide the year from the date on smaller screens
         function formatDate(dateStr, hideYear) {
             var date = new Date(dateStr);
             var options = hideYear ? { month: 'short', day: 'numeric' } : { year: 'numeric', month: 'short', day: 'numeric' };
             return date.toLocaleDateString(undefined, options);
-        }
-                return date.toLocaleDateString(undefined, options);
         }
 
         function updateDates() {
@@ -329,15 +320,16 @@
             $('#incomeTable tbody .date-column').each(function () {
                 var dateText = $(this).text();
                 var formattedDate = formatDate(dateText, hideYear);
+                $(this).text(formattedDate);
             });
         }
 
-        // run the updateDates function on page load and window resize
+        // Run the updateDates function on page load and window resize
         updateDates();
         $(window).resize(function () {
             updateDates();
         });
     });
 </script>
-<!-- ########## [END] DATATTABLE.JS CONFIGURATION SCRIPT ########## -->
+
 {% endblock %}
