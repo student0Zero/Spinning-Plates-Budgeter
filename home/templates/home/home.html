@@ -32,9 +32,18 @@
             <div class="card-body">
                 <h1 class="card-title text-center mt-2 mb-4">£ {{ total_expenses }}</h1>
                 <ul class="list-unstyled mt-3 mb-4">
-                    <li class="mb-2">The figure above is the total of all expenses you have recorded to date. Currently you have spent <span class="text-primary text-emphasis" style="font-size: 1.5rem;"><strong> {{ expense_percentage | floatformat:2 }}% </strong></span> of your income</li>
+                    <li class="mb-2">The figure above is the total of all expenses you have recorded to date. 
+                        Currently you have spent 
+                        <span class="text-primary text-emphasis" style="font-size: 1.5rem;">
+                            <strong> {{ expense_percentage | floatformat:2 }}% </strong>
+                        </span> of your income.
+                        <a href="#" class="text-inherit mr-3 fa-solid fa-circle-info" data-toggle="tooltip" data-placement="top" title="If this figure is 0 then you have yet to add any expenses or income." data-original-title="Zero Balance">
+                        </a>
+                    </li> 
                     <li class="mb-2">The rest of this page provides a summary of your expenses and incomes.</li>
-                    <li class="mb-2">See the Expenses Chart below to view each months total Expenditure.</li>
+                    <li class="mb-2" data-toggle="tooltip" title="">See the Expenses Chart below to view each months total Expenditure.
+                        <a href="#" class="text-inherit mr-3 fa-solid fa-circle-info" data-toggle="tooltip" data-placement="top" title="Again, if you have not added any expenses or incomes, then the charts will be blanks." data-original-title="Zero Balance"></a>
+                    </li>
                     <li class="mb-2">See the Expenses Table below to view your expenses by category of spend.</li>
                     <li class="mb-2">To get a more detailed view of your recorded expenses, select the button below to add new expenses or to view/edit existing ones.</li>
                     <li>This will take you to the Expenses Details View.</li>
