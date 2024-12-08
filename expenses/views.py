@@ -8,8 +8,15 @@ from django.db.models.functions import TruncMonth
 from django.utils.dateformat import DateFormat
 
 @login_required
+def income(request):
+    if request.user.is_authenticated:
+        return redirect('view_expenses')
+    else:
+        return redirect('account_login')
+
+@login_required
 def view_expenses(request):
-    # Get all expenses for the logged-in user
+    # Get all expenses and income for the logged-in user
     expenses = Expense.objects.filter(user=request.user)
     incomes = Income.objects.filter(user=request.user)
 

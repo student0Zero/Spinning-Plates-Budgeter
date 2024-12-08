@@ -1,9 +1,10 @@
-from django.views.generic import TemplateView
 from django.shortcuts import render, redirect, get_object_or_404
+from django.db.models import Sum
 from .models import Income
 from .forms import IncomeForm
 from django.contrib.auth.decorators import login_required
-from django.db.models import Sum
+from django.db.models.functions import TruncMonth
+from django.utils.dateformat import DateFormat
 
 @login_required
 def income(request):
@@ -26,17 +27,23 @@ def view_income(request):
         .order_by('category')  # Optional: Order categories alphabetically
     )
 
+    # Aggregate the sum of amounts received in each month
+    monthly_income_summary = incomes.annotate(month=TruncMonth('date')).values('month').annotate(total_amount=Sum('in_amount')).order_by('month')
+
+    # Calculate the sum of all incomes for the logged in user
+    total_income = incomes.aggregate(Sum('in_amount'))['in_amount__sum'] or 0
+
     # Prepare data for Chart.js
-    labels = [item['category'] for item in income_by_category]  # Updated to use CharField
-    data = [float(item['total_amount']) for item in income_by_category]  # Convert Decimal to float
+    income_labels = [DateFormat(item['month']).format('Y-m') for item in monthly_income_summary]
+    income_data = [float(item['total_amount']) for item in monthly_income_summary]
 
     context = {
         "incomes": incomes,  # Pass the incomes to the template
-        'income_by_category': income_by_category,  # Pass the income by category to the template
-        "labels": labels,  # Labels for Chart.js
-        "data": data,  # Data for Chart.js
+        'income_by_category': income_by_category, # pass the income by category to chart.js
+        'total_income': total_income,
+        'income_labels': income_labels,  # Labels for Chart.js
+        'income_data': income_data,  # Data for Chart.js
     }
-
     return render(request, 'income/view_income.html', context)
 
 # Create income
