@@ -22,7 +22,7 @@
 </style>
 {% endblock %}
 
-<!-- ########## [START] MAIN ########## -->
+<!-- ########## [START] CREATE/HOME BUTTON CARDS ########## -->
 <div class="container-fluid">
     <h1 class="mt-4">Expense Overview</h1>
     <hr class="mb-5">
@@ -85,10 +85,10 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% for expense in expenses_by_category %}
+                        {% for expense in expense_by_category %}
                         <tr>
                             <td>{{ expense.category }}</td>
-                            <td>£ {{ expense.total_amount }}</td>
+                            <td class="summary-amount">£ {{ expense.total_amount }}</td>
                         </tr>
                         {% endfor %}
                     </tbody>
@@ -96,13 +96,14 @@
             </div>
         </div>
     </div>
+</div>
     <!-- [END] TABLE - Expense by Category Datatable.js -->
 
     <!-- ########## [START] TABLE - Detailed Expenses  ########## -->
     <div class="card my-5 p-3">
         <h2>Details of Recorded Expenses</h2>
         <div class="table-responsive">
-            <table id="expensesTable" class="table table-striped table-hover table-bordered" style="width:100%">
+            <table id="expenseTable" class="table table-striped table-hover table-bordered" style="width:100%">
                 <thead>
                     <tr>
                         <th>Category</th>
@@ -230,7 +231,7 @@
 <!-- Initialize DataTable with export buttons and search functionality -->
 <script>
     $(document).ready(function () {
-        $('#expensesTable').DataTable({
+        $('#expenseTable').DataTable({
             "searching": true, // This enables the search box
             "dom": '<"top"iBf>rt<"bottom"lp><"clear">', // Custom layout to place buttons above the table
             "buttons": [
@@ -292,7 +293,7 @@
         });
 
         // Apply custom styling to the amount column in expensesTable
-        $('#expensesTable tbody tr').each(function () {
+        $('#expenseTable tbody tr').each(function () {
             var amountCell = $(this).find('td.amount');
             var amountText = amountCell.text().replace('£', '');
             var amount = parseFloat(amountText);
@@ -311,6 +312,7 @@
             var amountText = amountCell.text().replace('£', '');
             var amount = parseFloat(amountText);
 
+            // forcing text styling based on positive or negative values
             if (amount < 0) {
                 amountCell.css('color', 'red').css('font-weight', 'bold');
             } else if (amount > 0) {
@@ -321,13 +323,13 @@
         // Hide the year from the date on smaller screens
         function formatDate(dateStr, hideYear) {
             var date = new Date(dateStr);
-            var options = hideYear ? { month: 'short', day: 'numeric' } : {year: 'numeric', month: 'short', day: 'numeric'};
+            var options = hideYear ? { month: 'short', day: 'numeric' } : { year: 'numeric', month: 'short', day: 'numeric' };
             return date.toLocaleDateString(undefined, options);
         }
 
         function updateDates() {
             var hideYear = $(window).width() <= 576;
-            $('#expensesTable tbody .date-column').each(function () {
+            $('#expenseTable tbody .date-column').each(function () {
                 var dateText = $(this).text();
                 var formattedDate = formatDate(dateText, hideYear);
                 $(this).text(formattedDate);
@@ -337,7 +339,7 @@
         // Run the updateDates function on page load and window resize
         updateDates();
         $(window).resize(function () {
-                updateDates();
+            updateDates();
         });
     });
 </script>
