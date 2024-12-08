@@ -6,5 +6,5 @@ urlpatterns = [
     path('', include('home.urls')),
     path('income/', include('income.urls')),
     path('expenses/', include('expenses.urls')),
-    path('accounts/', include('allauth.urls')), 
+    path('accounts/', include('allauth.urls')),
 ]

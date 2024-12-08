@@ -30,23 +30,21 @@
     <hr class="mb-5">
     <div class="row justify-content-center row-cols-1 row-cols-md-2 g-4">
         <div class="card-group m-5">
-            <!-- [START] Total Expense Card -->
+            <!-- Total Expenses Card -->
             <div class="col-sm-6">
                 <div class="card border border-warning border-5 rounded-3 m-3 h-100">
                     <div class="card-body d-flex flex-column text-center">
-                        <h5 class="card-title">{{ user }}'s Total Spend</h5>
+                        <h5 class="card-title">TOTAL EXPENSES</h5>
                         <p class="card-text total-income-text  fw-bold fs-2 pt-3">£ {{ total_expenses }}</p>
                         <a href="{% url 'view_expenses' %}" class="btn btn-primary mt-auto">Add / View Expenses</a>
                     </div>
                 </div>
             </div>
-            <!-- [END] Total Expense Card -->
-
-            <!-- [START] Total Income Card -->
+            <!-- Total Income Card -->
             <div class="col-sm-6">
                 <div class="card border border-success border-5 rounded-3 m-3 h-100">
                     <div class="card-body d-flex flex-column text-center">
-                        <h5 class="card-title">{{ user }}'s Total Income</h5>
+                        <h5 class="card-title">TOTAL INCOME</h5>
                         <p class="card-text total-income-text fw-bold fs-2 pt-3">£ {{ total_income }}</p>
                         <a href="{% url 'view_income' %}" class="btn btn-primary mt-auto">Add / View Income</a>
                     </div>
@@ -65,7 +63,7 @@
 <div class="row row-cols-1 row-cols-md-2 g-4">
     <div class="col">
         <div class="card">
-            <h3>Expense Charts</h3>
+            <h3>Expenses Charts</h3>
             <hr>
             <div class="chartCard">
                 <div class="chartBox">
@@ -82,9 +80,7 @@
             </div>
         </div>
     </div>
-    <!-- [END] Expense Charts -->
-    
-    <!-- [START] Income Charts -->
+
     <div class="col">
         <div class="card">
             <h3>Income Charts</h3>
@@ -138,11 +134,9 @@
                     </tfoot>
                 </table>
             </div>
-            <!-- [END] Expenses Summary by Category -->
         </div>
     </div>
 
-    <!-- [START] Income Summary by Category -->
     <div class="col">
         <div class="card mt-5">
             <h3>Income Summary by Category</h3>
@@ -191,23 +185,23 @@
         datasets: [{
             label: 'Total Spent',
             data: {{ expense_data | safe }},
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.4)',
-                'rgba(255, 205, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(201, 203, 207, 0.2)',
-            ],
-            borderColor: [
-                'rgb(255, 99, 132)',
-                'rgb(255, 159, 64)',
-                'rgb(255, 205, 86)',
-                'rgb(75, 192, 192)',
-                'rgb(54, 162, 235)',
-                'rgb(153, 102, 255)',
-                'rgb(201, 203, 207)',
-            ],
+    backgroundColor: [
+        'rgba(255, 99, 132, 0.4)',
+        'rgba(255, 205, 86, 0.2)',
+        'rgba(75, 192, 192, 0.2)',
+        'rgba(54, 162, 235, 0.2)',
+        'rgba(153, 102, 255, 0.2)',
+        'rgba(201, 203, 207, 0.2)',
+    ],
+        borderColor: [
+            'rgb(255, 99, 132)',
+            'rgb(255, 159, 64)',
+            'rgb(255, 205, 86)',
+            'rgb(75, 192, 192)',
+            'rgb(54, 162, 235)',
+            'rgb(153, 102, 255)',
+            'rgb(201, 203, 207)',
+        ],
             borderWidth: 3
         }]
     };
@@ -219,21 +213,21 @@
         datasets: [{
             label: 'Total Earnings',
             data: {{ income_data | safe }},
-            backgroundColor: [
-                'rgba(75, 192, 192, 0.4)',
-                'rgba(255, 205, 86, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(201, 203, 207, 0.2)',
-            ],
-            borderColor: [
-                'rgb(75, 192, 192)',
-                'rgb(255, 159, 64)',
-                'rgb(255, 205, 86)',
-                'rgb(54, 162, 235)',
-                'rgb(153, 102, 255)',
-                'rgb(201, 203, 207)'
-            ],
+    backgroundColor: [
+        'rgba(75, 192, 192, 0.4)',
+        'rgba(255, 205, 86, 0.2)',
+        'rgba(54, 162, 235, 0.2)',
+        'rgba(153, 102, 255, 0.2)',
+        'rgba(201, 203, 207, 0.2)',
+    ],
+        borderColor: [
+            'rgb(75, 192, 192)',
+            'rgb(255, 159, 64)',
+            'rgb(255, 205, 86)',
+            'rgb(54, 162, 235)',
+            'rgb(153, 102, 255)',
+            'rgb(201, 203, 207)'
+        ],
             borderWidth: 3
         }]
     };

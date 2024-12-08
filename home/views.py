@@ -1,31 +1,33 @@
 from django.shortcuts import render
 from django.db.models import Sum
+from django.db.models.functions import TruncMonth
 from expenses.models import Expense
 from income.models import Income
 from django.utils.dateformat import DateFormat
 from django.contrib.auth.decorators import login_required
-from django.db.models.functions import TruncMonth
 
 @login_required
 def home_view(request):
     expenses = Expense.objects.filter(user=request.user)
     incomes = Income.objects.filter(user=request.user)
 
-    # Aggregate by month
-    expense_summary = expenses.annotate(month=TruncMonth('date')).values('month').annotate(total_amount=Sum('amount')).order_by('month')
-    income_summary = incomes.annotate(month=TruncMonth('date')).values('month').annotate(total_amount=Sum('in_amount')).order_by('month')
+    # Aggregate the sum of amounts spent in each month
+    monthly_expense_summary = expenses.annotate(month=TruncMonth('date')).values('month').annotate(total_amount=Sum('amount')).order_by('month')
+    monthly_income_summary = incomes.annotate(month=TruncMonth('date')).values('month').annotate(total_amount=Sum('in_amount')).order_by('month')
+
+    # Aggregate the sum of amounts spent in each category
+    expense_summary = expenses.values('category').annotate(total_amount=Sum('amount')).order_by('category')
+    income_summary = incomes.values('category').annotate(total_amount=Sum('in_amount')).order_by('category')
 
     # Calculate the sum of all expenses and income for the logged-in user
     total_expenses = expenses.aggregate(Sum('amount'))['amount__sum'] or 0
     total_income = incomes.aggregate(Sum('in_amount'))['in_amount__sum'] or 0
 
     # Prepare data for Chart.js
-    # Convert the date to a string for home.html view
-    expense_labels = [DateFormat(item['month']).format('Y-m') for item in expense_summary]
-    expense_data = [float(item['total_amount']) for item in expense_summary]
-    # Convert the date to a string for home.html view
-    income_labels = [DateFormat(item['month']).format('Y-m') for item in income_summary]
-    income_data = [float(item['total_amount']) for item in income_summary]
+    expense_labels = [DateFormat(item['month']).format('Y-m') for item in monthly_expense_summary]
+    expense_data = [float(item['total_amount']) for item in monthly_expense_summary]
+    income_labels = [DateFormat(item['month']).format('Y-m') for item in monthly_income_summary]
+    income_data = [float(item['total_amount']) for item in monthly_income_summary]
 
     context = {
         'expenses': expenses,
