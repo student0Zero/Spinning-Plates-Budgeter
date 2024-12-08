@@ -15,19 +15,19 @@
 
           <li class="nav-item" role="presentation">
             <a class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}" id="home-tab"
-              href="{% url 'home' %}" role="tab" aria-controls="home" aria-selected="true">Home</a>
+              href="{% url 'home' %}" role="tab" aria-controls="home" aria-selected="true">Summary View</a>
           </li>
 
           <li class="nav-item" role="presentation">
             <a class="nav-link {% if request.resolver_match.url_name == 'view_expenses' %}active{% endif %}"
               id="expenses-tab" href="{% url 'view_expenses' %}" role="tab" aria-controls="view_expenses"
-              aria-selected="false">Expenses</a>
+              aria-selected="false">Expenses View</a>
           </li>
 
           <li class="nav-item" role="presentation">
             <a class="nav-link {% if request.resolver_match.url_name == 'view_income' %}active{% endif %}"
               id="income-tab" href="{% url 'view_income' %}" role="tab" aria-controls="view_income"
-              aria-selected="false">Income</a>
+              aria-selected="false">Income View</a>
           </li>
 
           <!-- Profile & Settings Dropdown -->

@@ -23,6 +23,12 @@ def home_view(request):
     total_expenses = expenses.aggregate(Sum('amount'))['amount__sum'] or 0
     total_income = incomes.aggregate(Sum('in_amount'))['in_amount__sum'] or 0
 
+    # Calculate the percentage of total expenses relative to total income
+    if total_income > 0:
+        expense_percentage = (total_expenses / total_income) * 100
+    else:
+        expense_percentage = 0
+
     # Prepare data for Chart.js
     expense_labels = [DateFormat(item['month']).format('Y-m') for item in monthly_expense_summary]
     expense_data = [float(item['total_amount']) for item in monthly_expense_summary]
@@ -36,6 +42,7 @@ def home_view(request):
         'income_summary': income_summary,
         'total_expenses': total_expenses,
         'total_income': total_income,
+        'expense_percentage': expense_percentage,
         'expense_labels': expense_labels,
         'expense_data': expense_data,
         'income_labels': income_labels,

@@ -32,7 +32,7 @@
             <div class="card-body">
                 <h1 class="card-title text-center mt-2 mb-4">£ {{ total_expenses }}</h1>
                 <ul class="list-unstyled mt-3 mb-4">
-                    <li class="mb-2">The figure above is the total of all expenses you have recorded to date.</li>
+                    <li class="mb-2">The figure above is the total of all expenses you have recorded to date. Currently you have spent <span class="text-primary text-emphasis" style="font-size: 1.5rem;"><strong> {{ expense_percentage | floatformat:2 }}% </strong></span> of your income</li>
                     <li class="mb-2">The rest of this page provides a summary of your expenses and incomes.</li>
                     <li class="mb-2">See the Expenses Chart below to view each months total Expenditure.</li>
                     <li class="mb-2">See the Expenses Table below to view your expenses by category of spend.</li>
