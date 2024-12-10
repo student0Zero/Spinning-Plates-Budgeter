@@ -1,27 +1,6 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
-{% block additional_css %}
-<style>
-    /* ########### DEBUG STYLING ########### */
-    /* Add border to container for debugging */
-    /* .container {
-        border: 2px solid green;
-    }
-
-    .row {
-        border: 2px solid orange;
-    }
-
-    .col-sm-6 {
-        border: 2px solid purple;
-    } */
-
-    /* ########### DEBUG STYLING ########### */
-</style>
-{% endblock %}
-
 <div class="grid gap-3">
     <div class="p-2 g-col-6">
         <div class="card my-4 rounded-3 shadow-sm">
@@ -29,6 +8,7 @@
                 <h4 class="my-0 fw-normal">Record A New Income</h4>
             </div>
 
+            <!-- [START] SUMMARY CARD -->
             <div class="card-body">
                 <h1 class="card-title text-center mt-2 mb-4">£ {{ total_income }}</h1>
                 <ul class="list-unstyled mt-3 mb-4">
@@ -41,11 +21,13 @@
                 </ul>
                 <a href="{% url 'create_income' %}" class="w-100 btn btn-lg btn-outline-primary">Create A New Income</a>
             </div>
+            <!-- [END] SUMMARY CARD -->
         </div>
     </div>
 
     <div class="p-2 g-col-6">
         <div class="card mb-4 rounded-3 shadow-sm">
+            <!-- [START] INCOME CHART CARD -->
             <div class="card-header py-3">
                 <h4 class="my-0 fw-normal">Income Charts</h4>
             </div>
@@ -62,11 +44,13 @@
                     </select>
                 </div>
             </div>
+            <!-- [END] INCOME CHART CARD -->
         </div>
     </div>
 
     <div class="p-2 g-col-6">
         <div class="card mb-4 rounded-3 shadow-sm">
+            <!-- [START] INCOME BY CAT CHART CARD -->
             <div class="card-header py-3">
                 <h4 id="incomeCategory" class="my-0 fw-normal">Income By Category</h4>
             </div>
@@ -88,11 +72,13 @@
                     </tbody>
                 </table>
             </div>
+            <!-- [END] INCOME BY CAT CHART CARD -->
         </div>
     </div>
 
     <div class="p-2 g-col-6">
         <div class="card mb-4 rounded-3 shadow-sm">
+            <!-- [START] INCOME DETAILS TABLE CARD -->
             <div class="card-header py-3">
                 <h4 id="incomeDetails" class="my-0 fw-normal">Details of Recorded Incomes</h4>
             </div>
@@ -127,6 +113,7 @@
                     </tbody>
                 </table>
             </div>
+            <!-- [END] INCOME DETAILS TABLE CARD -->
         </div>
     </div>
 </div>

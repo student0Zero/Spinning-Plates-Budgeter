@@ -4,12 +4,6 @@ body {
   height: 100%;
 }
 
-/* DEBUG */
-/* body {
-    font-family: 'Lato';
-    background-color: brown;
-} */
-
 /* ########### NAVBAR STYLING ########### */
 /* Active class for header active item selection indication */
 .active {
@@ -35,30 +29,6 @@ body {
   color: white; /* Ensure the text color is white */
   font-weight: bold; /* Ensure the text is bold */
 }
-
-/* ################################ */
-/* ##### EXPENSES DATATABLE STYLING */
-
-/* Ensure the chartBox fits within the chartCard */
-/* .chartBox {
-  width: 100%;
-  padding: 10px;
-  border-radius: 20px;
-  border: solid 3px rgba(54, 162, 235, 1);
-  background: white;
-} */
-
-/* Add border to chartCard for debugging */
-/* Prevent overflow */
-/* .chartCard {
-  border: 2px solid red;
-  overflow: hidden;
-} */
-
-/* Add border to card for debugging */
-/* .card {
-  border: 2px solid blue;
-} */
 
 /* ################################ */
 /* ##### EXPENSES DATATABLE STYLING */

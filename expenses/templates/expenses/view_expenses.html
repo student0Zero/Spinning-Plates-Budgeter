@@ -2,25 +2,6 @@
 
 {% block content %}
 
-{% block additional_css %}
-<style>
-    /* ########### [START] DEBUG STYLING ########### */
-    /* Add border to container for debugging */
-    /* .container {
-        border: 2px solid green;
-    }
-
-    .row {
-        border: 2px solid orange;
-    }
-
-    .col-sm-6 {
-        border: 2px solid purple;
-    } */
-
-    /* ########### [END] DEBUG STYLING ########### */
-</style>
-{% endblock %}
 <div class="grid gap-3">
     <!-- ########## [START] SUM OF INCOME AND EXPENSES CARDS ########## -->
     <div class="p-2 g-col-6">
@@ -96,7 +77,9 @@
             </div>
         </div>
     </div>
+    <!-- [END] TABLE - Expense by Category Datatable.js -->
 
+    <!-- [START] TABLE - Expense Details Datatable.js -->
     <div class="p-2 g-col-6">
         <div class="card mb-4 rounded-3 shadow-sm">
             <div class="card-header py-3">
@@ -135,7 +118,7 @@
             </div>
         </div>
     </div>
-    
+     <!-- [END] TABLE - Expense Details Datatable.js -->
 </div>
 {% endblock %}
 

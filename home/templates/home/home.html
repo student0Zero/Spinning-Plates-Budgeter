@@ -2,26 +2,6 @@
 
 {% block content %}
 
-{% block additional_css %}
-<style>
-    /* ########### DEBUG STYLING ########### */
-    /* Add border to container for debugging */
-    /* .container {
-        border: 2px solid green;
-    }
-
-    .row {
-        border: 2px solid orange;
-    }
-
-    .col-sm-6 {
-        border: 2px solid purple;
-    } */
-
-    /* ########### DEBUG STYLING ########### */
-</style>
-
-{% endblock %}
 <div class="grid gap-3">
     <!-- ########## [START] SUM OF INCOME AND EXPENSES CARDS ########## -->
     <div class="p-2 g-col-6">
@@ -41,11 +21,10 @@
                         </a>
                     </li> 
                     <li class="mb-2">The rest of this page provides a summary of your expenses and incomes.</li>
-                    <li class="mb-2" data-toggle="tooltip" title="">See the Expenses Chart below to view each months total Expenditure.
+                    <li class="mb-2" data-toggle="tooltip" title="">See the <strong><a href="#expenseCharts">Expenses Charts</a></strong> to view your expenses plotted monthly on a pie, bar, line or doughnut chart. Alternatively you can take a closer look and view the <strong><a href="#expenseCategory">Expenses By Category Table</a></strong> to see your expenses summariese by category.
                         <a href="#" class="text-inherit mr-3 fa-solid fa-circle-info" data-toggle="tooltip" data-placement="top" title="Again, if you have not added any expenses or incomes, then the charts will be blanks." data-original-title="Zero Balance"></a>
                     </li>
-                    <li class="mb-2">See the Expenses Table below to view your expenses by category of spend.</li>
-                    <li class="mb-2">To get a more detailed view of your recorded expenses, select the button below to add new expenses or to view/edit existing ones.</li>
+                    <li class="mb-2">To <strong>Add</strong> a new expense, or to <strong>Edit</strong> / <strong>Delete</strong> and existing expense, select the button below which will take you to the detailed expenses view.</li>
                     <li>This will take you to the Expenses Details View.</li>
                 </ul>
                 <a href="{% url 'view_expenses' %}" class="w-100 btn btn-lg btn-outline-primary">Go To Expenses View</a>
@@ -62,10 +41,11 @@
                 <h1 class="card-title text-center mt-2 mb-4">£ {{ total_income }}</h1>
                 <ul class="list-unstyled mt-3 mb-4">
                     <li class="mb-2">The figure above is the total of all incomes you have recorded to date.</li>
-                    <li class="mb-2">The rest of this page provides a summary of your incomes and expenses.</li>
                     <li class="mb-2">See the Income Chart below to view each months total incomes.</li>
-                    <li class="mb-2">See the income table below to view your income by income source totals.</li>
-                    <li class="mb-2">To get a more detailed view of your recorded incomes, select the button below to add new incomes or to view/edit existing ones.</li>
+                    <li class="mb-2" data-toggle="tooltip" title="">See the <strong><a href="#incomeCharts">Income Charts</a></strong> to view your incomes plotted monthly on a pie, bar, line or doughnut chart. Alternatively you can take a closer look and view the <strong><a href="#incomeCategory">Income By Income Source Table</a></strong> to see the total earnings from each income source.
+                        <a href="#" class="text-inherit mr-3 fa-solid fa-circle-info" data-toggle="tooltip" data-placement="top" title="Again, if you have not added any expenses or incomes, then the charts will be blanks." data-original-title="Zero Balance"></a>
+                    </li>
+                    <li class="mb-2">To <strong>Add</strong> a new income, or to <strong>Edit</strong> / <strong>Delete</strong> and existing income, select the button below which will take you to the detailed income view.</li>
                     <li class="mb-2">This will take you to the Income Details View.</li>
                 </ul>
                 <a href="{% url 'view_income' %}" class="w-100 btn btn-lg btn-outline-primary">Go To Incomes View</a>
@@ -78,7 +58,7 @@
     <div class="p-2 g-col-6">
         <div class="card mb-4 rounded-3 shadow-sm">
             <div class="card-header py-3">
-                <h4 class="my-0 fw-normal">Expenses Charts</h4>
+                <h4 class="my-0 fw-normal" id="expenseCharts">Expenses Charts</h4>
             </div>
             <div class="chartCard">
                 <div class="chartBox">
@@ -97,11 +77,46 @@
     </div>
 <!-- ########## [END] EXPENSES CHART.JS DIV ########## -->
 
+<!-- ########## [START] EXPENSES BY CAT TABLE ########## -->
+<div class="p-2 g-col-6">
+    <div class="card mb-4 rounded-3 shadow-sm">
+        <div class="card-header py-3">
+            <h4 class="my-0 fw-normal" id="expenseCategory">Total Expenses by Spending Category</h4>
+        </div>
+        <div class="table-responsive">
+            <table id="expensesSummaryTable" class="table table-striped table-hover table-bordered"
+                 style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th>Total Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for summary in expense_summary %}
+                    <tr>
+                        <td>{{ summary.category }}</td>
+                    <td class="summary-amount">£ {{ summary.total_amount }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>Total</th>
+                        <th>£ {{ total_expenses }}</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+<!-- ########## [END] EXPENSES BY CAT TABLE ########## -->
+
 <!-- ########## [START] INCOME CHART.JS DIV ########## -->
     <div class="p-2 g-col-6">
         <div class="card mb-4 rounded-3 shadow-sm">
             <div class="card-header py-3">
-                <h4 class="my-0 fw-normal">Income Charts</h4>
+                <h4 class="my-0 fw-normal" id="incomeCharts">Income Charts</h4>
             </div>
             <div class="chartCard">
                 <div class="chartBox">
@@ -120,46 +135,11 @@
     </div>
 <!-- ########## [END] INCOME CHART.JS DIV ########## -->
 
-<!-- ########## [START] EXPENSES SUMMARY TABLE ########## -->
-    <div class="p-2 g-col-6">
-        <div class="card mb-4 rounded-3 shadow-sm">
-            <div class="card-header py-3">
-                <h4 class="my-0 fw-normal">Total Expenses by Spending Category</h4>
-            </div>
-            <div class="table-responsive">
-                <table id="expensesSummaryTable" class="table table-striped table-hover table-bordered"
-                     style="width:100%">
-                    <thead>
-                        <tr>
-                            <th>Category</th>
-                            <th>Total Amount</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for summary in expense_summary %}
-                        <tr>
-                            <td>{{ summary.category }}</td>
-                        <td class="summary-amount">£ {{ summary.total_amount }}</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <th>Total</th>
-                            <th>£ {{ total_expenses }}</th>
-                        </tr>
-                    </tfoot>
-                </table>
-            </div>
-        </div>
-    </div>
-<!-- ########## [END] EXPENSES SUMMARY TABLE ########## -->
-
 <!-- ########## [START] INCOME SUMMARY TABLE ########## -->
     <div class="p-2 g-col-6">
         <div class="card mb-4 rounded-3 shadow-sm">
             <div class="card-header py-3">
-                <h4 class="my-0 fw-normal">Total Earnings by Income Source</h4>
+                <h4 class="my-0 fw-normal" id="incomeCategory">Total Earnings by Income Source</h4>
             </div>
             <div class="table-responsive">
                 <table id="incomeSummaryTable" class="table table-striped table-hover table-bordered"
@@ -189,8 +169,6 @@
         </div>
     </div>
 <!-- ########## [END] INCOME SUMMARY TABLE ########## -->
-
-
 {% endblock %}
 
 {% block additional_js %}
