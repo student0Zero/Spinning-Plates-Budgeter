@@ -14,9 +14,10 @@ class IncomeViewTests(TestCase):
         # Create a test income
         self.income = Income.objects.create(
             user=self.user,
-            category='Salary',
+            date='2024-12-08',
             in_amount=1000,
-            date='2023-12-08'
+            description='Monthly salary',
+            category='Salary',
         )
 
     def test_edit_income_get(self):
@@ -29,22 +30,25 @@ class IncomeViewTests(TestCase):
     def test_edit_income_post_valid(self):
         # Test POST request to edit income view with valid data
         data = {
-            'category': 'Bonus',
+            'date': '2024-12-09',
             'in_amount': 1500,
-            'date': '2023-12-09'
+            'description': 'Year-end bonus',
+            'category': 'Bonus',
         }
         response = self.client.post(reverse('edit_income', args=[self.income.id]), data)
         self.assertRedirects(response, reverse('view_income'))
         self.income.refresh_from_db()
+        self.assertEqual(self.income.in_amount, 1500),
+        self.assertEqual(self.income.description, 'Year-end bonus'),
         self.assertEqual(self.income.category, 'Bonus')
-        self.assertEqual(self.income.in_amount, 1500)
 
     def test_edit_income_post_invalid(self):
         # Test POST request to edit income view with invalid data
         data = {
-            'category': '',
+            'date': '',
             'in_amount': '',
-            'date': ''
+            'description': '',
+            'category': '',
         }
         response = self.client.post(reverse('edit_income', args=[self.income.id]), data)
         self.assertEqual(response.status_code, 302)
@@ -72,9 +76,10 @@ class IncomeViewTests(TestCase):
     def test_create_income_post_valid(self):
         # Test POST request to create income view with valid data
         data = {
-            'category': 'Freelance',
+            'date': '2024-12-10',
             'in_amount': 500,
-            'date': '2023-12-10'
+            'description': 'Django project',
+            'category': 'Freelance',
         }
         response = self.client.post(reverse('create_income'), data)
         self.assertRedirects(response, reverse('view_income'))
@@ -83,9 +88,10 @@ class IncomeViewTests(TestCase):
     def test_create_income_post_invalid(self):
         # Test POST request to create income view with invalid data
         data = {
-            'category': '',
+            'date': '',
             'in_amount': '',
-            'date': ''
+            'description': '',
+            'category': '',
         }
         response = self.client.post(reverse('create_income'), data)
         self.assertEqual(response.status_code, 302)
