@@ -6,6 +6,9 @@ from income.models import Income
 from django.utils.dateformat import DateFormat
 from django.contrib.auth.decorators import login_required
 
+# landing page view
+def index(request):
+    return render(request, 'home/index.html')
 
 @login_required
 def home_view(request):
