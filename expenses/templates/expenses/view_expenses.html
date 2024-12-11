@@ -2,9 +2,31 @@
 
 {% block content %}
 
+{% block additional_css %}
+<style>
+    /* ########### DEBUG STYLING ########### */
+    /* Add border to container for debugging */
+    /* .container {
+        border: 2px solid green;
+    }
+
+    .row {
+        border: 2px solid orange;
+    }
+
+    .col-sm-6 {
+        border: 2px solid purple;
+    } */
+
+    /* ########### DEBUG STYLING ########### */
+</style>
+{% endblock %}
+
+
+
 <div class="container-fluid">
     <!-- ########## [START] SUM OF INCOME AND EXPENSES CARDS ########## -->
-    <div class="p-2 g-col-6">
+    <div class="p-2 g-col">
         <div class="card my-4 rounded-3 shadow-sm">
             <div class="card-header py-3">
                 <h4 class="my-0 fw-normal">Expenses to date</h4>
@@ -36,12 +58,12 @@
     <!-- ########## [START] EXPENSES CHART.JS DIV ########## -->
     <div class="row row-cols-1 row-cols-md-2 g-4">
         <div class="col">
-            <div class="card mb-4 rounded-3 shadow-sm">
+            <div class="card mb-4 rounded-3 shadow-sm h-100">
                 <div class="card-header py-3">
                     <h4 class="my-0 fw-normal">Expenses Charts</h4>
                 </div>
-                <div class="chartCard">
-                    <div class="chartBox">
+                <div class="chartCard d-flex flex-column">
+                    <div class="chartBox flex-grow-1">
                         <canvas id="expenseChart"></canvas>
                         <!-- Selector for chart types -->
                         <select onchange="changeChart(this)" name="" id="">
@@ -55,30 +77,29 @@
                 </div>
             </div>
         </div>
-            
-            <div class="col">
-                <div class="card mb-4 rounded-3 shadow-sm">
-                    <div class="card-header py-3">
-                        <h4 id="expenseCategory" class="my-0 fw-normal">Expenses By Category</h4>
-                    </div>
-                    <div class="table-responsive">
-                        <table id="summaryTable" class="table table-striped table-hover table-bordered" style="width:100%">
-                            <thead>
-                                <tr>
-                                    <th>Category</th>
-                                    <th>Total Amount</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for expense in expense_by_category %}
-                                <tr>
-                                    <td>{{ expense.category }}</td>
-                                    <td class="summary-amount">£ {{ expense.total_amount }}</td>
-                                </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
+    
+        <div class="col">
+            <div class="card mb-4 rounded-3 shadow-sm h-100">
+                <div class="card-header py-3">
+                    <h4 id="expenseCategory" class="my-0 fw-normal">Expenses By Category</h4>
+                </div>
+                <div class="table-responsive d-flex flex-column">
+                    <table id="summaryTable" class="table table-striped table-hover table-bordered flex-grow-1" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>Category</th>
+                                <th>Total Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for expense in expense_by_category %}
+                            <tr>
+                                <td>{{ expense.category }}</td>
+                                <td class="summary-amount">£ {{ expense.total_amount }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
