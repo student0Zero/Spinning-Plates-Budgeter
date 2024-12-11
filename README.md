@@ -2,9 +2,16 @@
 
 This is a simple budget and expense tracking app built with Django. The app allows users to create budgets and track expenses against those budgets. The app is built with Django, HTML, CSS, and JavaScript. The app is deployed on Heroku and uses a Postgresql database.
 
-<hr>
-## Live website
-The app is live at [Spinning Plates](https://spinning-plates-budgeter.herokuapp.com/ "https://spinning-plates-budgeter.herokuapp.com/")
+
+![Spinnging-Plates-Budgeter Homepage](docs/project-images/homepage.png)
+
+## Live website:
+The app is live at <a href="https://spinning-plates-budgeter.herokuapp.com/" target="blank">Spinning Plates Budgeter</a>
+
+Admin access with associated sign-in information can be accessed from <a href="https://spinning-plates-budgeter-015aa561b471.herokuapp.com/admin/" target="_blank">here</a>.
+
+The Github repository for this project can be found <a href="https://github.com/student0Zero/Spinning-Plates-Budgeter" target="_blank">here</a>..
+
 ## Purpose of the project
 The purpose of this project is to build a simple budgeting app that allows users to track expenses against budgets. The app is built with Django and uses a Postgresql database as a proof of concept project with the aim of demonstrating the authors ability to develop a CRUD project using Django, Postrgres, and a Bootstrap framework. The app is deployed on Heroku.
 ## Table of Contents

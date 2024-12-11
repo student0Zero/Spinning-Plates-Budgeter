@@ -6,7 +6,7 @@ from income.models import Income
 from django.contrib.auth.decorators import login_required
 from django.db.models.functions import TruncMonth
 from django.utils.dateformat import DateFormat
-
+from django.contrib import messages
 
 @login_required
 def income(request):
@@ -87,9 +87,10 @@ def create_expense(request):
             expense = form.save(commit=False)
             expense.user = request.user
             expense.save()
+            messages.success(request, 'Expense created successfully')
             return redirect("view_expenses")
         else:
-            print(form.errors)
+            message.errors(request, 'Failed to create expense. Please correct the errors and try again')
             return redirect("home")
     else:
         form = ExpenseForm()
@@ -108,16 +109,16 @@ def edit_expense(request, id):
             expense = form.save(commit=False)
             expense.user = request.user
             expense.save()
+            messages.success(request, 'Expense updated successfully')
             return redirect("view_expenses")
         else:
-            print(form.errors)
+            messages.error(request, 'Failed to update expense. Please correct the errors and try again.')
             return redirect("home")
     else:
         form = ExpenseForm(instance=expense)
         context = {
             "form": form,
         }
-
     return render(request, "expenses/edit_expense.html", context)
 
 
@@ -126,6 +127,10 @@ def delete_expense(request, id):
     expense = get_object_or_404(Expense, id=id)
     if request.method == "POST":
         expense.delete()
+        messages.success(request, 'Expense deleted successfully')
         return redirect("view_expenses")
     else:
-        return render(request, "expenses/delete_expense.html")
+        context = {
+            'expense':expense
+        }
+        return render(request, 'expenses/delete_expense.html', context)

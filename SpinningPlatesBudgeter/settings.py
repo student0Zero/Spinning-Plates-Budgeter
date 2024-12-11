@@ -19,6 +19,9 @@ import dj_database_url
 if os.path.exists("env.py"):
     import env
 
+# import messages
+from django.contrib.messages import constants as messages
+
 # Email configuration for development
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
@@ -90,6 +93,17 @@ CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 ROOT_URLCONF = "SpinningPlatesBudgeter.urls"
+
+# Message storage
+MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
+
+MESSAGE_TAGS = {
+    messages.DEBUG: 'debug',
+    messages.INFO: 'info',
+    messages.SUCCESS: 'success',
+    messages.WARNING: 'warning',
+    messages.ERROR: 'danger',
+}
 
 TEMPLATES = [
     {

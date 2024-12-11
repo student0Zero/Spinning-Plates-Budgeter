@@ -5,6 +5,7 @@ from .forms import IncomeForm
 from django.contrib.auth.decorators import login_required
 from django.db.models.functions import TruncMonth
 from django.utils.dateformat import DateFormat
+from django.contrib import messages
 
 
 @login_required
@@ -64,9 +65,10 @@ def create_income(request):
             income = form.save(commit=False)
             income.user = request.user  # Assign the logged-in user
             income.save()
+            messages.success(request, 'Income created successfully')
             return redirect("view_income")
         else:
-            print(form.errors)
+            message.errors(request, 'Failed to create income. Please correct the errors and try again')
             return redirect("home")
     else:
         form = IncomeForm()
@@ -86,10 +88,10 @@ def edit_income(request, id):
             income = form.save(commit=False)
             income.user = request.user
             income.save()
-            # messages.success(request, "Income edited.")
+            messages.success(request, "Income updated successfully")
             return redirect("view_income")
         else:
-            print(form.errors)
+            messages.error(request, 'Failed to update income. Please correct the errors and try again.')
             return redirect("home")
     else:
         form = IncomeForm(instance=income)
@@ -105,7 +107,11 @@ def delete_income(request, id):
     income = get_object_or_404(Income, id=id)
     if request.method == "POST":
         income.delete()
-        # messages.success(request, "Income deleted successfully.")
+        messages.success(request, "Income deleted successfully.")
         return redirect("view_income")
     else:
-        return render(request, "income/delete_income.html")
+        context = {
+            'income': income 
+        }
+        return render(request, 'income/delete_income.html', context)
+

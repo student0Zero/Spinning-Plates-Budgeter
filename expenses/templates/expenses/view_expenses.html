@@ -12,20 +12,42 @@
             <div class="card-body">
                 <h1 class="card-title text-center mt-2 mb-4">£ {{ total_expenses }}</h1>
                 <ul class="list-unstyled mt-3 mb-4">
-                    <li class="mb-2">Your current total recorded expenses are displayed above. This is currently
+
+                    <li class="mb-2"><i class="fa-solid fa-money-bill-1-wave fa-3x pe-2"></i>
+                        Your current total recorded expenses are displayed above. This is currently
                         <span class="text-primary text-emphasis" style="font-size: 1.5rem;">
                             <strong> {{ expense_percentage | floatformat:2 }}% </strong>
                         </span> of your recorded income to date.
                     </li>
-                    <li class="mb-2">You can edit or delete an expense straight from the <strong><a
-                                href="#expenseDetails">'Details of
-                                Recorded Expenses'</a></strong> table below.</li>
-                    <li class="mb-2">Use the Expenses Chart below to see which expense category is effecting you the
-                        most.</li>
-                    <li class="mb-2">See the <strong><a href="#expenseCategory">Expenses By Category Table</a></strong>
-                        below to view your expenses by category of spend.</li>
+
+                    <hr>
+
+                    <li class="mb-2"  data-toggle="tooltip" title=""><i class="fa-solid fa-table-list fa-3x pe-2"></i>
+                        You can edit or delete an expense straight from the 
+                        <strong>
+                            <a href="#expenseDetails">
+                                'Details of Recorded Expenses'
+                            </a>
+                        </strong> table below.
+                    </li>
+
+                    <hr>
+                    
+                    <li class="mb-2"data-toggle="tooltip" title=""><i class="fa-solid fa-chart-line fa-3x pe-2"></i>
+                        Use the Expenses Chart below to see which expense category is effecting you the most. 
+                        For example, use the 
+                        <strong>
+                            <a href="#expenseCategory">Expenses By Category Table
+                            </a>
+                        </strong>
+                         below to view your expenses by category of spend.
+                    </li>
+
+                    <hr>
+
                     <li class="mb-2">To record a new expenses, select the <strong>"Create A
-                            New Expense"</strong> button below...</li>
+                            New Expense"</strong> button below...
+                    </li>
                 </ul>
                 <a href="{% url 'create_expense' %}" class="w-100 btn btn-lg btn-outline-primary">Create A New
                     Expense</a>

@@ -41,10 +41,18 @@
         </div>
         <div class="card-body">
             <ul class="list-unstyled mt-3 mb-4">
-                <li class="mb-2">You have recorded a total of <span class="text-primary text-emphasis"
-                        style="font-size: 1.5rem;"> <strong> £ {{ total_expenses }} </strong></span>in expenses to date.
-                    This is currently <span class="text-primary text-emphasis" style="font-size: 1.5rem;">
-                        <strong> {{ expense_percentage | floatformat:2 }}% </strong>
+                <li class="mb-2"><i class="fa-solid fa-money-bill-1-wave fa-3x pe-2"></i>
+                    You have recorded a total of 
+                    <span class="text-primary text-emphasis" style="font-size: 1.5rem;">
+                        <strong>
+                            £ {{ total_expenses }}
+                        </strong>
+                    </span>in expenses to date.
+                    This is currently 
+                    <span class="text-primary text-emphasis" style="font-size: 1.5rem;">
+                        <strong>
+                            {{ expense_percentage | floatformat:2 }}%
+                        </strong>
                     </span> of your total income.
 
                     <a href="#" class="text-inherit mr-3 fa-solid fa-circle-info" data-toggle="tooltip"
