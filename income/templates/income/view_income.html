@@ -68,9 +68,9 @@
                 </div>
                 <div class="chartCard">
                     <div class="chartBox">
-                        <canvas id="incomeChart"></canvas>
+                        <canvas id="incomeViewChart"></canvas>
                             <!-- Selector for chart types -->
-                        <select onchange="changeChart(this)" name="incomeChart" id="incomeChart">
+                        <select onchange="changeChart(this)" name="incomeViewChart" id="incomeViewChart">
                             <optgroup label="Select Chart Type"></optgroup>
                             <option value="bar">Bar Chart</option>
                             <option value="pie">Pie Chart</option>
@@ -159,7 +159,7 @@
 {% block additional_js %}
 <!-- ########## INCOME CHART.JS SCRIPT ########## -->
 <script>
-    const ctx = document.getElementById('incomeChart').getContext('2d');
+    const ctx = document.getElementById('incomeViewChart').getContext('2d');
 
     const labels = {{ income_labels| safe }}; // Ensure this is one line
     const data = {
@@ -223,20 +223,20 @@
     };
 
     // Render the initial chart
-    let incomeChart = new Chart(ctx, configBar);
+    let incomeViewChart = new Chart(ctx, configBar);
 
     // Function to change the chart type
     function changeChart(chartType) {
-        incomeChart.destroy();
+        incomeViewChart.destroy();
 
         if (chartType.value === 'bar') {
-            incomeChart = new Chart(ctx, configBar);
+            incomeViewChart = new Chart(ctx, configBar);
         } else if (chartType.value === 'pie') {
-            incomeChart = new Chart(ctx, configPie);
+            incomeViewChart = new Chart(ctx, configPie);
         } else if (chartType.value === 'line') {
-            incomeChart = new Chart(ctx, configLine);
+            incomeViewChart = new Chart(ctx, configLine);
         } else if (chartType.value === 'doughnut') {
-            incomeChart = new Chart(ctx, configDoughnut);
+            incomeViewChart = new Chart(ctx, configDoughnut);
         }
     }
 </script>

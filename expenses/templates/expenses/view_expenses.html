@@ -64,9 +64,9 @@
                 </div>
                 <div class="chartCard d-flex flex-column">
                     <div class="chartBox flex-grow-1">
-                        <canvas id="expenseChart"></canvas>
+                        <canvas id="expensesViewChart"></canvas>
                         <!-- Selector for chart types -->
-                        <select onchange="changeChart(this)" name="expenseChart" id="expenseChart">
+                        <select onchange="changeChart(this)" name="expensesViewChart" id="expensesViewChart">
                             <optgroup label="Select Chart Type"></optgroup>
                             <option value="bar">Bar Chart</option>
                             <option value="pie">Pie Chart</option>
@@ -152,7 +152,7 @@
 {% block additional_js %}
 <!-- ########## [START] CHART.JS CONFIGURATION ########## -->
 <script>
-    const ctx = document.getElementById('expenseChart').getContext('2d');
+    const ctx = document.getElementById('expensesViewChart').getContext('2d');
 
     const labels = {{ expense_labels| safe }}; // Ensure this is one line
     const data = {
@@ -218,20 +218,20 @@
     };
 
     // Render the initial chart
-    let expenseChart = new Chart(ctx, configBar);
+    let expensesViewChart = new Chart(ctx, configBar);
 
     // Function to change the chart type
     function changeChart(chartType) {
-        expenseChart.destroy();
+        expensesViewChart.destroy();
 
         if (chartType.value === 'bar') {
-            expenseChart = new Chart(ctx, configBar);
+            expensesViewChart = new Chart(ctx, configBar);
         } else if (chartType.value === 'pie') {
-            expenseChart = new Chart(ctx, configPie);
+            expensesViewChart = new Chart(ctx, configPie);
         } else if (chartType.value === 'line') {
-            expenseChart = new Chart(ctx, configLine);
+            expensesViewChart = new Chart(ctx, configLine);
         } else if (chartType.value === 'doughnut') {
-            expenseChart = new Chart(ctx, configDoughnut);
+            expensesViewChart = new Chart(ctx, configDoughnut);
         }
     }
 </script>

@@ -110,9 +110,9 @@
             <hr>
             <div class="chartCard">
                 <div class="chartBox">
-                    <canvas id="expensesChart"></canvas>
+                    <canvas id="expensesHomeChart"></canvas>
                     <!-- Selector for chart types -->
-                    <select onchange="changeChart(this, 'expensesChart')" name="expensesChart" id="expensesChart">
+                    <select onchange="changeChart(this, 'expensesHomeChart')" name="expensesHomeChart" id="expensesHomeChart">
                         <optgroup label="Select Chart Type"></optgroup>
                         <option value="bar">Bar</option>
                         <option value="pie">Pie</option>
@@ -130,9 +130,9 @@
             <hr>
             <div class="chartCard">
                 <div class="chartBox">
-                    <canvas id="incomeChart"></canvas>
+                    <canvas id="incomeSummaryChart"></canvas>
                     <!-- Selector for chart types -->
-                    <select onchange="changeChart(this, 'incomeChart')" name="incomeChart" id="incomeChart">
+                    <select onchange="changeChart(this, 'incomeSummaryChart')" name="incomeSummaryChart" id="incomeSummaryChart">
                         <optgroup label="Select Chart Type"></optgroup>
                         <option value="bar">Bar</option>
                         <option value="pie">Pie</option>
@@ -218,8 +218,8 @@
 {% block additional_js %}
 <!-- ########## [START] CHART JS CONFIG SCRIPT ########## -->
 <script>
-    const expensesCtx = document.getElementById('expensesChart').getContext('2d');
-    const incomeCtx = document.getElementById('incomeChart').getContext('2d');
+    const expensesCtx = document.getElementById('expensesHomeChart').getContext('2d');
+    const incomeCtx = document.getElementById('incomeSummaryChart').getContext('2d');
 
     // expenses data and labels configs
     const expensesLabels = {{ expense_labels | safe }};
@@ -406,22 +406,22 @@
     };
 
     // Render the initial charts
-    let expensesChart = new Chart(expensesCtx, configBarExpenses);
-    let incomeChart = new Chart(incomeCtx, configBarIncome);
+    let expensesHomeChart = new Chart(expensesCtx, configBarExpenses);
+    let incomeSummaryChart = new Chart(incomeCtx, configBarIncome);
 
     // Function to change the chart type
     function changeChart(chartType, chartId) {
         let chart;
         let configBar, configPie, configDoughnut, configLine;
         // get the chart object and config based on the chartId. Required to distinguish between expenses and income charts
-        if (chartId === 'expensesChart') {
-            chart = expensesChart;
+        if (chartId === 'expensesHomeChart') {
+            chart = expensesHomeChart;
             configBar = configBarExpenses;
             configPie = configPieExpenses;
             configDoughnut = configDoughnutExpenses;
             configLine = configLineExpenses;
-        } else if (chartId === 'incomeChart') {
-            chart = incomeChart;
+        } else if (chartId === 'incomeSummaryChart') {
+            chart = incomeSummaryChart;
             configBar = configBarIncome;
             configPie = configPieIncome;
             configDoughnut = configDoughnutIncome;
@@ -440,10 +440,10 @@
             chart = new Chart(document.getElementById(chartId).getContext('2d'), configDoughnut);
         }
 
-        if (chartId === 'expensesChart') {
-            expensesChart = chart;
-        } else if (chartId === 'incomeChart') {
-            incomeChart = chart;
+        if (chartId === 'expensesHomeChart') {
+            expensesHomeChart = chart;
+        } else if (chartId === 'incomeSummaryChart') {
+            incomeSummaryChart = chart;
         }
     }
 </script>
