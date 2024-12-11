@@ -72,9 +72,9 @@
                     <strong>
                         <a href="#incomeCharts">Income Charts</a>
                     </strong>.
-                </li>
 
-                <hr>
+                    <hr>
+                </li>
 
                 <li class="mb-2" data-toggle="tooltip" title=""><i class="fa-solid fa-table-list fa-3x pe-2"></i>
                     Alternatively you can take a closer look and view the
@@ -112,7 +112,7 @@
                 <div class="chartBox">
                     <canvas id="expensesChart"></canvas>
                     <!-- Selector for chart types -->
-                    <select onchange="changeChart(this, 'expensesChart')" name="" id="">
+                    <select onchange="changeChart(this, 'expensesChart')" name="" id="expensesChart">
                         <optgroup label="Select Chart Type"></optgroup>
                         <option value="bar">Bar</option>
                         <option value="pie">Pie</option>
@@ -132,7 +132,7 @@
                 <div class="chartBox">
                     <canvas id="incomeChart"></canvas>
                     <!-- Selector for chart types -->
-                    <select onchange="changeChart(this, 'incomeChart')" name="" id="">
+                    <select onchange="changeChart(this, 'incomeChart')" name="" id="incomeChart">
                         <optgroup label="Select Chart Type"></optgroup>
                         <option value="bar">Bar</option>
                         <option value="pie">Pie</option>
