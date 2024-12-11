@@ -24,5 +24,5 @@ class ExpenseForm(forms.ModelForm):
         if amount > 0:
             amount = -amount  # Convert to negative
         elif amount == 0:
-            raise forms.ValidationError("The amount must be a negative number.")
+            raise forms.ValidationError("The amount must be a negative number")
         return amount

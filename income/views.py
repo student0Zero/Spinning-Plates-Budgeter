@@ -24,9 +24,12 @@ def view_income(request):
 
     # Aggregate the sum of amounts earned in each category
     income_by_category = (
-        incomes.values("category")  # Group by category name (updated to use CharField)
-        .annotate(total_amount=Sum("in_amount"))  # Calculate total amount per category
-        .order_by("category")  # Optional: Order categories alphabetically
+        # Group by category name (updated to use CharField)
+        incomes.values("category")
+        # Calculate total amount per category
+        .annotate(total_amount=Sum("in_amount"))
+        # Optional: Order categories alphabetically
+        .order_by("category")
     )
 
     # Aggregate the sum of amounts received in each month
@@ -42,16 +45,23 @@ def view_income(request):
 
     # Prepare data for Chart.js
     income_labels = [
-        DateFormat(item["month"]).format("Y-m") for item in monthly_income_summary
+        DateFormat(item["month"]).format("Y-m")
+        for item in monthly_income_summary
     ]
-    income_data = [float(item["total_amount"]) for item in monthly_income_summary]
+    income_data = [
+        float(item["total_amount"])
+        for item in monthly_income_summary]
 
     context = {
-        "incomes": incomes,  # Pass the incomes to the template
-        "income_by_category": income_by_category,  # pass the income by category to chart.js
+        # Pass the incomes to the template
+        "incomes": incomes,
+        # pass the income by category to chart.js
+        "income_by_category": income_by_category,
         "total_income": total_income,
-        "income_labels": income_labels,  # Labels for Chart.js
-        "income_data": income_data,  # Data for Chart.js
+        # Labels for Chart.js
+        "income_labels": income_labels,
+        # Data for Chart.js
+        "income_data": income_data,
     }
     return render(request, "income/view_income.html", context)
 
@@ -63,19 +73,26 @@ def create_income(request):
         form = IncomeForm(request.POST)
         if form.is_valid():
             income = form.save(commit=False)
-            income.user = request.user  # Assign the logged-in user
+            # Assign the logged-in user
+            income.user = request.user
             income.save()
-            messages.success(request, 'Income created successfully')
+            messages.success(
+                request,
+                'Income created successfully')
             return redirect("view_income")
         else:
-            message.errors(request, 'Failed to create income. Please correct the errors and try again')
+            message.errors(
+                request,
+                'Failed to create income. Please correct the errors')
             return redirect("home")
     else:
         form = IncomeForm()
         context = {
             "form": form,
         }
-        return render(request, "income/create_income.html", {"form": form})
+        return render(
+            request,
+            'income/create_income.html', {"form": form})
 
 
 # Edit income
@@ -88,17 +105,23 @@ def edit_income(request, id):
             income = form.save(commit=False)
             income.user = request.user
             income.save()
-            messages.success(request, "Income updated successfully")
-            return redirect("view_income")
+            messages.success(
+                request,
+                'Income updated successfully')
+            return redirect('view_income')
         else:
-            messages.error(request, 'Failed to update income. Please correct the errors and try again.')
-            return redirect("home")
+            messages.error(
+                request,
+                'Failed to update income. Please correct the errors.')
+            return redirect('home')
     else:
         form = IncomeForm(instance=income)
         context = {
-            "form": form,
+            'form': form,
         }
-        return render(request, "income/edit_income.html", context)
+        return render(
+            request,
+            'ncome/edit_income.html', context)
 
 
 # Delete income
@@ -107,11 +130,14 @@ def delete_income(request, id):
     income = get_object_or_404(Income, id=id)
     if request.method == "POST":
         income.delete()
-        messages.success(request, "Income deleted successfully.")
+        messages.success(
+            request,
+            'Income deleted successfully.')
         return redirect("view_income")
     else:
         context = {
-            'income': income 
+            'income': income
         }
-        return render(request, 'income/delete_income.html', context)
-
+        return render(
+            request,
+            'income/delete_income.html', context)

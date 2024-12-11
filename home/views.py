@@ -6,9 +6,11 @@ from income.models import Income
 from django.utils.dateformat import DateFormat
 from django.contrib.auth.decorators import login_required
 
+
 # landing page view
 def index(request):
     return render(request, 'home/index.html')
+
 
 @login_required
 def home_view(request):
@@ -53,13 +55,19 @@ def home_view(request):
 
     # Prepare data for Chart.js
     expense_labels = [
-        DateFormat(item["month"]).format("Y-m") for item in monthly_expense_summary
+        DateFormat(item["month"]).format("Y-m")
+        for item in monthly_expense_summary
     ]
-    expense_data = [float(item["total_amount"]) for item in monthly_expense_summary]
+    expense_data = [
+        float(item["total_amount"])
+        for item in monthly_expense_summary]
     income_labels = [
-        DateFormat(item["month"]).format("Y-m") for item in monthly_income_summary
+        DateFormat(item["month"]).format("Y-m")
+        for item in monthly_income_summary
     ]
-    income_data = [float(item["total_amount"]) for item in monthly_income_summary]
+    income_data = [
+        float(item["total_amount"])
+        for item in monthly_income_summary]
 
     context = {
         "expenses": expenses,

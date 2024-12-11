@@ -9,5 +9,5 @@ class ExpenseAdmin(admin.ModelAdmin):
         "description",
         "category",
         "user__username",
-    )  # update search fields to use 'category' for conversion from pick list to user input
+    )
     list_filter = ("date", "category", "user")

@@ -15,7 +15,8 @@ class IncomeForm(forms.ModelForm):
             "in_amount",
             "description",
             "category",
-        ]  # to ensure 'in_amount' is used instead of 'amount' which belongs to expenses
+        ]
+        # to ensure 'in_amount' as 'amount' which belongs to expenses
         widgets = {
             "date": forms.DateInput(attrs={"type": "date"}),
             "description": forms.Textarea(
