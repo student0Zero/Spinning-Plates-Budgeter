@@ -6,11 +6,14 @@
     <!-- ########## [START] SUM OF EXPENSES CARDS ########## -->
     <div class="p-2 g-col">
         <div class="card my-4 rounded-3 shadow-sm">
+            
             <div class="card-header py-3">
                 <h4 class="my-0 fw-normal">Expenses to date</h4>
             </div>
+
             <div class="card-body">
                 <h1 class="card-title text-center mt-2 mb-4">£ {{ total_expenses }}</h1>
+
                 <ul class="list-unstyled mt-3 mb-4">
 
                     <li class="mb-2"><i class="fa-solid fa-money-bill-1-wave fa-3x pe-2"></i>
@@ -49,8 +52,10 @@
                             New Expense"</strong> button below...
                     </li>
                 </ul>
-                <a href="{% url 'create_expense' %}" class="w-100 btn btn-lg btn-outline-primary">Create A New
-                    Expense</a>
+
+                <a href="{% url 'create_expense' %}" class="w-100 btn btn-lg btn-outline-primary">
+                    Create A New Expense
+                </a>
             </div>
         </div>
     </div>
@@ -59,9 +64,11 @@
     <div class="row row-cols-1 row-cols-md-2 g-4">
         <div class="col">
             <div class="card mb-4 rounded-3 shadow-sm h-100">
+
                 <div class="card-header py-3">
                     <h4 class="my-0 fw-normal">Expenses Charts</h4>
                 </div>
+
                 <div class="chartCard d-flex flex-column">
                     <div class="chartBox flex-grow-1">
                         <canvas id="expensesViewChart"></canvas>
@@ -80,9 +87,11 @@
     
         <div class="col">
             <div class="card mb-4 rounded-3 shadow-sm h-100">
+
                 <div class="card-header py-3">
                     <h4 id="expenseCategory" class="my-0 fw-normal">Expenses By Category</h4>
                 </div>
+
                 <div class="table-responsive d-flex flex-column">
                     <table id="summaryTable" class="table table-striped table-hover table-bordered flex-grow-1" style="width:100%">
                         <thead>
@@ -108,9 +117,11 @@
     <!-- [START] TABLE - Expense Details Datatable.js -->
     <div class="p-2 g-col-6 mt-3">
         <div class="card mb-4 rounded-3 shadow-sm">
+
             <div class="card-header py-3">
                 <h4 id="expenseDetails" class="my-0 fw-normal">Details of Recorded Expenses</h4>
             </div>
+
             <div class="table-responsive p-3">
                 <table id="expenseTable" class="table table-striped table-hover table-bordered" style="width:100%">
                     <thead>

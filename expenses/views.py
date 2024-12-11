@@ -24,9 +24,12 @@ def view_expenses(request):
 
     # Aggregate the sum of amounts spent in each category
     category_totals = (
-        expenses.values("category")  # Group by category name
-        .annotate(total_spent=Sum("amount"))  # Calculate total amount per category
-        .order_by("category")  # Optional: Order categories alphabetically
+        # Group by category name
+        expenses.values("category")
+        # Calculate total amount per category
+        .annotate(total_spent=Sum("amount"))
+        # Optional: Order categories alphabetically
+        .order_by("category")
     )
 
     # Aggregate the sum of amounts spent in each month
@@ -69,7 +72,8 @@ def view_expenses(request):
     context = {
         "expenses": expenses,
         "expense_summary": category_totals,
-        "expense_by_category": expenses_by_category,  # Corrected variable name
+        # Corrected variable name
+        "expense_by_category": expenses_by_category,
         "expense_percentage": expense_percentage,
         "total_expenses": total_expenses,
         "total_income": total_income,

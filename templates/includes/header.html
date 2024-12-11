@@ -14,19 +14,19 @@
           <!-- Center the nav items using mx-auto and use nav-tabs class -->
 
           <li class="nav-item" role="presentation">
-            <a class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}" id="summary-tab"
-              href="{% url 'home' %}" role="tab" aria-controls="home" aria-selected="true">Summary View</a>
+            <a class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}" id="summary"
+              href="{% url 'home' %}" role="tab" aria-controls="summary" aria-selected="true">Summary View</a>
           </li>
 
           <li class="nav-item" role="presentation">
             <a class="nav-link {% if request.resolver_match.url_name == 'view_expenses' %}active{% endif %}"
-              id="expenses-tab" href="{% url 'view_expenses' %}" role="tab" aria-controls="view_expenses"
+              id="view_expenses" href="{% url 'view_expenses' %}" role="tab" aria-controls="view_expenses"
               aria-selected="false">Expenses View</a>
           </li>
 
           <li class="nav-item" role="presentation">
             <a class="nav-link {% if request.resolver_match.url_name == 'view_income' %}active{% endif %}"
-              id="income-tab" href="{% url 'view_income' %}" role="tab" aria-controls="view_income"
+              id="view_income" href="{% url 'view_income' %}" role="tab" aria-controls="view_income"
               aria-selected="false">Income View</a>
           </li>
 
@@ -36,31 +36,33 @@
               Profile
             </a>
             <ul class="dropdown-menu">
+
               <!-- Login name shown if logged in -->
               <li><a class="dropdown-item" href="#">{% if user.is_authenticated %} Profile for {{ user }}
                   {% endif %}</a>
-
               </li>
 
               <!-- User profiles disabled and drop down selection. Functionality will be Future scope -->
-              <!-- <li><a class="dropdown-item" href="#">Settings</a></li> -->
               <li>
                 <hr class="dropdown-divider">
               </li>
-              <!-- <li class="nav-link disabled">Sign In / Register</li> -->
 
               <!-- logout shown if user logged in -->
               {% if user.is_authenticated %}
+
               <li class="nav-item">
                 <a class="nav-link {% if request.path == logout_url %}active{% endif %}" aria-current="page"
                   href="{% url 'account_logout' %}">Logout</a>
               </li>
+
               <!-- else shown if user is not logged in -->
               {% else %}
+
               <li class="nav-item">
                 <a class="nav-link {% if request.path == signup_url %}active{% endif %}" aria-current="page"
                   href="{% url 'account_signup' %}">Register</a>
               </li>
+
               <li class="nav-item">
                 <a class="nav-link {% if request.path == login_url %}active{% endif %}" aria-current="page"
                   href="{% url 'account_login' %}">Login</a>
