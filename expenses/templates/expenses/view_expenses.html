@@ -2,82 +2,87 @@
 
 {% block content %}
 
-<div class="grid gap-3">
+<div class="container-fluid">
     <!-- ########## [START] SUM OF INCOME AND EXPENSES CARDS ########## -->
     <div class="p-2 g-col-6">
         <div class="card my-4 rounded-3 shadow-sm">
             <div class="card-header py-3">
-                <h4 class="my-0 fw-normal">Record A New Expense</h4>
+                <h4 class="my-0 fw-normal">Expenses to date</h4>
             </div>
             <div class="card-body">
                 <h1 class="card-title text-center mt-2 mb-4">£ {{ total_expenses }}</h1>
                 <ul class="list-unstyled mt-3 mb-4">
-                    <li class="mb-2">Your current total recorded expenses are displayed above. This is currently 
+                    <li class="mb-2">Your current total recorded expenses are displayed above. This is currently
                         <span class="text-primary text-emphasis" style="font-size: 1.5rem;">
                             <strong> {{ expense_percentage | floatformat:2 }}% </strong>
-                        </span> of your recorded income todate.
+                        </span> of your recorded income to date.
                     </li>
-                    <li class="mb-2">The rest of this page provides details of your previously recorded expenses; which you can edit or delete any of them from the <strong><a href="#expenseDetails">'Details of Recorded Expenses'</a></strong> table below.</li>
-                    <li class="mb-2">Use the Expenses Chart below to see which expense category is effecting you the most.</li>
-                    <li class="mb-2">See the <strong><a href="#expenseCategory">Expenses By Category Table</a></strong> below to view your expenses by category of spend.</li>
-                    <li class="mb-2">To get a more detailed view of your recorded expenses, select the <strong>"Create A New Expense"</strong> button below to add new expenses or to view/edit existing ones.</li>
-                    <li>This will take you to the Expenses Details View.</li>
+                    <li class="mb-2">You can edit or delete an expense straight from the <strong><a
+                                href="#expenseDetails">'Details of
+                                Recorded Expenses'</a></strong> table below.</li>
+                    <li class="mb-2">Use the Expenses Chart below to see which expense category is effecting you the
+                        most.</li>
+                    <li class="mb-2">See the <strong><a href="#expenseCategory">Expenses By Category Table</a></strong>
+                        below to view your expenses by category of spend.</li>
+                    <li class="mb-2">To record a new expenses, select the <strong>"Create A
+                            New Expense"</strong> button below...</li>
                 </ul>
-                <a href="{% url 'create_expense' %}" class="w-100 btn btn-lg btn-outline-primary">Create A New Expense</a>
+                <a href="{% url 'create_expense' %}" class="w-100 btn btn-lg btn-outline-primary">Create A New
+                    Expense</a>
             </div>
         </div>
     </div>
 
     <!-- ########## [START] EXPENSES CHART.JS DIV ########## -->
-    <div class="p-2 g-col-6">
-        <div class="card mb-4 rounded-3 shadow-sm">
-            <div class="card-header py-3">
-                <h4 class="my-0 fw-normal">Expenses Charts</h4>
+    <div class="row row-cols-1 row-cols-md-2 g-4">
+        <div class="col">
+            <div class="card mb-4 rounded-3 shadow-sm">
+                <div class="card-header py-3">
+                    <h4 class="my-0 fw-normal">Expenses Charts</h4>
+                </div>
+                <div class="chartCard">
+                    <div class="chartBox">
+                        <canvas id="expenseChart"></canvas>
+                        <!-- Selector for chart types -->
+                        <select onchange="changeChart(this)" name="" id="">
+                            <optgroup label="Select Chart Type"></optgroup>
+                            <option value="bar">Bar Chart</option>
+                            <option value="pie">Pie Chart</option>
+                            <option value="line">Line Chart</option>
+                            <option value="doughnut">Doughnut Chart</option>
+                        </select>
+                    </div>
+                </div>
             </div>
-            <div class="chartCard">
-                <div class="chartBox">
-                    <canvas id="expenseChart"></canvas>
-                    <!-- Selector for chart types -->
-                    <select onchange="changeChart(this)" name="" id="">
-                        <optgroup label="Select Chart Type"></optgroup>
-                        <option value="bar">Bar Chart</option>
-                        <option value="pie">Pie Chart</option>
-                        <option value="line">Line Chart</option>
-                        <option value="doughnut">Doughnut Chart</option>
-                    </select>
+        </div>
+            
+            <div class="col">
+                <div class="card mb-4 rounded-3 shadow-sm">
+                    <div class="card-header py-3">
+                        <h4 id="expenseCategory" class="my-0 fw-normal">Expenses By Category</h4>
+                    </div>
+                    <div class="table-responsive">
+                        <table id="summaryTable" class="table table-striped table-hover table-bordered" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>Category</th>
+                                    <th>Total Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for expense in expense_by_category %}
+                                <tr>
+                                    <td>{{ expense.category }}</td>
+                                    <td class="summary-amount">£ {{ expense.total_amount }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- ########## [END] EXPENSES CHART.JS DIV ########## -->
-    
-    <!-- [START] TABLE - Expense by Category Datatable.js -->
-    <div class="p-2 g-col-6">
-        <div class="card mb-4 rounded-3 shadow-sm">
-            <div class="card-header py-3">
-                <h4 id="expenseCategory" class="my-0 fw-normal">Expenses By Category</h4>
-            </div>
-            <div class="table-responsive">
-                <table id="summaryTable" class="table table-striped table-hover table-bordered" style="width:100%">
-                    <thead>
-                        <tr>
-                            <th>Category</th>
-                            <th>Total Amount</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for expense in expense_by_category %}
-                        <tr>
-                            <td>{{ expense.category }}</td>
-                            <td class="summary-amount">£ {{ expense.total_amount }}</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-    <!-- [END] TABLE - Expense by Category Datatable.js -->
 
     <!-- [START] TABLE - Expense Details Datatable.js -->
     <div class="p-2 g-col-6">
@@ -120,6 +125,7 @@
     </div>
      <!-- [END] TABLE - Expense Details Datatable.js -->
 </div>
+
 {% endblock %}
 
 {% block additional_js %}
