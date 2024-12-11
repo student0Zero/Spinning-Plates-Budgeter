@@ -121,7 +121,7 @@ def edit_income(request, id):
         }
         return render(
             request,
-            'ncome/edit_income.html', context)
+            'income/edit_income.html', context)
 
 
 # Delete income
