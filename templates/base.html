@@ -43,13 +43,33 @@
       {% if messages %}
       <div class="alert alert-dismissible fade show" role="alert">
         {% for message in messages %}
-        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert" aria-live="assertive" aria-atomic="true">
           {{ message }}
           <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         {% endfor %}
       </div>
       {% endif %}
+    </div>
+  
+    <div class="container mt-5">
+      <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade {% if request.resolver_match.url_name == 'home' %}show active{% endif %}" id="home" role="tabpanel" aria-labelledby="home-tab">
+          {% block home_content %}
+          <!-- Home content -->
+          {% endblock %}
+        </div>
+        <div class="tab-pane fade {% if request.resolver_match.url_name == 'view_expenses' %}show active{% endif %}" id="view_expenses" role="tabpanel" aria-labelledby="expenses-tab">
+          {% block view_expenses_content %}
+          <!-- Expenses content -->
+          {% endblock %}
+        </div>
+        <div class="tab-pane fade {% if request.resolver_match.url_name == 'view_income' %}show active{% endif %}" id="view_income" role="tabpanel" aria-labelledby="income-tab">
+          {% block view_income_content %}
+          <!-- Income content -->
+          {% endblock %}
+        </div>
+      </div>
     </div>
 
     <main class="flex-fill">
@@ -65,15 +85,15 @@
 
   {% block onload_js %}
   <!-- bootstrap js dependencies -->
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js" defer></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" defer></script>
 
   <!-- CHART JS SCRIPTS -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   
   <!-- chart.js data functionality -->
-  <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
 
   <!-- Include DataTables JS -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js" defer></script>

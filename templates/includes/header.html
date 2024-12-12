@@ -1,8 +1,9 @@
 <header>
   <!-- NAVBAR START -->
+  {% with request.resolver_match.url_name as url_name %}
   <nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary shadow">
     <div class="container-fluid">
-      <a class="navbar-brand px-3" href="{% url 'index' %}">Spinning Plates</a>
+      <a class="navbar-brand px-3" href="{% url 'home' %}">Spinning Plates</a>
 
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -14,20 +15,20 @@
           <!-- Center the nav items using mx-auto and use nav-tabs class -->
 
           <li class="nav-item" role="presentation">
-            <a class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}" id="summary"
-              href="{% url 'home' %}" role="tab" aria-controls="summary" aria-selected="true">Summary View</a>
+            <a class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}" id="home-tab"
+              href="{% url 'home' %}" role="tab" aria-controls="home" aria-selected="true">Home</a>
           </li>
 
           <li class="nav-item" role="presentation">
             <a class="nav-link {% if request.resolver_match.url_name == 'view_expenses' %}active{% endif %}"
-              id="view_expenses" href="{% url 'view_expenses' %}" role="tab" aria-controls="view_expenses"
-              aria-selected="false">Expenses View</a>
+              id="expenses-tab" href="{% url 'view_expenses' %}" role="tab" aria-controls="view_expenses"
+              aria-selected="false">Expenses</a>
           </li>
 
           <li class="nav-item" role="presentation">
             <a class="nav-link {% if request.resolver_match.url_name == 'view_income' %}active{% endif %}"
-              id="view_income" href="{% url 'view_income' %}" role="tab" aria-controls="view_income"
-              aria-selected="false">Income View</a>
+              id="income-tab" href="{% url 'view_income' %}" role="tab" aria-controls="view_income"
+              aria-selected="false">Income</a>
           </li>
 
           <!-- Profile & Settings Dropdown -->
@@ -73,5 +74,6 @@
       </div>
     </div>
   </nav>
+  {% endwith %}
   <!-- NAVBAR END -->
 </header>
