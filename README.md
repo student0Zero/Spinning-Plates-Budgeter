@@ -79,22 +79,30 @@ The purpose of this project is to build a simple budgeting app that allows users
 #### Product Owner:
 
 - As a Product Owner, I want to see that my site is working properly on different devices, so users will have the best experience.
+
 - As a Product Owner, I want to display a clear and intuitive navigation menu, so it will be easier for the User to navigate through the website.
+
 - As a Product Owner, I want to provide users with a comprehensive overview of their financial situation, so they can make informed decisions about their spending and saving habits.
 
 #### Site Administrator:
 
 - As an Admin, I want to add/update/delete the information on the income and expenses pages, so the user can manage their finances effectively.
+
 - As an Admin, I want to approve or disapprove user-generated content, so that I can filter out objectionable content.
 
 #### Site User:
 
 - As a User, I want to easily navigate through the website, so I would have a positive experience.
-    - As a User, I want to know on which page I am, so it will be easier to navigate through the site.
-    - As a User, I want to see a summary of my income and expenses, so I can understand my financial situation.
-    - As a User, I want to add, edit, and delete my income and expenses, so I can keep my financial records up to date.
-    - As a User, I want to register an account, so I can securely manage my financial data.
-    - As a User, I want to see if I am logged in or not, so I will have a positive UX.
+
+- As a User, I want to know on which page I am, so it will be easier to navigate through the site.
+
+- As a User, I want to see a summary of my income and expenses, so I can understand my financial situation.
+
+- As a User, I want to add, edit, and delete my income and expenses, so I can keep my financial records up to date.
+
+- As a User, I want to register an account, so I can securely manage my financial data.
+
+- As a User, I want to see if I am logged in or not, so I will have a positive UX.
 
 ### Site Design
 
@@ -245,16 +253,25 @@ The site has the following features:
 
 The planned future features for this project include:
 
-- Adding the ability to repeat income/expenses to a user specified time frame (daily, weekly, monthly, yearly)
-- Allow Users to archive their monthly data
-- Extend views via accordion dropdown to collapse monthly income/expense details
-- Extend views to include year
-- incorporate income/expenses trends view
+- Adding the ability to repeat income/expenses to a user specified time frame (daily, weekly, monthly, yearly).
+
+- Allow Users to archive their monthly data.
+
+- Extend views via accordion dropdown to collapse monthly income/expense details.
+
+- Extend views to include year.
+
+- incorporate income/expenses trends view.
+
 - Allow users to set budget goals and track their progress.
+
 - Send notifications to users for important events, such as upcoming bills or low balances.
+
 - Extend the functionality to incorporate the YNAB 'every dollar needs a job' approach to budgeting.
+
 - Allow users to define their starting balance as part of the registration process, in addition to being able to edit it via the profile page. Some of the base code for the user profile is present within heading.html and will be built upon in future updates to extend the profile functionality further.
-- Allow users to update their preferences (currencies, budgeting approach, etc.)
+
+- Allow users to update their preferences (currencies, budgeting approach, etc.).
 
 ## Database Schema
 
@@ -283,9 +300,13 @@ MoSCoW View:
 The MoSCoW Prioritization method was used for Spinning Plates Budgeter project board, identifying and labeling my user stories as:
 
 - **Must Haves:** the 'required', critical components of the project. Completing my 'Must Haves' helped me to reach the MVP (Minimum Viable Product) for this project early, allowing me to develop the project further than originally planned.
+
 - **Should Haves:** the components that are valuable to the project but not absolutely 'vital' at the MVP stage. The 'Must Haves' must receive priority over the 'Should Haves'.
+
 - **Could Haves:** these are the features that are a 'bonus' to the project, it would be nice to have them in this phase, but only if the most important issues have been completed first and time allows.
+
 - **Won't Haves:** the features or components that either no longer fit the project's brief or are of very low priority for this release.
+
 ## Deployment
 
 ### Github
@@ -300,8 +321,11 @@ To begin this project from scratch, you must first create a new GitHub repositor
 
 ### Django
 1. Install Django and supporting libraries:
+
 - `pip3 install 'django<4' gunicorn`
+
 - `pip3 install dj_database_url psycopg2`
+
 - `pip3 install dj3-cloudinary-storage`
 
 2. Once you have installed any relevant dependencies or libraries, such as the ones listed above, it is important to create a **requirements.txt** file and add all installed libraries to it with the `pip3 freeze --local > requirements.txt` command in the terminal.
@@ -319,15 +343,21 @@ To begin this project from scratch, you must first create a new GitHub repositor
 8. An **env.py** file must be created to store all protected data such as the **DATABASE_URL** and **SECRET_KEY**. These may be called upon in your project's **settings.py** file along with your Database configurations. The **env.py** file must be added to your **gitignore** file so that your important, protected information is not pushed to public viewing on GitHub. For adding to **env.py**:
 
 - `import os`
+
 - `os.environ["DATABASE_URL"]="<copiedURLfromCI>"`
+
 - `os.environ["SECRET_KEY"]="my_super^secret@key"`
 
 For adding to **settings.py**:
 
 - `import os`
+
 - `import dj_database_url`
+
 - `if os.path.exists("env.py"):`
+
 - `import env`
+
 - `SECRET_KEY = os.environ.get('SECRET_KEY')` (actual key hidden within env.py)
 
 9. Replace **DATABASES** with:
@@ -363,11 +393,16 @@ I used the following steps to set up the database:
 
 - Install PostgreSQL: `pip3 install psycopg2-binary`
 - create a new database using CI Database Maker, which once created will provide the following details which need to be added to the **env.py** file:
-- database name
-- database host
-- database username
-- database password
-- database url
+
+	- database name
+
+	- database host
+
+	- database username
+
+	- database password
+
+	- database url
 
 I transferred the database details to the **env.py** file and added the **DATABASE_URL** to the **settings.py** file.
 
@@ -382,6 +417,7 @@ Set up a new account at [Cloudinary](https://cloudinary.com/) and add your Cloud
 In your project workspace:
 
 - Add Cloudinary libraries to INSTALLED_APPS in settings.py
+
 - In the order:
 
 ```
@@ -404,26 +440,37 @@ In your project workspace:
 To start the deployment process , please follow the below steps:
 
 1. Log in to [Heroku](https://id.heroku.com/login) or create an account if you are a new user.
+
 2. Once logged in, in the Heroku Dashboard, navigate to the '**New**' button in the top, right corner, and select '**Create New App**'.
+
 3. Enter an app name and choose your region. Click '**Create App**'.
+
 4. In the Deploy tab, click on the '**Settings**', reach the '**Config Vars**' section and click on '**Reveal Config Vars**'. Here you will enter KEY:VALUE pairs for the app to run successfully. The KEY:VALUE pairs that you will need are your:
       - **CLOUDINARY_URL**: **cloudinary://....**
+
       - **DATABASE_URL**:**postgres://...**
+
       - **DISABLE_COLLECTSTATIC** of value '1' (N.B Remove this Config Var before deployment),
+
       - **PORT**:**8000**
+
       - **SECRET_KEY** and value
 
 5. Add the Heroku host name into **ALLOWED_HOSTS** in your projects **settings.py file** -> `['herokuappname', ‘localhost’, ‘8000 port url’].`
+
 6. Once you are sure that you have set up the required files including your requirements.txt and Procfile, you have ensured that **DEBUG=False**, save your project, add the files, commit for initial deployment and push the data to GitHub.
+
 7. Go to the '**Deploy**' tab and choose GitHub as the Deployment method.
+
 8. Search for the repository name, select the branch that you would like to build from, and connect it via the '**Connect**' button.
+
 9. Choose from '**Automatic**' or '**Manual**' deployment options, I chose the 'Manual' deployment method. Click '**Deploy Branch**'.
+
 10. Once the waiting period for the app to build has finished, click the '**View**' link to bring you to your newly deployed site. If you receive any errors, Heroku will display a reason in the app build log for you to investigate. **DISABLE_COLLECTSTATIC** may be removed from the Config Vars once you have saved and pushed an image within your project, as can **PORT:8000**.
 
 ## Technologies Used
 
 The following technologies were used for this project:
-
 - HTML5
 - CSS
 - asgiref: 3.8.1
@@ -503,11 +550,13 @@ black.py was used to ensure PEP8 compliance for all python code on the project.
 [CI Python Linter](https://pep8ci.herokuapp.com/#) was used to validate the Python files that were created or edited by myself. There were some issues with the line lengths in the views.py file which were corrected. The results can be found in the project folder at docs/testing/python-linter-results.
 
 #### Lighthouse 
+I used Lighthouse to audit the site for performance, accessibility, progressive web apps, SEO, etc. The results of this testing are as follows:
 
-Mobile Site Tests
+Mobile Site Tests:
+![lighthouse_mobile_results](docs/testing/lighthouse/lighthouse_mobile_results.jpeg)
 
-Desktop Site Tests
-
+Desktop Site Tests:
+![lighthouse_mobile_results](docs/testing/lighthouse/lighthouse_desktop_results.jpeg)
 
 ### Manual Testing
 
@@ -532,8 +581,6 @@ The table below provides details of automated testing performed on the site. tes
 | income_view test.py   | Pass                | Pass       | Pass     | Pass       |
 
 ## Credits
-
-<hr>
 
 The site concept was inspired by the iconic [YNAB](https://www.ynab.com/) and the money blog [MicahelSaves](https://michaelsaves.com/budgeting/google-sheets-budget-template/). The given the timescales and the complexity of coding a site similar to YNAB, I created a site which currently serves as a foundation upon which I can build towards achiving my origianl intent of replication the YNAB approach to budgeting.
 
