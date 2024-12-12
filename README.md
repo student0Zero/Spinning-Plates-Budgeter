@@ -580,9 +580,13 @@ The table below provides details of automated testing performed on the site. tes
 | expenses_view test.py | Pass                | Pass       | Pass     | Pass       |
 | income_view test.py   | Pass                | Pass       | Pass     | Pass       |
 
+### Final Project Checks
+I used the CI "Final Project Checklist to confirm finalization of activities. See the project board card : "[Dev Task] Pre-submission Tests
+#79"
+
 ## Credits
 
-The site concept was inspired by the iconic [YNAB](https://www.ynab.com/) and the money blog [MicahelSaves](https://michaelsaves.com/budgeting/google-sheets-budget-template/). The given the timescales and the complexity of coding a site similar to YNAB, I created a site which currently serves as a foundation upon which I can build towards achiving my origianl intent of replication the YNAB approach to budgeting.
+The site concept was inspired by the iconic [YNAB](https://www.ynab.com/) and the money blog [MicahelSaves](https://michaelsaves.com/budgeting/google-sheets-budget-template/). The given the timescales and the complexity of coding a site similar to YNAB, I created a site which currently serves as a foundation upon which I can build towards archiving my original intent of replication the YNAB approach to budgeting.
 
 The site site borrows its user authentication approach from the CI Blog walkthrough project.
 
