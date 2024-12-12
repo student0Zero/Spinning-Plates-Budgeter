@@ -52,23 +52,21 @@
       {% endif %}
     </div>
   
-    <div class="container mt-5">
-      <div class="tab-content" id="myTabContent">
-        <div class="tab-pane fade {% if request.resolver_match.url_name == 'home' %}show active{% endif %}" id="home" role="tabpanel" aria-labelledby="home-tab">
-          {% block home_content %}
-          <!-- Home content -->
-          {% endblock %}
-        </div>
-        <div class="tab-pane fade {% if request.resolver_match.url_name == 'view_expenses' %}show active{% endif %}" id="view_expenses" role="tabpanel" aria-labelledby="expenses-tab">
-          {% block view_expenses_content %}
-          <!-- Expenses content -->
-          {% endblock %}
-        </div>
-        <div class="tab-pane fade {% if request.resolver_match.url_name == 'view_income' %}show active{% endif %}" id="view_income" role="tabpanel" aria-labelledby="income-tab">
-          {% block view_income_content %}
-          <!-- Income content -->
-          {% endblock %}
-        </div>
+    <div class="tab-content" id="myTabContent">
+      <div class="tab-pane fade {% if request.resolver_match.url_name == 'home' %}show active{% endif %}" id="home" role="tabpanel" aria-labelledby="home-tab">
+        {% block home_content %}
+        <!-- Home content -->
+        {% endblock %}
+      </div>
+      <div class="tab-pane fade {% if request.resolver_match.url_name == 'view_expenses' %}show active{% endif %}" id="view_expenses" role="tabpanel" aria-labelledby="expenses-tab">
+        {% block view_expenses_content %}
+        <!-- Expenses content -->
+        {% endblock %}
+      </div>
+      <div class="tab-pane fade {% if request.resolver_match.url_name == 'view_income' %}show active{% endif %}" id="view_income" role="tabpanel" aria-labelledby="income-tab">
+        {% block view_income_content %}
+        <!-- Income content -->
+        {% endblock %}
       </div>
     </div>
 

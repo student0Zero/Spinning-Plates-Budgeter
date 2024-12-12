@@ -31,35 +31,19 @@
               aria-selected="false">Income</a>
           </li>
 
-          <!-- Profile & Settings Dropdown -->
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Profile
-            </a>
-            <ul class="dropdown-menu" role="menu">
-              <!-- Login name shown if logged in -->
-              <li><a class="dropdown-item" href="#">{% if user.is_authenticated %} Profile for {{ user }}
-                  {% endif %}</a>
-              </li>
-              <!-- User profiles disabled. Functionality will be Future scope -->
-              <!-- <li><a class="dropdown-item" href="#">Settings</a></li> -->
-              <li><a class="dropdown-item" href="{% url 'account_logout' %}">Logout</a></li>
-            </ul>
-          </li>
-
           {% if user.is_authenticated %}
-          <li class="nav-item">
+          <li class="nav-item" role="presentation">
             <a class="nav-link {% if request.path == logout_url %}active{% endif %}" aria-current="page"
-              href="{% url 'account_logout' %}">Logout</a>
+              href="{% url 'account_logout' %}" role="tab" aria-controls="logout" aria-selected="false">Logout</a>
           </li>
           {% else %}
-          <li class="nav-item">
+          <li class="nav-item" role="presentation">
             <a class="nav-link {% if request.path == signup_url %}active{% endif %}" aria-current="page"
-              href="{% url 'account_signup' %}">Register</a>
+              href="{% url 'account_signup' %}" role="tab" aria-controls="signup" aria-selected="false">Register</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" role="presentation">
             <a class="nav-link {% if request.path == login_url %}active{% endif %}" aria-current="page"
-              href="{% url 'account_login' %}">Login</a>
+              href="{% url 'account_login' %}" role="tab" aria-controls="login" aria-selected="false">Login</a>
           </li>
           {% endif %}
         </ul>
