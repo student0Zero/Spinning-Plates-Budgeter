@@ -36,40 +36,32 @@
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Profile
             </a>
-            <ul class="dropdown-menu">
-
+            <ul class="dropdown-menu" role="menu">
               <!-- Login name shown if logged in -->
               <li><a class="dropdown-item" href="#">{% if user.is_authenticated %} Profile for {{ user }}
                   {% endif %}</a>
               </li>
-
-              <!-- User profiles disabled and drop down selection. Functionality will be Future scope -->
-              <li>
-                <hr class="dropdown-divider">
-              </li>
-
-              <!-- logout shown if user logged in -->
-              {% if user.is_authenticated %}
-
-              <li class="nav-item">
-                <a class="nav-link {% if request.path == logout_url %}active{% endif %}" aria-current="page"
-                  href="{% url 'account_logout' %}">Logout</a>
-              </li>
-
-              <!-- else shown if user is not logged in -->
-              {% else %}
-
-              <li class="nav-item">
-                <a class="nav-link {% if request.path == signup_url %}active{% endif %}" aria-current="page"
-                  href="{% url 'account_signup' %}">Register</a>
-              </li>
-
-              <li class="nav-item">
-                <a class="nav-link {% if request.path == login_url %}active{% endif %}" aria-current="page"
-                  href="{% url 'account_login' %}">Login</a>
-              </li>
-              {% endif %}
+              <!-- User profiles disabled. Functionality will be Future scope -->
+              <!-- <li><a class="dropdown-item" href="#">Settings</a></li> -->
+              <li><a class="dropdown-item" href="{% url 'account_logout' %}">Logout</a></li>
             </ul>
+          </li>
+
+          {% if user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link {% if request.path == logout_url %}active{% endif %}" aria-current="page"
+              href="{% url 'account_logout' %}">Logout</a>
+          </li>
+          {% else %}
+          <li class="nav-item">
+            <a class="nav-link {% if request.path == signup_url %}active{% endif %}" aria-current="page"
+              href="{% url 'account_signup' %}">Register</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {% if request.path == login_url %}active{% endif %}" aria-current="page"
+              href="{% url 'account_login' %}">Login</a>
+          </li>
+          {% endif %}
         </ul>
       </div>
     </div>

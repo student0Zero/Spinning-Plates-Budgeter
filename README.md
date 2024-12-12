@@ -253,7 +253,7 @@ The planned future features for this project include:
 - Allow users to set budget goals and track their progress.
 - Send notifications to users for important events, such as upcoming bills or low balances.
 - Extend the functionality to incorporate the YNAB 'every dollar needs a job' approach to budgeting.
-- Allow users to define their starting balance as part of the registration process, in addition to being able to edit it via the profile page.
+- Allow users to define their starting balance as part of the registration process, in addition to being able to edit it via the profile page. Some of the base code for the user profile is present within heading.html and will be built upon in future updates to extend the profile functionality further.
 - Allow users to update their preferences (currencies, budgeting approach, etc.)
 
 ## Database Schema
