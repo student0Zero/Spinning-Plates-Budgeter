@@ -1,0 +1,137 @@
+/* ########### MAIN STYLING ########### */
+html,
+body {
+  height: 100%;
+}
+
+/* ########### NAVBAR STYLING ########### */
+/* Active class for header active item selection indication */
+.active {
+  border-bottom: 3px solid green;
+  font-weight: 600;
+}
+
+/* ################################ */
+/* ##### CRISPY FORM HEADER TEXT COLOUR */
+
+/* Crispy form labels */
+.form > label {
+  color: aqua;
+}
+.form-control-label {
+  color: black;
+}
+
+/* Crispy forms label text */
+.custom-label {
+  font-size: 1.25rem; /* Increase text size */
+  margin-top: 0.5rem; /* Add margin */
+  color: white; /* Ensure the text color is white */
+  font-weight: bold; /* Ensure the text is bold */
+}
+
+/* ################################ */
+/* ##### EXPENSES DATATABLE STYLING */
+
+/* Expenses DataTable Styling */
+.dataTables_wrapper .top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+/* center the DataTabel search box and removes the float property */
+.dataTables_filter {
+  float: none;
+  text-align: right;
+}
+
+/* Adjust the width during final styling phase */
+.dataTables_filter input {
+  width: 150px; 
+}
+
+/* Adjust the width during final styling phase */
+/* force the description column wraps text and has max width */
+.description-column {
+  white-space: normal;
+  word-wrap: break-word;
+  max-width: 200px;
+}
+
+/* force the 'Action' column is only as wide as its content */
+.actions-column {
+  white-space: nowrap;
+  width: 1%;
+}
+
+/* ################################ */
+/* ##### MEDIA QUERIES ##### */
+/* ################################ */
+
+/* ##### Media Queries for Chart.js */
+@media (max-width: 576px) {
+
+  /* force canvas fits within the chartbox */
+  /* height maintaing aspect ratio */
+  #incomeChart, #expenseChart {
+    width : 100%;
+    height: auto;
+  }
+
+  /* reduce padding on smaller screens */
+  .chartBox, .chartCard {
+    padding: 10px;
+  }
+
+  /* ##### Media Queries for DataTable.js */
+  /* view_expenses.html DataTables stack btn */
+  .custom-btn {
+    font-size: 0.5rem; /* Adjust the font size as needed */
+  }
+
+  /* force dispay as a block element on medium and larger screens */
+  .d-md-block {
+    display: block !important;
+  }
+  
+  /* force display as a block element and set its width to 100% on medium and larger screens */
+  .d-md-inline-block {
+    display: block !important;
+    width: 100%;
+  }
+
+  /* hide description column on smaller screens */
+  .description-column {
+    display: none;
+  }
+
+  /* hide export buttons on smaller screens */
+  .export-button {
+    display: none !important;
+  }
+
+  /* Wrap text in table cells to prevent overflow to make them stay on a single line */
+  .table td,
+  .table th {
+    word-wrap: break-word;
+    white-space: normal;
+  }
+
+  /* enable horizontal scrolling for tables when they overflow their container */
+  .table-responsive {
+    overflow-x: auto;
+  }
+
+  /* prevent table headers and cells from wrapping text */
+  .table th, .table td {
+    white-space: nowrap;
+  }
+
+  /* adjust the max-width */
+  .table td {
+    max-width: 100px;
+  }
+}
+

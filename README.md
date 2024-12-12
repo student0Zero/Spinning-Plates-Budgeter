@@ -17,36 +17,63 @@ The purpose of this project is to build a simple budgeting app that allows users
 ## Table of Contents
 - [Spinning Plates Budgeter](#Spinning Plates Budgeter)
 - [UX - User Experience](#UX - User Experience)
-	- [User Stories](###User Stories)
-	- [Design](####Design)
-	- [Wireframes](###Wireframes)
-- [Features](##Features)
-	- [Existing Features](###Existing Features)
-	- [Future Features](#Future Features)
-- [Database Schema](##Database Schema)
-- [Agile Methodology](#Agile Methodology)
-- [Deployment](#Deployment)
-	- [Github](###Github)
-	- [Django](###Django)
-	- [PostgreSQL](###PostgreSQL)
-	- [Cloudinary](###Cloudinary)
-	- [Heroku](###Heroku)
-- [Technologies Used](##Technologies Used)
-- [Testing](##Testing)
-	- [Validator Testing](###Validator Testing)
-		- [HTML](####HTML)
-		- [CSS](####CSS)
-		- [JavaScript](####JavaScript)
-		- [Python](####Python)
-	- [Manual Testing](###Manual Testing)
-- [Credits](##Credits)
-	- [Content](#Content)
+	- [User Stories](#User Stories)
+	- [Design](#design)
+		- [UX User Experience](#ux-user-experience)
+		- [User Stories](#user-stories)
+			- [Product Owner](#product-owner)
+			- [Site Administrator](#site-administrator)
+		- [Site Design](#site-design)
+			- [Design Framework](#design-framework)
+			- [Colour](#colour)
+			- [Font](#font)
+		- [Wireframes](#wireframes)
+			- [Landing Page Wireframe](#landing-page-wireframe)
+			- [Summary View Wireframe](#summary-view-wireframe)
+			- [Expenses View Wireframe](#expenses-view-wireframe)
+			- [Expenses Mobile View Wireframe](#expenses-mobile-view-wireframe)
+			- [Income View Wireframe](#income-view-wireframe)
+			- [Income Mobile View Wireframe](#income-mobile-view-wireframe)
+		- [Site Screenshots](#site-screenshots)
+			- [Landing Page Screenshot](#landing-page-screenshot)
+			- [Summary View Screenshot](#summary-view-screenshot)
+			- [Expenses View Screenshot](#expenses-view-screenshot)
+			- [Income View Screenshot](#income-view-screenshot)
+			- [Create Expense Screenshot](#create-expense-screenshot)
+			- [Create Income Screenshot](#create-income-screenshot)
+			- [edit Expense Screenshot](#edit-expense-screenshot)
+			- [edit Income Screenshot](#edit-income-screenshot)
+			- [Delete Expense Screenshot](#delete-expense-screenshot)
+			- [Delete Income Screenshot](#delete-income-screenshot)
+			- [User Registration Screenshot](#user-registration-screenshot)
+			- [User Login Screenshot](#user-login-screenshot)
+		- [Features](#features)
+			- [Existing Features](#existing-features)
+			- [Future Features](#future-features)
+	- [Database Schema](#database-schema)
+	- [Agile Methodology](#agile-methodology)
+		- [MoSCoW Prioritization](#moscow-prioritization)
+	- [Deployment](#deployment)
+		- [Github](#github)
+		- [Django](#django)
+		- [PostgreSQL](#postgresql)
+		- [Cloudinary](#cloudinary)
+		- [Heroku](#heroku)
+	- [Technologies Used](#technologies-used)
+	- [Testing](#testing)
+		- [Validator Testing](#validator-testing)
+			- [HTML](#html)
+				- [HTML Results](#html-results)
+		- [CSS](#css)
+		- [PEP8](#pep8)
+		- [Python](#python)
+	- [Manual Testing](#manual-testing)
+	- [Automated Testing](#automated-testing)
+- [Credits](#credits)
+	- [Content](#content)
 
-<hr>
+## UX User Experience
 
-## UX - User Experience
-
-<hr>
 ### User Stories
 
 #### Product Owner:
@@ -58,7 +85,7 @@ The purpose of this project is to build a simple budgeting app that allows users
 #### Site Administrator:
 
 - As an Admin, I want to add/update/delete the information on the income and expenses pages, so the user can manage their finances effectively.
-    - As an Admin, I want to approve or disapprove user-generated content, so that I can filter out objectionable content.
+- As an Admin, I want to approve or disapprove user-generated content, so that I can filter out objectionable content.
 
 #### Site User:
 
@@ -69,13 +96,13 @@ The purpose of this project is to build a simple budgeting app that allows users
     - As a User, I want to register an account, so I can securely manage my financial data.
     - As a User, I want to see if I am logged in or not, so I will have a positive UX.
 
-### Design
+### Site Design
 
 The design of Spinning Plates Budgeter is inspired by modern financial management tools such as YNAB. The goal is to create a clean, intuitive, and user-friendly interface that allows users to manage their finances with ease.
 
 initial the site was created to mirror the look and feel of a prototype developed in a spreadsheet. The spreadsheet prototype helped understand the data required to transfer between views as well as the concept of the main page of the site.
 
-==EXCEL SPREADSHEET SCREENSHOT==
+![Initial Site Concept Design](docs/design-concept/Initial_Site_Concept.webp)
 
 #### Design Framework
 
@@ -89,148 +116,136 @@ The primary colours used in the design were intended to be muted and utilised sh
 
 The site uses [Google Font](https://fonts.google.com/), "Roboto" as a default and "Sans serif" as a backup font.
 
-### ==Wireframes
+### Wireframes
 
-#### Landing Page
+This section details the wireframes created for the project. The wireframes were created using Balsamiq and are intended to provide a visual representation of the site's layout and design.
 
-#### ==Summary View
+#### Landing Page Wireframe
 
-#### ==Expenses View
+![Landing Page Wireframe](docs/design-concept/Landing_Page_Wireframe.png)
 
-#### ==Income View
+#### Summary View Wireframe
 
-#### ==Create Expense View
+![Wireframe](docs/design-concept/Summary_Page_Wireframe.png)
 
-#### ==Create Income View
+#### Expenses View Wireframe
 
-#### ==Edit Expenses View
+![Wireframe](docs/design-concept/Expenses_VIew_Wireframe.png)
 
-#### ==Edit Income View
+#### Expenses Mobile View Wireframe
 
-#### ==Delete Expenses View
+![Wireframe](docs/design-concept/Expenses_Mobile_View_Wireframe.png)
 
-#### ==Delete Income View
+#### Income View Wireframe
 
-#### ==Register View
+![Wireframe](docs/design-concept/Income_View_Wireframe.png)
 
-#### ==Login View
+#### Income Mobile View Wireframe
 
-#### ==Logout View
+![Wireframe](docs/design-concept/Income_Mobile_View_Wireframe.png)
 
-==**Browser View:**
+### Site Screenshots
 
-==<details open>
+The following screenshots provide a visual representation of the site's layout and design.
 
-<summary>Browser view of home page for logged in user</summary>
+#### Landing Page Screenshot
 
-<img src="docs/wireframes/home-loggedin.webp">
+![Screenshot](docs/features/landingPageView.png)
 
-</details>
+#### Summary View Screenshot
 
-<details>
+![Screenshot](docs/features/summaryView.jpeg)
 
-<summary>Browser view of home page for logged out user</summary>
+#### Expenses View Screenshot
 
-<img src="docs/wireframes/home.webp">
+![Screenshot](docs/features/expenseView.jpeg)
 
-</details>
+#### Income View Screenshot
 
-<details>
+![Screenshot](docs/features/incomeView.jpeg)
 
-<summary>Browser view of income page</summary>
+#### Create Expense Screenshot
 
-<img src="docs/wireframes/income.webp">
+![Screenshot](docs/features/create-expense.jpeg)
 
-</details>
+#### Create Income Screenshot
 
-<details>
+![Screenshot](docs/features/create-income.jpeg)
 
-<summary>Browser view of expenses page</summary>
+#### edit Expense Screenshot
 
-<img src="docs/wireframes/expenses.webp">
+![Screenshot](docs/features/editExpenseView.jpeg)
 
-</details>
+#### edit Income Screenshot
 
-<details>
+![Screenshot](docs/features/editIncomeView.jpeg)
 
-<summary>Browser view of summary page</summary>
+#### Delete Expense Screenshot
 
-<img src="docs/wireframes/summary.webp">
+![Screenshot](docs/features/deleteExpenseView.jpeg)
 
-</details>
+#### Delete Income Screenshot
 
-**Phone View:**
+![Screenshot](docs/features/deleteIncomeView.jpeg)
 
-<details open>
+#### User Registration Screenshot
 
-<summary>Phone view of home page for logged in user</summary>
+![Screenshot](docs/features/registerView.png)
 
-<img src="docs/wireframes/mhome-loggedin.webp">
+#### User Login Screenshot
 
-</details>
+![Screenshot](docs/features/loginView.png)
 
-<details>
+#### User Logout Screenshot
 
-<summary>Phone view of home page for logged out user</summary>
+![Screenshot](docs/features/logoutView.jpeg)
 
-<img src="docs/wireframes/mhome.webp">
+#### Admin Screenshot
 
-</details>
+![Screenshot](docs/features/adminView.jpeg)
 
-<details>
-
-<summary>Phone view of income page</summary>
-
-<img src="docs/wireframes/mincome.webp">
-
-</details>
-
-<details>
-
-<summary>Phone view of expenses page</summary>
-
-<img src="docs/wireframes/mexpenses.webp">
-
-</details>
-
-<details>
-
-<summary>Phone view of summary page</summary>
-
-<img src="docs/wireframes/msummary.webp">
-
-</details>==
 ## Features
-This section details the existing and planned features for the site
 
-<hr>
+This section details the existing and planned features for the site.
+
 ### Existing Features
+
 The site has the following features:
+
 - View Budget Summary
-	- Provides an overview of the user's financial situation, including total income, total expenses, and net balance.
-	- Provides detailed reports on income and expenses, including charts and graphs for better visualization.
-	- Allows the User to view expenses as a percentage of income
-	- Allows the User to view chart in 4 different styles (line, pie, bar, doughnut)
+  - Provides an overview of the user's financial situation, including total income and total expenses.
+  - Provides detailed reports on income and expenses, including charts and graphs for better visualization.
+  - Allows the User to view expenses as a percentage of income
+  - Allows the User to view chart in 4 different styles (line, pie, bar, doughnut)
 - View Income Details
-	- Allows users to add, edit, and delete income entries.
-	- Provides detailed reports on income and expenses, including charts and graphs for better visualization.
-	- Allows users to see an aggregated total of income by income source
-	- Allows the User to view chart in 4 different styles (line, pie, bar, doughnut)
-	- Allows Users to Export table views to clipboard copy, print dialog, pdf, csv, Excel spreadsheet)
+  - Allows users to add, edit, and delete income entries.
+  - Allow the user to add a description to the income entry
+  - Allow the user to add a date to the income entry
+  - Allow the user to add a custom categories to the income entry or select from a predefined list.
+  - Provides detailed reports on income and expenses, including charts and graphs for better visualization.
+  - Allows users to see an aggregated total of income by income source
+  - Allows the User to view chart in 4 different styles (line, pie, bar, doughnut)
+  - Allows Users to Export table views to clipboard copy, print dialog, pdf, csv, Excel spreadsheet
 - View Expenses Details
-	- Allows users to add, edit, and delete expense entries.
-	- Provides detailed reports on income and expenses, including charts and graphs for better visualization.
-	- Allows users to see an aggregated total of expenses by category
-	- Allows the User to view chart in 4 different styles (line, pie, bar, doughnut)
-	- Allows Users to Export table views to clipboard copy, print dialog, pdf, csv, Excel spreadsheet)
+  - Allows users to add, edit, and delete expense entries.
+  - Allow the user to add a description to the expense entry.
+  - Allow the user to add a date to the expense entry.
+  - Allow the user to add a custom categories to the expense entry or select from a predefined list.
+  - Provides detailed reports on income and expenses, including charts and graphs for better visualization.
+  - Allows users to see an aggregated total of expenses by category.
+  - Allows the User to view chart in 4 different styles (line, pie, bar, doughnut).
+  - Allows Users to Export table views to clipboard copy, print dialog, pdf, csv, Excel spreadsheet.
 - User Authentication
-	- Users can register, log in, and log out. Once authenticated, they can securely manage their financial data.
-	- Restricts Users to viewing their own finacial information
+  - Users can register, log in, and log out. Once authenticated, they can securely manage their financial data.
+  - Restricts Users to viewing their own financial information.
 - Responsive Design
-	- The application is fully responsive and works seamlessly on different devices, including desktops, tablets, and mobile phones.
+  - The application is fully responsive and works seamlessly on different devices, including desktops, tablets, and mobile phones.
+
 ### Future Features
+
 The planned future features for this project include:
-- Adding the ability to repeat income/expenses to a user specified timeframe (daily, weekly, monthly, yearly)
+
+- Adding the ability to repeat income/expenses to a user specified time frame (daily, weekly, monthly, yearly)
 - Allow Users to archive their monthly data
 - Extend views via accordion dropdown to collapse monthly income/expense details
 - Extend views to include year
@@ -243,43 +258,46 @@ The planned future features for this project include:
 
 ## Database Schema
 
-<hr>
-
 The Entity-Relationship Diagram (ERD) for Spinning Plates Budgeter showcases the connections between users, income, and expenses. This diagram is crucial in visualizing the relationships among various models within the PostgreSQL database.
 
-==EDR DIAGRAM==
+The following diagram provides a visual representation of the initial database schema representative of the initial concept design.
 
-A detailed EDR was generated using PgAdmin
+![ERD Diagram](docs/erd/INITIAL-Spinning-Plates-Budgeter-ERD.jpeg)
 
-==PgAdmin EDR==
+The following ERD diagram was generated using PgAdmin and provides a visual representation of the database schema for the project.
+
+![ERD Diagram](docs/erd/PgAdmin.pgerd_Spinning-Plates-Budgeter-ERD.png)
 
 ## Agile Methodology
 
-<hr>
-
 I used my [Github Projects Board](https://github.com/users/student0Zero/projects/5) to plan and document all of my work. This helped me to organize tasks, track progress, and ensure timely completion of the project.
 
-==Project Board Screenshot==
+Kanban View:
+![Project Board](docs/agile/projectBoard_1.png)
+
+MoSCoW View:
+![Project Board](docs/agile/projectBoard_2.png)
 
 ### MoSCoW Prioritization
 
-I chose to follow the MoSCoW Prioritization method for Spinning Plates Budgeter, identifying and labeling my:
+The MoSCoW Prioritization method was used for Spinning Plates Budgeter project board, identifying and labeling my user stories as:
 
 - **Must Haves:** the 'required', critical components of the project. Completing my 'Must Haves' helped me to reach the MVP (Minimum Viable Product) for this project early, allowing me to develop the project further than originally planned.
 - **Should Haves:** the components that are valuable to the project but not absolutely 'vital' at the MVP stage. The 'Must Haves' must receive priority over the 'Should Haves'.
 - **Could Haves:** these are the features that are a 'bonus' to the project, it would be nice to have them in this phase, but only if the most important issues have been completed first and time allows.
 - **Won't Haves:** the features or components that either no longer fit the project's brief or are of very low priority for this release.
-
 ## Deployment
 
-<hr>
 ### Github
 To begin this project from scratch, you must first create a new GitHub repository using the [Code Institute's Template](https://github.com/Code-Institute-Org/ci-full-template). This template provides the relevant tools to get you started. To use this template:
+
 1. Log in to [GitHub](https://github.com/) or create a new account.
 2. Navigate to the above CI Full Template.
 3. Click '**Use this template**' -> '**Create a new repository**'.
 4. Choose a new repository name and click '**Create repository from template**'.
 5. I used Gitpod as the IDE and generated a new workspace using it for the project.
+6. Once the workspace is created, you can clone the repository to your local workspace using the following command in the terminal: `git clone.
+
 ### Django
 1. Install Django and supporting libraries:
 - `pip3 install 'django<4' gunicorn`
@@ -287,11 +305,17 @@ To begin this project from scratch, you must first create a new GitHub repositor
 - `pip3 install dj3-cloudinary-storage`
 
 2. Once you have installed any relevant dependencies or libraries, such as the ones listed above, it is important to create a **requirements.txt** file and add all installed libraries to it with the `pip3 freeze --local > requirements.txt` command in the terminal.
-3. Create a new Django project in the terminal `django-admin startproject hatanatata .`
-4. Create a new app eg. `python3 mangage.py startapp review`
+
+3. Create a new Django project in the terminal `django-admin startproject spinning-plates-budgeter .`
+
+4. Create a new app eg. `python3 mangage.py startapp review`.
+
 5. Add this to list of **INSTALLED_APPS** in **settings.py** - 'review',
+
 6. Create a superuser for the project to allow Admin access and enter credentials: `python3 manage.py createsuperuser`
+
 7. Migrate the changes with commands: `python3 manage.py migrate`
+
 8. An **env.py** file must be created to store all protected data such as the **DATABASE_URL** and **SECRET_KEY**. These may be called upon in your project's **settings.py** file along with your Database configurations. The **env.py** file must be added to your **gitignore** file so that your important, protected information is not pushed to public viewing on GitHub. For adding to **env.py**:
 
 - `import os`
@@ -327,10 +351,27 @@ os.path.join(BASE_DIR, 'templates', 'allauth')
 
 - Create the media, static and templates directories in top level of project file in IDE workspace.
 
-11. A **Procfile** must be created within the project repo for Heroku deployment with the following placed within it: `web: gunicorn hatanatata.wsgi`
+11. A **Procfile** must be created within the project repo for Heroku deployment with the following placed within it: `web: gunicorn spinning-plates-budgeter.wsgi`
+
 12. Make the necessary migrations again.
 
 ### PostgreSQL
+
+The generation of a PostgreSQL database is required for this project. The database is hosted on Heroku and is linked to the project via the **DATABASE_URL** environment variable.
+
+I used the following steps to set up the database:
+
+- Install PostgreSQL: `pip3 install psycopg2-binary`
+- create a new database using CI Database Maker, which once created will provide the following details which need to be added to the **env.py** file:
+- database name
+- database host
+- database username
+- database password
+- database url
+
+I transferred the database details to the **env.py** file and added the **DATABASE_URL** to the **settings.py** file.
+
+In addition to PostgreSQL, I used PgAdmin to manage the database and create the ERD diagram for the project. The ERD diagram was then used to create the models for the project. PgAdmin can be downloaded from the [official website](https://www.pgadmin.org/). I installed it on a Windows machine and connected it to the PostgreSQL database hosted on Heroku.
 
 ### Cloudinary
 
@@ -381,8 +422,6 @@ To start the deployment process , please follow the below steps:
 
 ## Technologies Used
 
-<hr>
-
 The following technologies were used for this project:
 
 - HTML5
@@ -412,57 +451,85 @@ The following technologies were used for this project:
 - Github Projects
 - Heroku
 
+You can refer to the requirements.txt file for a full list of dependencies used in this project.
+
 ## Testing
 
-<hr>
 ### Validator Testing
+I used the following validators to test the project:
 
 #### HTML
 
 It is not possible to use the W3C markup validator service ([HTML W3C Validator](https://validator.w3.org)) for HTML validation without customising the code, due to the errors generated as a result of [jinja syntax](https://documentation.bloomreach.com/engagement/docs/jinja-syntax). The following steps were used to customise the html code to prepare it for w3c validation:
 
 1. from the live Heroku site use the browser console to 'view page source' and copy the html code.
+
 2. paste the code into [validate by input](https://validator.w3.org/#validate_by_input) option.
 
-==w3c html results==
+##### HTML Results
+
+Two of my html files failed validation due to the use of JavaScript configuration scripts used for the DataTable.js and Chart.js libraries. Specifically, the failures occurred in the view_expenses.html, view_income.html, and summary.html files. 
+
+The errors (screenshots below) are due to duplicate id's for the chart names. The chart names are required by the configuration script to target the correct canvas element for the chart to be displayed. The errors are not critical and do not affect the functionality of the site.
+
+view_expenses.html - Validation Error Screenshot
+![expenses_validation_error](docs/testing/w3c_htmlChecker_expensesViewResult.png)
+
+view_expenses.html - Validation Error details
+![expenses_validation_error](docs/testing/w3c_htmlChecker_expensesViewDetails.png)
+
+view_income.html - Validation Error Screenshot
+![income_validation_error](docs/testing/w3c_htmlChecker_incomeViewDetails.png)
+
+view_income.html - Validation Error Details Screen Shot
+![income_validation_error](docs/testing/w3c_htmlChecker_incomeViewResult.png)
+
+
+The remaining html files passed validation with no errors with validation results located within the project folder at docs/testing.
 
 #### CSS
 
-[W3C CSS Validator](https://jigsaw.w3.org/css-validator/) was used to validate my CSS file.
+[W3C CSS Validator](https://jigsaw.w3.org/css-validator/) was used to validate my CSS file. The css test passed with no errors. 
 
-==w3c css results==
+![css_results](docs/testing/w3c_cssChecker_base.css_Result.jpg)
 
-#### JavaScript
 
-[JSHint](https://jshint.com/) was used to validate the small amount of JavaScript code added to the project. External JS, for Bootstrap purposes, obtained via [CDN](https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.min.js) was not validated through JSHint
-
-==jshint js results==
-
-#### Python
+#### PEP
 
 black.py was used to ensure PEP8 compliance for all python code on the project.
 
-[CI Python Linter](https://pep8ci.herokuapp.com/#) was used to validate the Python files that were created or edited by myself. No issues presented and line lengths were double checked. I have included some screenshots with the results below.
+#### Python
 
-==python linter python results==
+[CI Python Linter](https://pep8ci.herokuapp.com/#) was used to validate the Python files that were created or edited by myself. There were some issues with the line lengths in the views.py file which were corrected. The results can be found in the project folder at docs/testing/python-linter-results.
 
-The table below provides details of manual testing performed on the sites python files.
+#### Lighthouse 
 
-| **Feature**   | **admin.py** | **forms.py** | **models.py** | **urls.py** | **views.py** |
-| ------------- | ------------ | ------------ | ------------- | ----------- | ------------ |
-| summary_view  |              |              |               |             |              |
-| expenses_view |              |              |               |             |              |
-| income_view   |              |              |               |             |              |
+Mobile Site Tests
+
+Desktop Site Tests
+
+
+### Manual Testing
+
+The table below provides details of manual testing performed on the sites functionality.
+
+| **Feature**      | **Login** | **Logout** | **Register** | **Create** | **Update** | **Edit** | **Delete** |
+| ---------------- | --------- | ---------- | ------------ | ---------- | ---------- | -------- | ---------- |
+| landing_view     | Pass      | Pass       | Pass         | N/A        | N/A        | N/A      | N/A        |
+| summary_view     | Pass      | Pass       | N/A          | N/A        | N/A        | N/A      | N/A        |
+| expenses_view    | Pass      | Pass       | N/A          | Pass       | Pass       | Pass     | Pass       |
+| income_view      | Pass      | Pass       | N/A          | Pass       | Pass       | Pass     | Pass       |
+| Profile Dropdown | Pass      | Pass       | Pass         | N/A        | N/A        | N/A      | N/A        |
 
 ### Automated Testing
 
-The table below provides details of automated testing performed on the site.
+The table below provides details of automated testing performed on the site. test.py were created to test the CRUD functionality of the site. The tests were created using the Django test framework and were run using the command `python3 manage.py test`.
 
-| **Feature**   | **admin.py** | **forms.py** | **models.py** | **urls.py** | **views.py** |
-| ------------- | ------------ | ------------ | ------------- | ----------- | ------------ |
-| summary_view  |              |              |               |             |              |
-| expenses_view |              |              |               |             |              |
-| income_view   |              |              |               |             |              |
+
+| **Feature**           | **Create Test User** | **Create** | **Edit** | **Delete** |
+| --------------------- | ------------------- | ---------- | -------- | ---------- |
+| expenses_view test.py | Pass                | Pass       | Pass     | Pass       |
+| income_view test.py   | Pass                | Pass       | Pass     | Pass       |
 
 ## Credits
 
